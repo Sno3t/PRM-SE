@@ -8,6 +8,8 @@ public class User {
     private String firstName;
     private String lastName;
     private Date birthday;
+
+    // this list of all lists.
     private ArrayList<MovieList> userLists;
 
     public User(String firstName, String lastName, Date birthday) {
