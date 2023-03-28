@@ -1,108 +1,204 @@
 package com.example.movie.domain;
 
-import static android.content.ContentValues.TAG;
-
-import android.annotation.SuppressLint;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import androidx.recyclerview.widget.RecyclerView;
+import com.example.movie.presentation.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.LinkedList;
 
-public class APIConn {
-    String apiKey = "f3c365d45195979057ba40752d5f37ac";
+public class APIConn extends AsyncTask<String, Void, LinkedList<Movie>> {
+    protected String apiKey = "f3c365d45195979057ba40752d5f37ac";
 
-    public APIConn(RecyclerView recyclerView){
+    @Override
+    protected LinkedList<Movie> doInBackground(String... strings) {
+        String jsonString;
+        LinkedList<Movie> movieList = new LinkedList<>();
 
+        // Get genres
+        Dictionary<Integer, String> genres = new Hashtable<>();
+        GetGenres(genres);
+
+        // Get amount of pages
+        int pagesamount = GetPages();
+
+        // Loop through all pages to get all movies
+        for(int f = 1; f <= pagesamount; f++){
+            // Get Json String from API
+            try {
+                URL url = new URL("https://api.themoviedb.org/3/movie/now_playing?api_key=" + apiKey + "&page=" + f);
+
+                HttpURLConnection httpurl = (HttpURLConnection) url.openConnection();
+
+                InputStream inputStream = httpurl.getInputStream();
+
+                BufferedReader bR = new BufferedReader(new InputStreamReader(inputStream));
+
+                StringBuilder sb = new StringBuilder();
+                int cp;
+                while ((cp = bR.read()) != -1) {
+                    sb.append((char) cp);
+                }
+                jsonString = sb.toString();
+            }
+            catch (Exception e){
+                throw new RuntimeException(e);
+            }
+
+            // Fit json to object
+            try {
+                JSONObject jsonObject = new JSONObject(jsonString);
+                JSONArray array = jsonObject.getJSONArray("results");
+
+                for (int i = 0; i < array.length(); i++){
+                    JSONObject object = array.getJSONObject(i);
+
+                    // Get genres
+                    ArrayList<String>  moviegenres = new ArrayList<>();
+                    JSONArray intGenres = object.getJSONArray("genre_ids");
+                    for (int j = 0; j < intGenres.length(); j++){
+                        moviegenres.add(
+                                genres.get(intGenres.getInt(j))
+                        );
+                    }
+
+                    // Check if object has release_date, otherwise default to 0000-00-00
+                    if (!object.has("release_date")){
+                        Movie gotMovie = new Movie(
+                                object.getString("original_title") ,
+                                new SimpleDateFormat("yyyy-MM-dd").parse("0000-00-00"),
+                                object.getString("poster_path"),
+                                object.getString("overview"),
+                                moviegenres,
+                                object.getInt("vote_average"),
+                                object.getString("original_language")
+                        );
+                        movieList.add(gotMovie);
+                    }
+                    else{
+                        Movie gotMovie = new Movie(
+                                object.getString("original_title") ,
+                                new SimpleDateFormat("yyyy-MM-dd").parse(object.getString("release_date")),
+                                object.getString("poster_path"),
+                                object.getString("overview"),
+                                moviegenres,
+                                object.getInt("vote_average"),
+                                object.getString("original_language")
+                        );
+                        movieList.add(gotMovie);
+                    }
+                }
+
+                Log.d("ALERT", "Page " + f + " done parsing.") ;
+            }
+            catch (JSONException e) {
+                throw new RuntimeException(e);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        Log.d("LIST_COUNT", String.valueOf(movieList.size())) ;
+
+        MainActivity.SetLinkedList(movieList);
+        return movieList;
     }
 
-    // Temp method to test url conn
-    public void GetMovieByID() {
-        URL url = null;
+    @Override
+    protected void onPostExecute(LinkedList<Movie> movies) {
+        super.onPostExecute(movies);
+
+        Log.d("MESSAGE", "Getting completed");
+    }
+
+    protected void GetGenres(Dictionary<Integer, String> genres){
+        String genrestring;
+
         try {
-            url = new URL("https://api.themoviedb.org/3/movie/438799?api_key=" + apiKey);
+            URL url = new URL("https://api.themoviedb.org/3/genre/movie/list?api_key=" + apiKey + "&language=en-US");
+
             HttpURLConnection httpurl = (HttpURLConnection) url.openConnection();
 
             InputStream inputStream = httpurl.getInputStream();
 
             BufferedReader bR = new BufferedReader(new InputStreamReader(inputStream));
 
-            Log.d("Tag", bR.readLine());
-
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    // Movies
-    public Movie GetMovieByID(Integer id){
-        String jsonString = "";
-
-        // Check if url isn't empty
-        try{
-            InputStream is = new URL("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + apiKey).openStream();
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            jsonString = new String(buffer, "UTF-8");
-        } catch (IOException ex){
-            ex.printStackTrace();
-            return null;
-        }
-
-        // Convert to json string
-        try {
-            InputStream is = new URL("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + apiKey).openStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             StringBuilder sb = new StringBuilder();
             int cp;
-            while ((cp = rd.read()) != -1) {
+            while ((cp = bR.read()) != -1) {
                 sb.append((char) cp);
             }
-            jsonString = sb.toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }  catch (IOException e) {
-            e.printStackTrace();
+            genrestring = sb.toString();
+        }
+        catch (Exception e){
+            throw new RuntimeException(e);
         }
 
+        try{
+            JSONObject jsonObject = new JSONObject(genrestring);
+            JSONArray array = jsonObject.getJSONArray("genres");
 
-        // Convert JSon to objects & return
-        try {
-            JSONObject reader = new JSONObject(jsonString);
+            for (int j = 0; j < array.length(); j++){
+                JSONObject object = array.getJSONObject(j);
 
-            Movie gotMovie = new Movie(
-                    reader.getString("original_title"),
-                    reader.getString("overview"),
-                    reader.getInt("runtime")
-            );
+                genres.put(
+                        object.getInt("id"),
+                        object.getString("name")
+                );
+            }
 
-            return gotMovie;
         } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e(TAG, "Failed to parse JSON");
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
-    // Lists
+    protected Integer GetPages(){
+        String countString;
+        Integer pagescount = 0;
 
+        try {
+            URL url = new URL("https://api.themoviedb.org/3/movie/now_playing?api_key=" + apiKey );
 
+            HttpURLConnection httpurl = (HttpURLConnection) url.openConnection();
+
+            InputStream inputStream = httpurl.getInputStream();
+
+            BufferedReader bR = new BufferedReader(new InputStreamReader(inputStream));
+
+            StringBuilder sb = new StringBuilder();
+            int cp;
+            while ((cp = bR.read()) != -1) {
+                sb.append((char) cp);
+            }
+            countString = sb.toString();
+        }
+        catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
+        try {
+            JSONObject jsonObject = new JSONObject(countString);
+            pagescount = jsonObject.getInt("total_pages");
+        }
+        catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        return pagescount;
+    }
 }

@@ -10,14 +10,24 @@ import com.example.movie.R;
 import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Movie;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static LinkedList<Movie> movies = new LinkedList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        APIConn conn = new APIConn(findViewById(R.id.recyclerview));
-        conn.GetMovieByID();
+        new APIConn().execute();
+
+    }
+
+    public static void SetLinkedList(LinkedList<Movie> mList) {
+        movies = mList;
+
     }
 }
