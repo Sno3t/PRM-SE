@@ -1,9 +1,15 @@
 package com.example.movie.domain;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity(tableName = "movie")
 public class Movie {
 
+    @PrimaryKey
+    private int id;
     private String title;
     private Date releaseDate;
     private int length;
@@ -18,7 +24,8 @@ public class Movie {
     private double budget;
     private double revenue;
 
-    public Movie(String title, Date releaseDate,
+    public Movie(int id,
+                 String title, Date releaseDate,
                  int length, String url,
                  String description,
                  String director,
@@ -29,6 +36,7 @@ public class Movie {
                  String language,
                  double budget,
                  double revenue) {
+        this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
         this.length = length;
@@ -146,5 +154,13 @@ public class Movie {
 
     public void setRevenue(double revenue) {
         this.revenue = revenue;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
