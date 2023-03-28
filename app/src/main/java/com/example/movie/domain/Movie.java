@@ -137,6 +137,13 @@ public class Movie {
         this.genre = genre;
     }
 
+    public boolean containsGenre (String genreString){
+        if (genre.contains(genreString)){
+            return  true;
+        }
+        return false;
+    }
+
     public int getUserScore() {
         return userScore;
     }

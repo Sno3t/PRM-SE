@@ -45,8 +45,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setHasFixedSize(true);
 
+        // Put recyclerview on homepage by genre
+        RecyclerView homepageRecycler = findViewById(R.id.movies_recyclerview);
+        GenreMovieAdapter gmAdapter = new GenreMovieAdapter(getApplicationContext(), movies, homepageRecycler);
+
+        // Put movies in recyclerview
         MovieAdapter adapter = new MovieAdapter(getApplicationContext());
         recyclerView.setAdapter(adapter);
+
+
 
 
         nav = findViewById(R.id.bottom_navi_view);

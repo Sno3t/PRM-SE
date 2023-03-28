@@ -13,19 +13,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.movie.R;
+import com.example.movie.domain.APIConn;
+import com.example.movie.domain.GenresFromAPI;
 import com.example.movie.domain.Movie;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GenreMovieAdapter extends RecyclerView.Adapter<GenreMovieAdapter.GenreMovieViewHolder> {
 
     private Context context;
-    private final List<Movie> genreList = new ArrayList<>();
+    private LinkedList<Movie> movies;
+    private static ArrayList<String> genreStrings = new ArrayList<>();
     private LayoutInflater mInflater;
+    private RecyclerView homepageRecycler;
 
-    public GenreMovieAdapter(Context context) {
+    public GenreMovieAdapter(Context context, LinkedList<Movie> movies, RecyclerView homepageRecycler) {
         this.mInflater = LayoutInflater.from(context);
+        this.homepageRecycler = homepageRecycler;
+        this.movies = movies;
+
+        this.context = context;
     }
 
     @NonNull
@@ -42,11 +54,51 @@ public class GenreMovieAdapter extends RecyclerView.Adapter<GenreMovieAdapter.Ge
 
 //        holder.genre.setText(movie.getGenre());
 
+
+        // Make lists for genres (6)
+            // Action, Adventure, Drama, Family, Horror, War
+        ArrayList<String> searchGenres = new ArrayList<>();
+        new GenresFromAPI().execute();
+
+        ArrayList<HashMap<String, Movie>> listMoviesByGenre = new ArrayList<>();
+
+        // Search 9 movies for first genres
+        for (String genre: searchGenres) {
+            GenreMovieViewHolder viewHolder = new GenreMovieViewHolder(homepageRecycler);
+            viewHolder.genre.setText(genre);
+            viewHolder.movieRecylerView = new RecyclerView(context);
+
+
+            HashMap<String, Movie> genreList =  new HashMap<>();
+            listMoviesByGenre.add(genreList);
+            Integer counter = 0;
+            for (Movie movie: movies) {
+                if (movie.containsGenre(genre)){
+                    genreList.put(
+                            genre,
+                            movie
+                    );
+                    counter++;
+                }
+                if (counter < 10){
+                    // Add all movies in genrelist to viewholder.movierecycler
+
+                    break;
+                }
+            }
+        }
+
+
+
     }
 
     @Override
     public int getItemCount() {
-        return genreList.size();
+        return movies.size();
+    }
+
+    public static void SetArraylist(ArrayList<String> mList) {
+        genreStrings = mList;
     }
 
     class GenreMovieViewHolder extends RecyclerView.ViewHolder {
@@ -61,4 +113,5 @@ public class GenreMovieAdapter extends RecyclerView.Adapter<GenreMovieAdapter.Ge
             movieRecylerView = itemView.findViewById(R.id.movie_item_recyclerview);
         }
     }
+
 }

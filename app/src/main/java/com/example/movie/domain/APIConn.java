@@ -202,3 +202,4 @@ public class APIConn extends AsyncTask<String, Void, LinkedList<Movie>> {
         return pagescount;
     }
 }
+
