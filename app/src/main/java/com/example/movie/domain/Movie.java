@@ -160,6 +160,7 @@ public class Movie {
 
     public void setRevenue(double revenue) {
         this.revenue = revenue;
+
     }
 
     public int getId() {

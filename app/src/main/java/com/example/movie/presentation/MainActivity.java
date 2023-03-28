@@ -6,11 +6,20 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.movie.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import android.os.Debug;
+import android.util.Log;
+
+import com.example.movie.R;
+import com.example.movie.domain.APIConn;
+import com.example.movie.domain.Movie;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,8 +27,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+
+        APIConn conn = new APIConn(findViewById(R.id.recyclerview));
+        conn.GetMovieByID();
+
+        setContentView(R.layout.activity_main);
         // Initialize the RecyclerView.
         RecyclerView recyclerView = findViewById(R.id.movies_recyclerview);
 
@@ -50,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
 
