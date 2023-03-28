@@ -6,31 +6,18 @@
     android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/movie_item_image"
+                android:id="@+id/movie_image"
                 android:layout_width="match_parent"
                 android:layout_height="300dp" />
 
             <TextView
-                android:id="@+id/movie_title_item"
+                android:id="@+id/movie_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/userscore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="%"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/releasedate_movie_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Release Date"
-                android:textSize="12sp" />
 
 
 </LinearLayout>
