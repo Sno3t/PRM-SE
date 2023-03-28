@@ -7,7 +7,7 @@
     <EditText
         android:id="@+id/searchbar_movie"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="?attr/actionBarSize"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="8dp"
         android:layout_margin="8dp"
