@@ -1,9 +1,14 @@
 package com.example.movie.domain;
 
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Dictionary;
 
 @Entity(tableName = "movie")
 public class Movie {
@@ -16,7 +21,7 @@ public class Movie {
     private String url;
     private String description;
     private String director;
-    private String genre;
+    private ArrayList<String> genre;
     private int userScore;
     private String cast;
     private String status;
@@ -29,7 +34,7 @@ public class Movie {
                  int length, String url,
                  String description,
                  String director,
-                 String genre,
+                 ArrayList<String>  genre,
                  int userScore,
                  String cast,
                  String status,
@@ -52,9 +57,27 @@ public class Movie {
         this.revenue = revenue;
     }
 
-    public Movie(String title, String genre){
+
+//    public Movie(String title, String genre){
+//        this.title = title;
+//        this.genre = genre;
+//    }
+
+
+    // For now_playing
+    public Movie(String title, Date releaseDate,
+                 String url,
+                 String description,
+                 ArrayList<String>  genre,
+                 int userScore,
+                 String language) throws ParseException {
         this.title = title;
+        this.releaseDate = releaseDate;
+        this.url = url;
+        this.description = description;
         this.genre = genre;
+        this.userScore = userScore;
+        this.language = language;
     }
 
 
@@ -106,11 +129,11 @@ public class Movie {
         this.director = director;
     }
 
-    public String getGenre() {
+    public ArrayList<String>  getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(ArrayList<String> genre) {
         this.genre = genre;
     }
 

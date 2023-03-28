@@ -20,17 +20,22 @@ import com.example.movie.R;
 import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Movie;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView nav;
+
+    private static LinkedList<Movie> movies = new LinkedList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new APIConn().execute();
 
 
-        APIConn conn = new APIConn(findViewById(R.id.recyclerview));
-        conn.GetMovieByID();
 
         setContentView(R.layout.activity_main);
         // Initialize the RecyclerView.
@@ -64,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+    public static void SetLinkedList(LinkedList<Movie> mList) {
+        movies = mList;
     }
 
 
