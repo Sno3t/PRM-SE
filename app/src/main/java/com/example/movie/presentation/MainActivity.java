@@ -2,6 +2,8 @@ package com.example.movie.presentation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -17,6 +19,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Initialize the RecyclerView.
+        RecyclerView recyclerView = findViewById(R.id.movies_recyclerview);
+
+        // Set the layout manager to the recyclerview
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setHasFixedSize(true);
+
+        MovieAdapter adapter = new MovieAdapter(getApplicationContext());
+        recyclerView.setAdapter(adapter);
+
 
         nav = findViewById(R.id.bottom_navi_view);
 

@@ -52,6 +52,12 @@ public class Movie {
         this.revenue = revenue;
     }
 
+    public Movie(String title, String genre){
+        this.title = title;
+        this.genre = genre;
+    }
+
+
     public String getTitle() {
         return title;
     }
