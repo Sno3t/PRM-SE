@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="5dp"
-        android:padding="6dp"
-        app:cardCornerRadius="25dp" >
+        android:layout_margin="8dp"
+        android:elevation="10dp"
+        android:padding="8dp"
+        app:cardCornerRadius="25dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:padding="8dp">
 
             <ImageView
                 android:id="@+id/movie_detail_image"
@@ -24,31 +26,93 @@
                 android:id="@+id/title_movie_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/movie_detail_image"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_toEndOf="@+id/movie_detail_image"
                 android:text="Title"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/releasedate_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_movie_detail"
+                android:layout_alignStart="@+id/title_movie_detail"
+                android:layout_marginTop="8dp"
+                android:text="Release Date"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/genre_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/releasedate_movie"
+                android:layout_alignStart="@+id/title_movie_detail"
+                android:layout_marginTop="8dp"
+                android:text="Genre"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/language_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/genre_movie"
+                android:layout_alignStart="@+id/title_movie_detail"
+                android:layout_marginTop="8dp"
+                android:text="Language"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/director"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/language_movie"
+                android:layout_alignStart="@+id/title_movie_detail"
+                android:layout_marginTop="8dp"
+                android:text="Director"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/Length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/language_movie"
+                android:layout_alignStart="@+id/title_movie_detail"
+                android:layout_marginTop="8dp"
+                android:text="Length"
+                android:textSize="14sp" />
 
             <ImageButton
                 android:id="@+id/favorite_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/title_movie_detail"
+                android:layout_below="@+id/Length"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="16dp"
                 android:layout_toEndOf="@+id/movie_detail_image"
-                android:src="@drawable/ic_favorite_border"
-                android:background="?android:selectableItemBackground" />
+                android:background="?android:selectableItemBackground"
+                android:src="@drawable/ic_favorite_border" />
+
+            <ImageButton
+                android:id="@+id/add_to_list_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/favorite_btn"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_toEndOf="@+id/movie_detail_image"
+                android:background="?android:selectableItemBackground"
+                android:src="@drawable/ic_add_circle" />
 
             <ImageButton
                 android:id="@+id/star_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/favorite_btn"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_toEndOf="@+id/favorite_btn"
+                android:layout_toEndOf="@+id/add_to_list_btn"
                 android:background="?android:selectableItemBackground"
                 android:src="@drawable/ic_star_outline" />
 
@@ -91,6 +155,101 @@
                 android:layout_toEndOf="@+id/star_4"
                 android:background="?android:selectableItemBackground"
                 android:src="@drawable/ic_star_outline" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/movie_detail_image"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_alignStart="@+id/movie_detail_image"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Description"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/description"
+                android:layout_alignStart="@+id/movie_detail_image"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Status"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/status"
+                android:layout_alignStart="@+id/movie_detail_image"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Budget"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/revenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/budget"
+                android:layout_alignStart="@+id/movie_detail_image"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Revenue"
+                android:textSize="14sp" />
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/revenue"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/darker_gray" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line2"
+                android:elevation="0dp"
+                android:padding="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/review_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="?android:selectableItemBackground"
+                android:src="@drawable/ic_rate_review" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/review_icon"
+                android:hint="Review\n\n"
+                android:layout_marginStart="8dp"
+                android:inputType="textMultiLine" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
