@@ -2,7 +2,7 @@ package com.example.movie.domain;
 
 import android.os.AsyncTask;
 
-import com.example.movie.presentation.GenreMovieAdapter;
+import com.example.movie.presentation.GenreRecylcerViewAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,7 +57,7 @@ public class GenresFromAPI extends AsyncTask<Void, Void, ArrayList<String>> {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        GenreMovieAdapter.SetArraylist(genres);
+        GenreRecylcerViewAdapter.SetArraylist(genres);
         return genres;
     }
 

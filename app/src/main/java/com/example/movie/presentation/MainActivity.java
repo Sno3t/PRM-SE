@@ -13,14 +13,9 @@ import android.widget.Toast;
 import com.example.movie.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import android.os.Debug;
-import android.util.Log;
-
-import com.example.movie.R;
 import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Movie;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Put recyclerview on homepage by genre
         RecyclerView homepageRecycler = findViewById(R.id.movies_recyclerview);
-        GenreMovieAdapter gmAdapter = new GenreMovieAdapter(getApplicationContext(), movies, homepageRecycler);
+        GenreRecylcerViewAdapter gmAdapter = new GenreRecylcerViewAdapter(getApplicationContext(), movies, homepageRecycler);
 
         // Put movies in recyclerview
         MovieAdapter adapter = new MovieAdapter(getApplicationContext());

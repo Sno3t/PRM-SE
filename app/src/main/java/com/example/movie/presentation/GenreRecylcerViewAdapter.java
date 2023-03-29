@@ -1,30 +1,23 @@
 package com.example.movie.presentation;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.movie.R;
-import com.example.movie.domain.APIConn;
 import com.example.movie.domain.GenresFromAPI;
 import com.example.movie.domain.Movie;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
-public class GenreMovieAdapter extends RecyclerView.Adapter<GenreMovieAdapter.GenreMovieViewHolder> {
+public class GenreRecylcerViewAdapter extends RecyclerView.Adapter<GenreRecylcerViewAdapter.GenreMovieViewHolder> {
 
     private Context context;
     private LinkedList<Movie> movies;
@@ -32,7 +25,7 @@ public class GenreMovieAdapter extends RecyclerView.Adapter<GenreMovieAdapter.Ge
     private LayoutInflater mInflater;
     private RecyclerView homepageRecycler;
 
-    public GenreMovieAdapter(Context context, LinkedList<Movie> movies, RecyclerView homepageRecycler) {
+    public GenreRecylcerViewAdapter(Context context, LinkedList<Movie> movies, RecyclerView homepageRecycler) {
         this.mInflater = LayoutInflater.from(context);
         this.homepageRecycler = homepageRecycler;
         this.movies = movies;
@@ -42,14 +35,14 @@ public class GenreMovieAdapter extends RecyclerView.Adapter<GenreMovieAdapter.Ge
 
     @NonNull
     @Override
-    public GenreMovieAdapter.GenreMovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GenreRecylcerViewAdapter.GenreMovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.genre_movie_item, parent, false);
         return new GenreMovieViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GenreMovieAdapter.GenreMovieViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GenreRecylcerViewAdapter.GenreMovieViewHolder holder, int position) {
         // Genre genre = genreList.get(position);
 
 //        holder.genre.setText(movie.getGenre());
