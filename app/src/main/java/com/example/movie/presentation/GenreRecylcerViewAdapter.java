@@ -29,17 +29,14 @@ public class GenreRecylcerViewAdapter extends RecyclerView.Adapter<GenreRecylcer
 
     ArrayList<ArrayList<Movie>> listMoviesByGenre;
 
-    private MovieInGenreRecyclerViewAdapter adapter;
-
-    public GenreRecylcerViewAdapter(Context context, ArrayList<Movie> movies, String currencgenre, MovieInGenreRecyclerViewAdapter adapter) {
+    public GenreRecylcerViewAdapter(Context context, ArrayList<Movie> movies, String currencgenre) {
         this.movies = movies;
 
         this.context = context;
 
         listMoviesByGenre = new ArrayList<>();
-        this.currentgenre =currencgenre;
+        this.currentgenre = currencgenre;
 
-        this.adapter = adapter;
     }
 
     @NonNull
@@ -48,7 +45,7 @@ public class GenreRecylcerViewAdapter extends RecyclerView.Adapter<GenreRecylcer
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.genre_movie_item, parent, false);
 
-        return new GenreMovieViewHolder(itemView, adapter);
+        return new GenreMovieViewHolder(itemView);
     }
 
     @Override
@@ -76,12 +73,11 @@ public class GenreRecylcerViewAdapter extends RecyclerView.Adapter<GenreRecylcer
         TextView genre;
         RecyclerView movieRecylerView;
 
-        public GenreMovieViewHolder(@NonNull View itemView, MovieInGenreRecyclerViewAdapter adapter) {
+        public GenreMovieViewHolder(@NonNull View itemView) {
             super(itemView);
 
             genre = itemView.findViewById(R.id.genre);
             movieRecylerView = itemView.findViewById(R.id.movie_item_recyclerview);
-            movieRecylerView.setAdapter(adapter);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.movie.presentation;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,8 +20,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.movie.domain.Movie;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("ALERT", "movies reeeeee: " + movies.size());
-
         setContentView(R.layout.activity_main);
         // Initialize the RecyclerView.
         RecyclerView recyclerView = findViewById(R.id.movie_recyclerview);
@@ -44,13 +41,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
 
-        // Put recyclerview on homepage by genre
-        // recyclerView.addView(findViewById(R.id.movie_item_recyclerview));
-        // RecyclerView homepageRecycler = findViewById(R.id.movie_item_recyclerview);
-
         new APIConn(this, recyclerView).execute();
-
-
 
 
         nav = findViewById(R.id.bottom_navi_view);
