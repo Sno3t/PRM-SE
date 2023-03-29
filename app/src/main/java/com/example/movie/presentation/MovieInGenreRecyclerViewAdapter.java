@@ -60,35 +60,6 @@ public class MovieInGenreRecyclerViewAdapter extends RecyclerView.Adapter<MovieI
             }
         });
 
-
-//        movies.add(new Movie("a", "b"));
-//        movies.add(new Movie("a2", "b1"));
-//        movies.add(new Movie("a3", "b2"));
-//        movies.add(new Movie("a4", "b3"));
-
-//// Create a HashMap to hold movie lists for each genre
-//        HashMap<String, ArrayList<Movie>> movieMap = new HashMap<>();
-//
-//// Initialize an empty ArrayList for each genre
-//        for (String genre : genreArray) {
-//            movieMap.put(genre, new ArrayList<Movie>());
-//        }
-//
-//// Populate the movie lists based on genre
-//        for (Movie movie : movies) {
-//            String genre = movie.getGenre();
-//            ArrayList<Movie> movieList = movieMap.get(genre);
-//            movieList.add(movie);
-//        }
-//
-//// Print the movies for each genre
-//        for (String genre : genreArray) {
-//            ArrayList<Movie> movieList = movieMap.get(genre);
-//            System.out.println(genre + ":");
-//            for (Movie movie : movieList) {
-//                System.out.println(" - " + movie.getTitle());
-//            }
-//        }
     }
 
     @Override
