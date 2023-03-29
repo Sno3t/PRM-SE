@@ -26,8 +26,10 @@ public class MovieInGenreRecyclerViewAdapter extends RecyclerView.Adapter<MovieI
     private Context context;
     private AdapterView.OnItemClickListener listener;
 
-    public MovieInGenreRecyclerViewAdapter(Context context) {
+
+    public MovieInGenreRecyclerViewAdapter(Context context, ArrayList<Movie> movies) {
         this.context = context;
+        this.setMovies(movies);
     }
 
     @NonNull
@@ -111,8 +113,8 @@ public class MovieInGenreRecyclerViewAdapter extends RecyclerView.Adapter<MovieI
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            movieTitle = itemView.findViewById(R.id.movie_title);
-            movieImage = itemView.findViewById(R.id.movie_image);
+            movieTitle = new TextView(context);
+            movieImage = new ImageView(context);
         }
     }
 }

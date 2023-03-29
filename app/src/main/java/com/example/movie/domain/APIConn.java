@@ -1,9 +1,15 @@
 package com.example.movie.domain;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.movie.presentation.GenreRecylcerViewAdapter;
 import com.example.movie.presentation.MainActivity;
+import com.example.movie.presentation.MovieInGenreRecyclerViewAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,13 +27,22 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-public class APIConn extends AsyncTask<String, Void, LinkedList<Movie>> {
+public class APIConn extends AsyncTask<String, Void, ArrayList<Movie>> {
     protected String apiKey = "f3c365d45195979057ba40752d5f37ac";
+    ArrayList<Movie> movieList;
+
+    Context context;
+    RecyclerView recyclerView;
+
+    public APIConn(Context context, RecyclerView recyclerView){
+        this.context = context;
+        this.recyclerView = recyclerView;
+    }
 
     @Override
-    protected LinkedList<Movie> doInBackground(String... strings) {
+    protected ArrayList<Movie> doInBackground(String... strings) {
         String jsonString;
-        LinkedList<Movie> movieList = new LinkedList<>();
+        movieList = new ArrayList<>();
 
         // Get genres
         Dictionary<Integer, String> genres = new Hashtable<>();
@@ -103,7 +118,7 @@ public class APIConn extends AsyncTask<String, Void, LinkedList<Movie>> {
                     }
                 }
 
-                Log.d("ALERT", "Page " + f + " done parsing.") ;
+                // Log.d("ALERT", "Page " + f + " done parsing.") ;
             }
             catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -116,12 +131,20 @@ public class APIConn extends AsyncTask<String, Void, LinkedList<Movie>> {
         Log.d("LIST_COUNT", String.valueOf(movieList.size())) ;
 
         MainActivity.SetLinkedList(movieList);
+
         return movieList;
     }
 
     @Override
-    protected void onPostExecute(LinkedList<Movie> movies) {
+    protected void onPostExecute(ArrayList<Movie> movies) {
         super.onPostExecute(movies);
+
+        GenreRecylcerViewAdapter gmAdapter = new GenreRecylcerViewAdapter(context, movies, recyclerView);
+
+        // Put movies in recyclerview
+        MovieInGenreRecyclerViewAdapter adapter = new MovieInGenreRecyclerViewAdapter(context, movies);
+        recyclerView.setAdapter(adapter);
+        // recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
 
         Log.d("MESSAGE", "Getting completed");
     }
@@ -166,6 +189,7 @@ public class APIConn extends AsyncTask<String, Void, LinkedList<Movie>> {
             throw new RuntimeException(e);
         }
     }
+
 
     protected Integer GetPages(){
         String countString;

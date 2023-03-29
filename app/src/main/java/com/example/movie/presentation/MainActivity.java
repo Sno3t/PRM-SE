@@ -7,14 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.movie.R;
 import com.example.movie.domain.APIConn;
-import com.example.movie.presentation.tutorial.ChildItem;
-import com.example.movie.presentation.tutorial.ParentItem;
-import com.example.movie.presentation.tutorial.ParentItemAdapter;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.example.movie.domain.Movie;
@@ -27,31 +26,31 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView nav;
 
-    private static LinkedList<Movie> movies = new LinkedList<>();
+    public static ArrayList<Movie> movies = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new APIConn().execute();
 
-
+        Log.d("ALERT", "movies reeeeee: " + movies.size());
 
         setContentView(R.layout.activity_main);
         // Initialize the RecyclerView.
         RecyclerView recyclerView = findViewById(R.id.movie_recyclerview);
 
         // Set the layout manager to the recyclerview
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        // Put recyclerview on homepage by genre
-        RecyclerView homepageRecycler = findViewById(R.id.movie_recyclerview);
-        GenreRecylcerViewAdapter gmAdapter = new GenreRecylcerViewAdapter(getApplicationContext(), movies, homepageRecycler);
 
-        // Put movies in recyclerview
-        MovieInGenreRecyclerViewAdapter adapter = new MovieInGenreRecyclerViewAdapter(getApplicationContext());
-        recyclerView.setAdapter(adapter);
+        // Put recyclerview on homepage by genre
+        // recyclerView.addView(findViewById(R.id.movie_item_recyclerview));
+        // RecyclerView homepageRecycler = findViewById(R.id.movie_item_recyclerview);
+
+        new APIConn(this, recyclerView).execute();
+
+
 
 
         nav = findViewById(R.id.bottom_navi_view);
@@ -79,12 +78,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static void SetLinkedList(LinkedList<Movie> mList) {
+    public static void SetLinkedList(ArrayList<Movie> mList) {
         movies = mList;
+        Log.d("ALERT", "movies: " + movies.size());
     }
-
-
-
 
 //
 //
