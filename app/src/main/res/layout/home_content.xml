@@ -16,9 +16,9 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/movies_recyclerview"
+        android:id="@+id/parent_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp" />
-
+    <!--        android:id="@+id/movies_recyclerview"-->
 </LinearLayout>
