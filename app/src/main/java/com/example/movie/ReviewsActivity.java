@@ -24,6 +24,8 @@ public class ReviewsActivity extends AppCompatActivity {
     }
 
     public void submitReview(View view) {
+        String addedReview = newReview.toString();
+        ratingBar.getRating();
 
     }
 }
