@@ -191,7 +191,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:elevation="0dp"
-                android:padding="4dp">
+                android:padding="4dp"
+                android:onClick="openReviews">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -206,7 +207,7 @@
                         android:src="@drawable/ic_rate_review" />
 
                     <EditText
-                        android:id="@+id/review_movie"
+                        android:id="@+id/movie_detail_review"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"

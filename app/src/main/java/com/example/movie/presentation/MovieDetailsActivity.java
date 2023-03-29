@@ -98,4 +98,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
 
     }
+
+    public void openReviews(View view) {
+        Intent intent = new Intent(this, ReviewsActivity.class);
+        startActivity(intent);
+    }
 }
