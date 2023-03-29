@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.MovieDetailsActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -240,6 +242,7 @@
                         android:src="@drawable/ic_rate_review" />
 
                     <EditText
+                        android:id="@+id/review_movie"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
