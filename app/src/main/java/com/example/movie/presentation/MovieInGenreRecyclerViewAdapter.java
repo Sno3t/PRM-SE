@@ -2,7 +2,6 @@ package com.example.movie.presentation;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,34 +16,30 @@ import com.bumptech.glide.Glide;
 import com.example.movie.R;
 import com.example.movie.domain.Movie;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MovieInGenreRecyclerViewAdapter extends RecyclerView.Adapter<MovieInGenreRecyclerViewAdapter.MovieViewHolder> {
 
-    private static String TAG= MovieAdapter.class.getSimpleName();
+    private static String TAG = MovieInGenreRecyclerViewAdapter.class.getSimpleName();
     private List<Movie> movies = new ArrayList<>();
     private Context context;
     private AdapterView.OnItemClickListener listener;
 
-    public MovieAdapter(Context context) {
+    public MovieInGenreRecyclerViewAdapter(Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
-    public MovieAdapter.MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MovieInGenreRecyclerViewAdapter.MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_item, parent, false);
         return new MovieViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieAdapter.MovieViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieInGenreRecyclerViewAdapter.MovieViewHolder holder, int position) {
         Movie movie = movies.get(position);
         Glide.with(context)
                 .load(movie.getUrl())

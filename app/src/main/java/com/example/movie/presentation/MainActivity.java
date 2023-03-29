@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         GenreRecylcerViewAdapter gmAdapter = new GenreRecylcerViewAdapter(getApplicationContext(), movies, homepageRecycler);
 
         // Put movies in recyclerview
-        MovieAdapter adapter = new MovieAdapter(getApplicationContext());
+        MovieInGenreRecyclerViewAdapter adapter = new MovieInGenreRecyclerViewAdapter(getApplicationContext());
         recyclerView.setAdapter(adapter);
 
 
