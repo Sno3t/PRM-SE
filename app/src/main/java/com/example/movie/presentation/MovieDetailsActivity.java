@@ -2,8 +2,11 @@ package com.example.movie.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +18,7 @@ import com.example.movie.presentation.viemodel.MovieViewModel;
 import com.squareup.picasso.Picasso;
 
 public class MovieDetailsActivity extends AppCompatActivity {
+    private static final String TAG = MovieDetailsActivity.class.getSimpleName();
     private TextView mTitle;
     private TextView mReleaseDate;
     private TextView mGenre;
@@ -28,12 +32,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ImageView mImage;
     private ImageView mFavButton;
     private ImageView mAddToListButton;
-    private ImageView mStar1;
-    private ImageView mStar2;
-    private ImageView mStar3;
-    private ImageView mStar4;
-    private ImageView mStar5;
-    private EditText mReviewText;
+    private RatingBar mRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +52,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mImage = findViewById(R.id.movie_detail_image);
         mFavButton = findViewById(R.id.favorite_btn);
         mAddToListButton = findViewById(R.id.add_to_list_btn);
-        mStar1 = findViewById(R.id.star_1);
-        mStar2 = findViewById(R.id.star_2);
-        mStar3 = findViewById(R.id.star_3);
-        mStar4 = findViewById(R.id.star_4);
-        mStar5 = findViewById(R.id.star_5);
-        mReviewText = findViewById(R.id.review_movie);
+        mRating = findViewById(R.id.movie_detail_rating);
 
         Intent intent = getIntent();
         int movieId = intent.getIntExtra("MEAL_ID", -1);
@@ -84,9 +78,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 mStatus.setText(movie.getStatus());
                 mBudget.setText(String.valueOf(movie.getBudget()));
                 mRevenue.setText(String.valueOf(movie.getRevenue()));
-
                 Picasso.get().load(movie.getUrl()).into(mImage);
+                mRating.setNumStars(movie.getUserScore()/2);
             }
         });
+
+
+    }
+
+    public void addToFav(View view) {
+        if(mFavButton.getColorFilter().equals(R.color.grey)) {
+            mFavButton.setColorFilter(R.color.red);
+            // Add to list functionality to be added
+        } else if(mFavButton.getColorFilter().equals(R.color.red)) {
+            mFavButton.setColorFilter(R.color.grey);
+            // Remove from list functionality to be added
+        } else {
+            Log.e(TAG, "Movie niet toegevoegd aan favorites");
+        }
+
     }
 }

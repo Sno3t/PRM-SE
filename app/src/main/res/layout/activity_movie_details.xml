@@ -92,9 +92,10 @@
                 android:layout_below="@+id/Length"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:onClick="addToFav"
                 android:layout_toEndOf="@+id/movie_detail_image"
                 android:background="?android:selectableItemBackground"
-                android:src="@drawable/ic_favorite_border" />
+                android:src="@drawable/ic_filled_favorite" />
 
             <ImageButton
                 android:id="@+id/add_to_list_btn"
@@ -107,56 +108,19 @@
                 android:background="?android:selectableItemBackground"
                 android:src="@drawable/ic_add_circle" />
 
-            <ImageButton
-                android:id="@+id/star_1"
+            <RatingBar
+                android:id="@+id/movie_detail_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/favorite_btn"
+                android:layout_below="@id/favorite_btn"
+                android:layout_toEndOf="@id/add_to_list_btn"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_toEndOf="@+id/add_to_list_btn"
-                android:background="?android:selectableItemBackground"
-                android:src="@drawable/ic_star_outline" />
-
-            <ImageButton
-                android:id="@+id/star_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/favorite_btn"
-                android:layout_marginTop="16dp"
-                android:layout_toEndOf="@+id/star_1"
-                android:background="?android:selectableItemBackground"
-                android:src="@drawable/ic_star_outline" />
-
-            <ImageButton
-                android:id="@+id/star_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/favorite_btn"
-                android:layout_marginTop="16dp"
-                android:layout_toEndOf="@+id/star_2"
-                android:background="?android:selectableItemBackground"
-                android:src="@drawable/ic_star_outline" />
-
-            <ImageButton
-                android:id="@+id/star_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/favorite_btn"
-                android:layout_marginTop="16dp"
-                android:layout_toEndOf="@+id/star_3"
-                android:background="?android:selectableItemBackground"
-                android:src="@drawable/ic_star_outline" />
-
-            <ImageButton
-                android:id="@+id/star_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/favorite_btn"
-                android:layout_marginTop="16dp"
-                android:layout_toEndOf="@+id/star_4"
-                android:background="?android:selectableItemBackground"
-                android:src="@drawable/ic_star_outline" />
+                android:numStars="5"
+                android:rating="0"
+                android:stepSize="0.5"
+                android:isIndicator="false"
+                style="?android:ratingBarStyleSmall"/>
 
             <View
                 android:id="@+id/line1"
