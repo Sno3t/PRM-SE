@@ -15,13 +15,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class GenresFromAPI extends AsyncTask<Void, Void, ArrayList<String>> {
+public class GenresFromAPI extends AsyncTask<String, Void, ArrayList<String>> {
     protected String apiKey = "f3c365d45195979057ba40752d5f37ac";
 
+    ArrayList<String> genres;
+
     @Override
-    protected ArrayList<String> doInBackground(Void... voids) {
+    protected ArrayList<String> doInBackground(String ... voids) {
         String genrestring;
-        ArrayList<String> genres = new ArrayList<>();
+        genres = new ArrayList<>();
 
         try {
             URL url = new URL("https://api.themoviedb.org/3/genre/movie/list?api_key=" + apiKey + "&language=en-US");
@@ -57,12 +59,14 @@ public class GenresFromAPI extends AsyncTask<Void, Void, ArrayList<String>> {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        GenreRecylcerViewAdapter.SetArraylist(genres);
+
         return genres;
     }
 
     @Override
     protected void onPostExecute(ArrayList<String> strings) {
         super.onPostExecute(strings);
+
+        GenreRecylcerViewAdapter.SetArraylist(genres);
     }
 }

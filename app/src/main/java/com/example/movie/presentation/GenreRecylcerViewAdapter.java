@@ -24,20 +24,22 @@ public class GenreRecylcerViewAdapter extends RecyclerView.Adapter<GenreRecylcer
     private Context context;
     private ArrayList<Movie> movies;
     private static ArrayList<String> genreStrings = new ArrayList<>();
-    private LayoutInflater mInflater;
-    private RecyclerView homepageRecycler;
+
+    String currentgenre;
 
     ArrayList<ArrayList<Movie>> listMoviesByGenre;
 
-    public GenreRecylcerViewAdapter(Context context, ArrayList<Movie> movies, RecyclerView homepageRecycler) {
-        this.mInflater = LayoutInflater.from(context);
-        this.homepageRecycler = homepageRecycler;
+    private MovieInGenreRecyclerViewAdapter adapter;
+
+    public GenreRecylcerViewAdapter(Context context, ArrayList<Movie> movies, String currencgenre, MovieInGenreRecyclerViewAdapter adapter) {
         this.movies = movies;
 
         this.context = context;
 
         listMoviesByGenre = new ArrayList<>();
+        this.currentgenre =currencgenre;
 
+        this.adapter = adapter;
     }
 
     @NonNull
@@ -46,60 +48,18 @@ public class GenreRecylcerViewAdapter extends RecyclerView.Adapter<GenreRecylcer
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.genre_movie_item, parent, false);
 
-        return new GenreMovieViewHolder(itemView);
+        return new GenreMovieViewHolder(itemView, adapter);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GenreRecylcerViewAdapter.GenreMovieViewHolder holder, int position) {
-//        holder.genre.setText(movie.getGenre());
 
-
-        // Make lists for genres (6)
-            // Action, Adventure, Drama, Family, Horror, War
-
-        ArrayList<String> searchGenres = new ArrayList<>();
-        // new GenresFromAPI().execute();
-
-        listMoviesByGenre = new ArrayList<>();
-
-        // Search 9 movies for first genres
-        for (String genre: searchGenres) {
-//            GenreMovieViewHolder viewHolder = new GenreMovieViewHolder(homepageRecycler);
-//            holder.movieRecylerView.setAdapter(new MovieInGenreRecyclerViewAdapter(context, movies));
-//            holder.genre.setText(genre);
-//            viewHolder.movieRecylerView = new RecyclerView(context);
-
-
-            ArrayList<Movie> genreList =  new ArrayList<>();
-            listMoviesByGenre.add(genreList);
-            Integer counter = 0;
-            for (Movie movie: movies) {
-                if (movie.containsGenre(genre)){
-                    genreList.add(
-                            movie
-                    );
-                    counter++;
-                }
-                if (counter < 10){
-                    Log.d("ALERT", "Movies in " + genre + " list: " + genreList.size());
-                    break;
-
-                }
-            }
-            // Add all movies in genrelist to viewholder.movierecycler
-
-
-            String mcurrent = genreStrings.get(position);
-            holder.genre.setText(mcurrent);
-            holder.movieRecylerView.setAdapter(new MovieInGenreRecyclerViewAdapter(context, genreList));
-            Log.d("ALERT", "Movies in " + "genre" + " list: " + genreList.size());
-
-        }
-
-
-
+        holder.genre.setText(currentgenre);
+        holder.movieRecylerView.setAdapter(new MovieInGenreRecyclerViewAdapter(context, movies));
 
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -116,11 +76,12 @@ public class GenreRecylcerViewAdapter extends RecyclerView.Adapter<GenreRecylcer
         TextView genre;
         RecyclerView movieRecylerView;
 
-        public GenreMovieViewHolder(@NonNull View itemView) {
+        public GenreMovieViewHolder(@NonNull View itemView, MovieInGenreRecyclerViewAdapter adapter) {
             super(itemView);
 
-            genre = new TextView(context);
-            movieRecylerView = new RecyclerView(context);;
+            genre = itemView.findViewById(R.id.genre);
+            movieRecylerView = itemView.findViewById(R.id.movie_item_recyclerview);
+            movieRecylerView.setAdapter(adapter);
         }
     }
 

@@ -130,8 +130,6 @@ public class APIConn extends AsyncTask<String, Void, ArrayList<Movie>> {
 
         Log.d("LIST_COUNT", String.valueOf(movieList.size())) ;
 
-        MainActivity.SetLinkedList(movieList);
-
         return movieList;
     }
 
@@ -139,11 +137,50 @@ public class APIConn extends AsyncTask<String, Void, ArrayList<Movie>> {
     protected void onPostExecute(ArrayList<Movie> movies) {
         super.onPostExecute(movies);
 
-        GenreRecylcerViewAdapter gmAdapter = new GenreRecylcerViewAdapter(context, movies, recyclerView);
+        // Make lists for genres (6)
+        // Action, Adventure, Drama, Family, Horror, War
+
+        ArrayList<String> searchGenres = new ArrayList<>();
+        searchGenres.add("Action");
+        // new GenresFromAPI().execute();
+
+        ArrayList<ArrayList<Movie>> listMoviesByGenre = new ArrayList<>();
+
+        // Search 9 movies for first genres
+        for (String genre: searchGenres) {
+
+
+            ArrayList<Movie> genreList =  new ArrayList<>();
+            listMoviesByGenre.add(genreList);
+            Integer counter = 0;
+            for (Movie movie: movies) {
+                if (movie.containsGenre(genre)){
+                    genreList.add(
+                            movie
+                    );
+                    counter++;
+                }
+                if (counter >= 9){
+                    Log.d("ALERT", "Movies in " + genre + " list: " + genreList.size());
+                    break;
+
+                }
+            }
+            // Add all movies in genrelist to viewholder.movierecycler
+//            Log.d("ALERT", "Movies in " + "genre" + " list: " + movies.size());
+//            String mcurrent = genreStrings.get(position);
+//            holder.genre.setText("mcurrent");
+//            holder.movieRecylerView.setAdapter(new MovieInGenreRecyclerViewAdapter(context, movies));
+        }
+        MainActivity.SetLinkedList(movieList);
+
+
+
+        GenreRecylcerViewAdapter gmAdapter = new GenreRecylcerViewAdapter(context, movies, searchGenres.get(0), new MovieInGenreRecyclerViewAdapter(context, movies));
 
         // Put movies in recyclerview
         MovieInGenreRecyclerViewAdapter adapter = new MovieInGenreRecyclerViewAdapter(context, movies);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(gmAdapter);
         // recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
 
         Log.d("MESSAGE", "Getting completed");

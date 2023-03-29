@@ -37,6 +37,7 @@ public class MovieInGenreRecyclerViewAdapter extends RecyclerView.Adapter<MovieI
     public MovieInGenreRecyclerViewAdapter.MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_item, parent, false);
+
         return new MovieViewHolder(itemView);
     }
 
@@ -44,10 +45,10 @@ public class MovieInGenreRecyclerViewAdapter extends RecyclerView.Adapter<MovieI
     public void onBindViewHolder(@NonNull MovieInGenreRecyclerViewAdapter.MovieViewHolder holder, int position) {
         Movie movie = movies.get(position);
         Glide.with(context)
-                .load(movie.getUrl())
+                .load("https://image.tmdb.org/t/p/original" + movie.getUrl())
                 .into(holder.movieImage);
 
-        holder.movieTitle.setText(movie.getTitle());
+        holder.movieTitle.setText("movie.getTitle()");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,10 +89,6 @@ public class MovieInGenreRecyclerViewAdapter extends RecyclerView.Adapter<MovieI
 //                System.out.println(" - " + movie.getTitle());
 //            }
 //        }
-
-
-
-
     }
 
     @Override
