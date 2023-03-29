@@ -12,9 +12,7 @@ import com.example.movie.R;
 
 import java.util.List;
 
-public class ParentItemAdapter
-        extends RecyclerView
-        .Adapter<ParentItemAdapter.ParentViewHolder> {
+public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.ParentViewHolder> {
 
     // An object of RecyclerView.RecycledViewPool
     // is created to share the Views
@@ -26,7 +24,7 @@ public class ParentItemAdapter
             .RecycledViewPool();
     private List<ParentItem> itemList;
 
-    public ParentItemAdapter(List<ParentItem> itemList)
+    ParentItemAdapter(List<ParentItem> itemList)
     {
         this.itemList = itemList;
     }

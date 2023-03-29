@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -11,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="12dp">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -23,30 +23,31 @@
             <!--So all the ImageViews will
                 hold the same image-->
             <ImageView
-                android:id="@+id/img_child_item"
+                android:id="@+id/movie_poster_item"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="5dp"
-                app:srcCompat="@drawable/ic_star_outline" />
-<!--                android:background=""-->
+
+                />
+            <!--                app:srcCompat="@drawable/ic_star_outline" -->
+            <!--                android:background=""-->
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_toEndOf="@id/img_child_item"
-                android:padding="12dp"
-                android:layout_below="@+id/img_child_item"
+                android:layout_below="@+id/movie_poster_item"
                 android:layout_alignParentStart="true"
-                android:orientation="vertical">
+                android:layout_toEndOf="@id/movie_poster_item"
+                android:orientation="vertical"
+                android:padding="12dp">
 
                 <!--Text in the CardView-->
                 <TextView
                     android:id="@+id/child_item_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

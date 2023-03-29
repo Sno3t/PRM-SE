@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.movie.R;
@@ -58,7 +59,7 @@ public class ChildItemAdapter
         // provided the source for the images
         // in the layout file itself
         childViewHolder
-                .ChildItemTitle
+                .movieTitle
                 .setText(childItem.getChildItemTitle());
     }
 
@@ -81,14 +82,28 @@ public class ChildItemAdapter
     class ChildViewHolder
             extends RecyclerView.ViewHolder {
 
-        TextView ChildItemTitle;
+
+//        TextView movieTitle;
+//        ImageView movieImage;
+//
+//
+//        public MovieViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//
+//            movieTitle = itemView.findViewById(R.id.movie_title);
+//            movieImage = itemView.findViewById(R.id.movie_image);
+//        }
+
+        TextView movieTitle;
+        ImageView movieImage;
 
         ChildViewHolder(View itemView)
         {
             super(itemView);
-            ChildItemTitle
+            movieTitle
                     = itemView.findViewById(
                     R.id.child_item_title);
+            movieImage = itemView.findViewById(R.id.movie_image);
         }
     }
 }

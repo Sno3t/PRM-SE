@@ -76,6 +76,8 @@ public class GenreRecylcerViewAdapter extends RecyclerView.Adapter<GenreRecylcer
                 if (counter < 10){
                     // Add all movies in genrelist to viewholder.movierecycler
 
+
+
                     break;
                 }
             }
