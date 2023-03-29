@@ -24,8 +24,10 @@ public class ReviewsActivity extends AppCompatActivity {
     }
 
     public void submitReview(View view) {
-        String addedReview = newReview.toString();
-        ratingBar.getRating();
+        String addedReview = newReview.getText().toString();
+        float rating = ratingBar.getRating();
 
+        newReview.setText("");
+        ratingBar.setRating(0);
     }
 }
