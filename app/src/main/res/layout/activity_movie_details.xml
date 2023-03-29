@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/movie_detail_image"
                 android:layout_width="200dp"
-                android:layout_height="250dp" />
+                android:layout_height="275dp" />
 
             <TextView
                 android:id="@+id/title_movie_detail"
@@ -77,7 +77,7 @@
                 android:id="@+id/Length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/language_movie"
+                android:layout_below="@+id/director"
                 android:layout_alignStart="@+id/title_movie_detail"
                 android:layout_marginTop="8dp"
                 android:text="Length"
@@ -220,32 +220,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/line2"
-                android:elevation="0dp"
-                android:padding="4dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:elevation="0dp"
+                android:padding="4dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-            <ImageButton
-                android:id="@+id/review_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:background="?android:selectableItemBackground"
-                android:src="@drawable/ic_rate_review" />
+                    <ImageButton
+                        android:id="@+id/review_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="?android:selectableItemBackground"
+                        android:src="@drawable/ic_rate_review" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/review_icon"
-                android:hint="Review\n\n"
-                android:layout_marginStart="8dp"
-                android:inputType="textMultiLine" />
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@+id/review_icon"
+                        android:hint="Review\n\n"
+                        android:inputType="textMultiLine" />
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
