@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <include android:id="@+id/main_inculde"
-        layout="@layout/content_home_main" />
+        layout="@layout/home_content" />
 
 
 
