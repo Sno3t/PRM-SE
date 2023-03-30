@@ -4,17 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 
 import com.example.movie.R;
-import com.example.movie.ReviewsActivity;
-import com.example.movie.domain.Movie;
 import com.example.movie.presentation.viemodel.MovieViewModel;
 //import com.squareup.picasso.Picasso;
 

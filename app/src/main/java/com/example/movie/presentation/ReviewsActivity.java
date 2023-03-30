@@ -1,4 +1,4 @@
-package com.example.movie;
+package com.example.movie.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
+
+import com.example.movie.R;
 
 public class ReviewsActivity extends AppCompatActivity {
 

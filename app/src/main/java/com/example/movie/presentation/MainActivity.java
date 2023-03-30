@@ -1,6 +1,7 @@
 package com.example.movie.presentation;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -55,14 +56,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
                 switch (item.getItemId()) {
                     case R.id.home_nav_btn:
-                        Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.settings_nav_btn:
+                        intent = new Intent(MainActivity.this, SettingsActivity.class);
                         Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.lists_nav_btn:
+                        intent = new Intent(MainActivity.this, ListsActivity.class);
+                        startActivity(intent);
                         Toast.makeText(MainActivity.this, "Lists", Toast.LENGTH_SHORT).show();
                         break;
                 }
