@@ -27,8 +27,10 @@ public class GenreRepository {
     public static int PAGE = 1;
     public static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
     public static int GENRES;
+    public static int ID;
     public static ArrayList<Movie> movies = new ArrayList<>();
     public static ArrayList<String> genres = new ArrayList<>();
+    public static Movie returnMovie;
 
     public ArrayList<Movie> getMoviesByGenre(int genre) {
         this.GENRES = genre;
@@ -99,48 +101,25 @@ public class GenreRepository {
         return genres;
     }
 
-    public int genreStringToId(int genreString) {
-        switch (genreString) {
-            case 0:
-                return 28;
-            case 1:
-                return 12;
-            case 2:
-                return 16;
-            case 3:
-                return 35;
-            case 4:
-                return 80;
-            case 5:
-                return 99;
-            case 6:
-                return 18;
-            case 7:
-                return 10751;
-            case 8:
-                return 14;
-            case 9:
-                return 36;
-            case 10:
-                return 27;
-            case 11:
-                return 10402;
-            case 12:
-                return 9648;
-            case 13:
-                return 10749;
-            case 14:
-                return 878;
-            case 15:
-                return 10770;
-            case 16:
-                return 53;
-            case 17:
-                return 10752;
-            case 18:
-                return 37;
-            default:
-                return -1;
-        }
+    public Movie getMovieById(int id) {
+        this.ID = id;
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+
+        APIConn apiConn = retrofit.create(APIConn.class);
+        Call<Movie> call = apiConn.getMovieByIdFromApi(this.ID, API_KEY);
+        call.enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Call<Movie> call, Response<Movie> response) {
+                returnMovie = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable t) {
+
+            }
+        });
+
+        return returnMovie;
     }
 }
