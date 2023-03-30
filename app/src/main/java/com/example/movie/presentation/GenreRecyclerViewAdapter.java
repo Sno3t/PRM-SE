@@ -44,7 +44,7 @@ public class GenreRecyclerViewAdapter extends RecyclerView.Adapter<GenreRecycler
         holder.movieRecylerView.setAdapter(new MovieInGenreRecyclerViewAdapter(context, movies, genreStrings.get(position)));
         holder.movieRecylerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.movieRecylerView.setHasFixedSize(true);
-        if(movies != null) {
+        if (movies != null) {
             holder.genre.setText(genreStrings.get(position));
         }
 

@@ -25,7 +25,7 @@
             android:name=".presentation.MovieDetailsActivity"
             android:exported="false"
             android:parentActivityName=".presentation.MainActivity" />
-        
+
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">

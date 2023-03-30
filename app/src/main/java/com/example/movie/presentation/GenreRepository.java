@@ -9,6 +9,7 @@ import com.example.movie.domain.Genre;
 import com.example.movie.domain.GenreResponse;
 import com.example.movie.domain.JsonResponse;
 import com.example.movie.domain.Movie;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class GenreRepository {
                 JsonResponse movieJsonResponse = response.body();
                 List<Movie> moviesList = movieJsonResponse.getMovies();
 
-                for(Movie movie : moviesList) {
+                for (Movie movie : moviesList) {
                     Log.d(TAG, movie.getTitle());
                     int id = movie.getId();
                     String title = movie.getTitle();
@@ -81,7 +82,7 @@ public class GenreRepository {
             public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
                 GenreResponse genreResponse = response.body();
                 List<Genre> genresList = genreResponse.getGenres();
-                for(Genre genre : genresList) {
+                for (Genre genre : genresList) {
                     genres.add(genre.getName());
                     Log.i(TAG, "genre added: " + genre.getName() + ", " + genre.getId());
                 }

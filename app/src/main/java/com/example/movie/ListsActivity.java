@@ -30,7 +30,6 @@ public class ListsActivity extends AppCompatActivity implements
         if (genreSpinner != null) {
             genreSpinner.setAdapter(adapter);
         }
-
     }
 
     public void addNewList(View view) {

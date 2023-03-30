@@ -25,12 +25,12 @@ public class Movie {
     private String url;
     @SerializedName("overview")
     private String description;
-//    private String director;
+    //    private String director;
     @SerializedName("genres")
     private ArrayList<String> genre;
     @SerializedName("vote_average")
     private double userScore;
-//    private String cast;
+    //    private String cast;
     private String status;
     @SerializedName("spoken_languages")
     private String[] languages;
@@ -49,7 +49,7 @@ public class Movie {
                  int length, String url,
                  String description,
 //                 String director,
-                 ArrayList<String>  genre,
+                 ArrayList<String> genre,
                  double userScore,
 //                 String cast,
                  String status,
@@ -83,7 +83,7 @@ public class Movie {
     public Movie(String title, Date releaseDate,
                  String url,
                  String description,
-                 ArrayList<String>  genre,
+                 ArrayList<String> genre,
                  double userScore,
                  String[] language) throws ParseException {
         this.title = title;
@@ -144,7 +144,7 @@ public class Movie {
 //        this.director = director;
 //    }
 
-    public ArrayList<String>  getGenre() {
+    public ArrayList<String> getGenre() {
         return genre;
     }
 
@@ -152,9 +152,9 @@ public class Movie {
         this.genre = genre;
     }
 
-    public boolean containsGenre (String genreString){
-        if (genre.contains(genreString)){
-            return  true;
+    public boolean containsGenre(String genreString) {
+        if (genre.contains(genreString)) {
+            return true;
         }
         return false;
     }

@@ -8,5 +8,7 @@ public class JsonResponse {
     @SerializedName("results")
     private List<Movie> movies;
 
-    public List<Movie> getMovies() { return movies; }
+    public List<Movie> getMovies() {
+        return movies;
+    }
 }

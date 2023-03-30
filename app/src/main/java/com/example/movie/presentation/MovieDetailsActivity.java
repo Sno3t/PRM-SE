@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
 import com.example.movie.R;
+import com.example.movie.ReviewsActivity;
 import com.example.movie.domain.Movie;
 import com.example.movie.presentation.viemodel.MovieViewModel;
 //import com.squareup.picasso.Picasso;
@@ -82,15 +83,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
 //                mRating.setNumStars(movie.getUserScore()/2);
 //            }
 //        });
-
-
     }
 
     public void addToFav(View view) {
-        if(mFavButton.getColorFilter().equals(R.color.grey)) {
+        if (mFavButton.getColorFilter().equals(R.color.grey)) {
             mFavButton.setColorFilter(R.color.red);
             // Add to list functionality to be added
-        } else if(mFavButton.getColorFilter().equals(R.color.red)) {
+        } else if (mFavButton.getColorFilter().equals(R.color.red)) {
             mFavButton.setColorFilter(R.color.grey);
             // Remove from list functionality to be added
         } else {
@@ -100,7 +99,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     public void openReviews(View view) {
-//        Intent intent = new Intent(this, ReviewsActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, ReviewsActivity.class);
+        startActivity(intent);
     }
 }

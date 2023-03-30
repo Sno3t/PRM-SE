@@ -8,5 +8,7 @@ public class GenreResponse {
     @SerializedName("genres")
     private List<Genre> genres;
 
-    public List<Genre> getGenres() { return genres; }
+    public List<Genre> getGenres() {
+        return genres;
+    }
 }

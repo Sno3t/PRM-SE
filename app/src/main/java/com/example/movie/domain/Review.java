@@ -1,7 +1,6 @@
 package com.example.movie.domain;
 
 public class Review {
-
     private String content;
     private int rating;
     private Movie movie;
@@ -11,8 +10,6 @@ public class Review {
         this.rating = rating;
         this.movie = movie;
     }
-
-
     public String getContent() {
         return content;
     }

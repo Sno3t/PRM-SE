@@ -10,7 +10,7 @@ public interface APIConn {
             @Query("api_key") String apiKey,
             @Query("page") int page,
             @Query("with_genres") int genres
-            );
+    );
 
     @GET("/3/genre/movie/list")
     Call<GenreResponse> getGenres(@Query("api_key") String apiKey);

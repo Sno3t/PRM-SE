@@ -20,7 +20,6 @@ public class ReviewsActivity extends AppCompatActivity {
 
         newReview = findViewById(R.id.new_review_movie);
         ratingBar = findViewById(R.id.custom_rating_bar);
-
     }
 
     public void submitReview(View view) {

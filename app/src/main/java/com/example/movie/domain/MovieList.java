@@ -8,20 +8,20 @@ public class MovieList {
     private ArrayList<Movie> listMovies;
     private Date dateCreated;
 
-    public MovieList(String listName, ArrayList<Movie> listMovies, Date dateCreated){
+    public MovieList(String listName, ArrayList<Movie> listMovies, Date dateCreated) {
         this.listName = listName;
         this.listMovies = listMovies;
         this.dateCreated = dateCreated;
     }
 
-    public void AddToList(Movie newMovie){
-        if (!listMovies.contains(newMovie)){
+    public void AddToList(Movie newMovie) {
+        if (!listMovies.contains(newMovie)) {
             listMovies.add(newMovie);
         }
     }
 
-    public void RemoveFromList(Movie removeMovie){
-        if (!listMovies.contains(removeMovie)){
+    public void RemoveFromList(Movie removeMovie) {
+        if (!listMovies.contains(removeMovie)) {
             listMovies.remove(removeMovie);
         }
     }
