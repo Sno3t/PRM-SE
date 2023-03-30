@@ -4,13 +4,11 @@ public class Review {
 
     private String content;
     private int rating;
-    private User user;
     private Movie movie;
 
-    public Review(String content, int rating, User user, Movie movie) {
+    public Review(String content, int rating, Movie movie) {
         this.content = content;
         this.rating = rating;
-        this.user = user;
         this.movie = movie;
     }
 
@@ -29,14 +27,6 @@ public class Review {
 
     public void setRating(int rating) {
         this.rating = rating;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Movie getMovie() {
