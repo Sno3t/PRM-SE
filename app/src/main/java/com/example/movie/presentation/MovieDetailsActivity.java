@@ -15,7 +15,7 @@ import androidx.lifecycle.LiveData;
 import com.example.movie.R;
 import com.example.movie.domain.Movie;
 import com.example.movie.presentation.viemodel.MovieViewModel;
-import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Picasso;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
@@ -58,30 +58,30 @@ public class MovieDetailsActivity extends AppCompatActivity {
         int movieId = intent.getIntExtra("MEAL_ID", -1);
         MovieViewModel model = new MovieViewModel(getApplication());
 
-        LiveData<Movie> movieLiveData = model.getMovieById(movieId);
-
-        movieLiveData.observe(this, movie -> {
-            if(movie != null) {
-                mTitle.setText(movie.getTitle());
-                mReleaseDate.setText(String.valueOf(movie.getReleaseDate().getTime()));
-                StringBuilder genreBuilder = new StringBuilder();
-                for(int i = 0; i < movie.getGenre().size(); i++) {
-                    genreBuilder.append(movie.getGenre().get(i));
-                    if(i != movie.getGenre().size()) {
-                        genreBuilder.append(", ");
-                    }
-                }
-                mLanguage.setText(movie.getLanguage());
-                mDirector.setText(movie.getDirector());
-                mLength.setText(movie.getLength());
-                mDescription.setText(movie.getDescription());
-                mStatus.setText(movie.getStatus());
-                mBudget.setText(String.valueOf(movie.getBudget()));
-                mRevenue.setText(String.valueOf(movie.getRevenue()));
-                Picasso.get().load(movie.getUrl()).into(mImage);
-                mRating.setNumStars(movie.getUserScore()/2);
-            }
-        });
+//        LiveData<Movie> movieLiveData = model.getMovieById(movieId);
+//
+//        movieLiveData.observe(this, movie -> {
+//            if(movie != null) {
+//                mTitle.setText(movie.getTitle());
+//                mReleaseDate.setText(String.valueOf(movie.getReleaseDate().getTime()));
+//                StringBuilder genreBuilder = new StringBuilder();
+//                for(int i = 0; i < movie.getGenre().size(); i++) {
+//                    genreBuilder.append(movie.getGenre().get(i));
+//                    if(i != movie.getGenre().size()) {
+//                        genreBuilder.append(", ");
+//                    }
+//                }
+//                mLanguage.setText(movie.getLanguage());
+//                mDirector.setText(movie.getDirector());
+//                mLength.setText(movie.getLength());
+//                mDescription.setText(movie.getDescription());
+//                mStatus.setText(movie.getStatus());
+//                mBudget.setText(String.valueOf(movie.getBudget()));
+//                mRevenue.setText(String.valueOf(movie.getRevenue()));
+//                Picasso.get().load(movie.getUrl()).into(mImage);
+//                mRating.setNumStars(movie.getUserScore()/2);
+//            }
+//        });
 
 
     }
@@ -100,7 +100,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     public void openReviews(View view) {
-        Intent intent = new Intent(this, ReviewsActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, ReviewsActivity.class);
+//        startActivity(intent);
     }
 }
