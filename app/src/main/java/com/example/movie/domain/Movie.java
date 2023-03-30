@@ -4,11 +4,11 @@ package com.example.movie.domain;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Dictionary;
 
 @Entity(tableName = "movie")
 public class Movie {
@@ -16,29 +16,44 @@ public class Movie {
     @PrimaryKey
     private int id;
     private String title;
+    @SerializedName("release_date")
     private Date releaseDate;
+
+    @SerializedName("runtime")
     private int length;
+    @SerializedName("poster_path")
     private String url;
+    @SerializedName("overview")
     private String description;
-    private String director;
+//    private String director;
+    @SerializedName("genres")
     private ArrayList<String> genre;
-    private int userScore;
-    private String cast;
+    @SerializedName("vote_average")
+    private double userScore;
+//    private String cast;
     private String status;
-    private String language;
+    @SerializedName("spoken_languages")
+    private String[] languages;
     private double budget;
     private double revenue;
+
+    public Movie(int id, String title, String imageUrl, ArrayList<String> genres) {
+        this.id = id;
+        this.title = title;
+        this.url = imageUrl;
+        this.genre = genres;
+    }
 
     public Movie(int id,
                  String title, Date releaseDate,
                  int length, String url,
                  String description,
-                 String director,
+//                 String director,
                  ArrayList<String>  genre,
-                 int userScore,
-                 String cast,
+                 double userScore,
+//                 String cast,
                  String status,
-                 String language,
+                 String[] languages,
                  double budget,
                  double revenue) {
         this.id = id;
@@ -47,12 +62,12 @@ public class Movie {
         this.length = length;
         this.url = url;
         this.description = description;
-        this.director = director;
+        //this.director = director;
         this.genre = genre;
         this.userScore = userScore;
-        this.cast = cast;
+//        this.cast = cast;
         this.status = status;
-        this.language = language;
+        this.languages = languages;
         this.budget = budget;
         this.revenue = revenue;
     }
@@ -69,15 +84,15 @@ public class Movie {
                  String url,
                  String description,
                  ArrayList<String>  genre,
-                 int userScore,
-                 String language) throws ParseException {
+                 double userScore,
+                 String[] language) throws ParseException {
         this.title = title;
         this.releaseDate = releaseDate;
         this.url = url;
         this.description = description;
         this.genre = genre;
         this.userScore = userScore;
-        this.language = language;
+        this.languages = languages;
     }
 
 
@@ -121,13 +136,13 @@ public class Movie {
         this.description = description;
     }
 
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
+//    public String getDirector() {
+//        return director;
+//    }
+//
+//    public void setDirector(String director) {
+//        this.director = director;
+//    }
 
     public ArrayList<String>  getGenre() {
         return genre;
@@ -144,7 +159,7 @@ public class Movie {
         return false;
     }
 
-    public int getUserScore() {
+    public double getUserScore() {
         return userScore;
     }
 
@@ -152,13 +167,13 @@ public class Movie {
         this.userScore = userScore;
     }
 
-    public String getCast() {
-        return cast;
-    }
-
-    public void setCast(String cast) {
-        this.cast = cast;
-    }
+//    public String getCast() {
+//        return cast;
+//    }
+//
+//    public void setCast(String cast) {
+//        this.cast = cast;
+//    }
 
     public String getStatus() {
         return status;
@@ -168,12 +183,12 @@ public class Movie {
         this.status = status;
     }
 
-    public String getLanguage() {
-        return language;
+    public String[] getLanguage() {
+        return languages;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setLanguage(String[] language) {
+        this.languages = languages;
     }
 
     public double getBudget() {
