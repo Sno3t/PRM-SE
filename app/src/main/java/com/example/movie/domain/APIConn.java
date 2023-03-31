@@ -16,7 +16,7 @@ public interface APIConn {
     Call<GenreResponse> getGenres(@Query("api_key") String apiKey);
 
     @GET("/3/search/multi")
-    Call<Movie> getSearchResults(@Query("query") String query);
+    Call<JsonResponse> getSearchResults(@Query("api_key") String apiKey, @Query("query") String query);
 
 }
 

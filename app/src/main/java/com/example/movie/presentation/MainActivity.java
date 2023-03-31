@@ -57,10 +57,20 @@ public class MainActivity extends AppCompatActivity {
 
         nav = findViewById(R.id.bottom_navi_view);
 
-        SearchView simpleSearchView = (SearchView) findViewById(R.id.searchbar_movie); // inititate a search view
-        CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
+
+
 
 //        //---------------------------
+
+        SearchView simpleSearchView = (SearchView) findViewById(R.id.searchbar_movie); // inititate a search view
+        CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
+        RecyclerView recyclerView1 = findViewById(R.id.movie_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+
+
+
 //        searchBar.findViewById(R.id.searchbar_movie);
 //        searchBar.addTextChangedListener(new TextWatcher() {
 //            @Override
