@@ -19,12 +19,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     public static final String TAG = MainActivity.class.getSimpleName();
-    public static String BASE_URL = "https://api.themoviedb.org";
-    public static int PAGE = 1;
-    public static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
-    public static String GENRES = "action";
+
     BottomNavigationView nav;
     private GenreRecyclerViewAdapter mAdapter;
     public static ArrayList<Movie> movies = new ArrayList<>();

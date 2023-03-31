@@ -2,6 +2,7 @@ package com.example.movie.domain;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIConn {
@@ -15,5 +16,9 @@ public interface APIConn {
     @GET("/3/genre/movie/list")
     Call<GenreResponse> getGenres(@Query("api_key") String apiKey);
 
+    @GET("/3/movie/{movie_id}")
+    Call<MovieResponse> getMovieByIdFromApi(
+            @Path("movie_id") int movieId,
+            @Query("api_key") String apiKey);
 }
 

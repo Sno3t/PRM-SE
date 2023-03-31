@@ -4,11 +4,10 @@ import android.util.Log;
 
 import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Movie;
-import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Genre;
 import com.example.movie.domain.GenreResponse;
 import com.example.movie.domain.JsonResponse;
-import com.example.movie.domain.Movie;
+import com.example.movie.domain.MovieResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +20,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GenreRepository {
 
-    public static final String TAG = GenreRepository.class.getSimpleName();
+    private static final String TAG = GenreRepository.class.getSimpleName();
 
-    public static String BASE_URL = "https://api.themoviedb.org";
-    public static int PAGE = 1;
-    public static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
-    public static int GENRES;
-    public static ArrayList<Movie> movies = new ArrayList<>();
-    public static ArrayList<String> genres = new ArrayList<>();
+    private static String BASE_URL = "https://api.themoviedb.org";
+    private static int PAGE = 1;
+    private static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
+    private static int GENRES;
+    private static ArrayList<Movie> movies = new ArrayList<>();
+    private static ArrayList<String> genres = new ArrayList<>();
+    private static int ID;
+    private static Movie movieById;
 
     public ArrayList<Movie> getMoviesByGenre(int genre) {
         this.GENRES = genre;
@@ -99,48 +100,29 @@ public class GenreRepository {
         return genres;
     }
 
-    public int genreStringToId(int genreString) {
-        switch (genreString) {
-            case 0:
-                return 28;
-            case 1:
-                return 12;
-            case 2:
-                return 16;
-            case 3:
-                return 35;
-            case 4:
-                return 80;
-            case 5:
-                return 99;
-            case 6:
-                return 18;
-            case 7:
-                return 10751;
-            case 8:
-                return 14;
-            case 9:
-                return 36;
-            case 10:
-                return 27;
-            case 11:
-                return 10402;
-            case 12:
-                return 9648;
-            case 13:
-                return 10749;
-            case 14:
-                return 878;
-            case 15:
-                return 10770;
-            case 16:
-                return 53;
-            case 17:
-                return 10752;
-            case 18:
-                return 37;
-            default:
-                return -1;
-        }
+    public Movie getMovieById(int id) {
+        this.ID = id;
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+
+        APIConn apiConn = retrofit.create(APIConn.class);
+        Call<MovieResponse> call = apiConn.getMovieByIdFromApi(ID, API_KEY);
+
+        call.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                MovieResponse movieResponse = response.body();
+                movieById = movieResponse.getMovie();
+                Log.d(TAG, "getmoviebyid: " + movieById.getId());
+                Log.d(TAG, "Movie title: " + movieById.getTitle());
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                Log.e(TAG, "Error: " + t.toString());
+            }
+        });
+
+        return movieById;
     }
 }

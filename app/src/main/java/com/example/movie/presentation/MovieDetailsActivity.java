@@ -9,10 +9,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import com.example.movie.R;
+import com.example.movie.domain.Movie;
 import com.example.movie.presentation.viemodel.MovieViewModel;
-//import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Picasso;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
@@ -52,33 +55,30 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mRating = findViewById(R.id.movie_detail_rating);
 
         Intent intent = getIntent();
-        int movieId = intent.getIntExtra("MEAL_ID", -1);
+        int movieId = intent.getIntExtra("MOVIE_ID", 2);
         MovieViewModel model = new MovieViewModel(getApplication());
 
-//        LiveData<Movie> movieLiveData = model.getMovieById(movieId);
-//
-//        movieLiveData.observe(this, movie -> {
-//            if(movie != null) {
-//                mTitle.setText(movie.getTitle());
-//                mReleaseDate.setText(String.valueOf(movie.getReleaseDate().getTime()));
-//                StringBuilder genreBuilder = new StringBuilder();
-//                for(int i = 0; i < movie.getGenre().size(); i++) {
-//                    genreBuilder.append(movie.getGenre().get(i));
-//                    if(i != movie.getGenre().size()) {
-//                        genreBuilder.append(", ");
-//                    }
+        Movie movie = model.getMovieById(movieId);
+        if(movie != null) {
+            mTitle.setText(movie.getTitle());
+//            mReleaseDate.setText(String.valueOf(movie.getReleaseDate().getTime()));
+//            StringBuilder genreBuilder = new StringBuilder();
+//            for(int i = 0; i < movie.getGenre().size(); i++) {
+//                genreBuilder.append(movie.getGenre().get(i));
+//                if(i != movie.getGenre().size()) {
+//                    genreBuilder.append(", ");
 //                }
-//                mLanguage.setText(movie.getLanguage());
-//                mDirector.setText(movie.getDirector());
-//                mLength.setText(movie.getLength());
-//                mDescription.setText(movie.getDescription());
-//                mStatus.setText(movie.getStatus());
-//                mBudget.setText(String.valueOf(movie.getBudget()));
-//                mRevenue.setText(String.valueOf(movie.getRevenue()));
-//                Picasso.get().load(movie.getUrl()).into(mImage);
-//                mRating.setNumStars(movie.getUserScore()/2);
 //            }
-//        });
+//            mLanguage.setText(movie.getLanguage()[1]);
+//            //mDirector.setText(movie.getDirector());
+//            mLength.setText(movie.getLength());
+//            mDescription.setText(movie.getDescription());
+//            mStatus.setText(movie.getStatus());
+//            mBudget.setText(String.valueOf(movie.getBudget()));
+//            mRevenue.setText(String.valueOf(movie.getRevenue()));
+//            Picasso.get().load(movie.getUrl()).into(mImage);
+//            mRating.setNumStars((int) Math.round(movie.getUserScore()/2));
+        }
     }
 
     public void addToFav(View view) {

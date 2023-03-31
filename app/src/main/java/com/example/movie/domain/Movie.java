@@ -37,6 +37,12 @@ public class Movie {
     private double budget;
     private double revenue;
 
+    public Movie(int id, String title, String imageUrl) {
+        this.id = id;
+        this.title = title;
+        this.url = imageUrl;
+    }
+
     public Movie(int id, String title, String imageUrl, ArrayList<String> genres) {
         this.id = id;
         this.title = title;
