@@ -2,6 +2,8 @@ package com.example.movie.presentation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,23 +11,46 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.movie.R;
+import com.example.movie.dal.GenreRepository;
+import com.example.movie.dal.ListRepository;
+import com.example.movie.domain.Genre;
+import com.example.movie.domain.Movie;
+import com.example.movie.domain.MovieList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 public class ListsActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
 
+
     private Spinner genreSpinner;
     private BottomNavigationView nav;
+
+    private ArrayList<MovieList> lists = new ArrayList<>();
+    private ListRepository repo = new ListRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
 
+        // get lists
+        lists = new ArrayList<MovieList>();
+        lists = repo.GetLists();
+
+        // TEmp ____
+        MovieList newml = new MovieList("Listname");
+        newml.AddToList(new Movie(0,"Movie title", "", new ArrayList<String>()));
+        lists.add(newml);
+        // ____
+
+        // Spinner
         genreSpinner = findViewById(R.id.filter_spinner);
         if (genreSpinner != null) {
             genreSpinner.setOnItemSelectedListener(this);
@@ -34,11 +59,17 @@ public class ListsActivity extends AppCompatActivity implements
                 R.array.genre_filter, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource
                 (android.R.layout.simple_spinner_dropdown_item);
+
         if (genreSpinner != null) {
             genreSpinner.setAdapter(adapter);
         }
 
-
+        // Recyclerview
+        ListActivityViewAdapter listAdapter = new ListActivityViewAdapter(this, lists);
+        RecyclerView recyclerView = findViewById(R.id.lists_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(listAdapter);
 
         nav = findViewById(R.id.bottom_navi_view);
 
@@ -71,6 +102,15 @@ public class ListsActivity extends AppCompatActivity implements
 
     public void addNewList(View view) {
         Toast.makeText(this, "Add New List (Not available in Demo)", Toast.LENGTH_SHORT).show();
+
+        MovieList newml = new MovieList("");
+        newml.AddToList(new Movie(0,"Movie title", "", new ArrayList<String>()));
+
+        // Check if list isn't null, add to API
+
+        lists.add(newml);
+
+
     }
 
     @Override

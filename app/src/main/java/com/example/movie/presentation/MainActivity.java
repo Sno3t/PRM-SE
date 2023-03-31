@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie.R;
+import com.example.movie.dal.GenreRepository;
 import com.example.movie.domain.Movie;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public static String BASE_URL = "https://api.themoviedb.org";
     public static int PAGE = 1;
     public static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
+    public static String SESSION_ID = "9cf20bea798469635e4210f5c24d719cf3864e0d";
     public static String GENRES = "action";
     BottomNavigationView nav;
     private GenreRecyclerViewAdapter mAdapter;

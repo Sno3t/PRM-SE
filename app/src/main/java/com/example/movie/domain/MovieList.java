@@ -14,6 +14,12 @@ public class MovieList {
         this.dateCreated = dateCreated;
     }
 
+    public MovieList(String listName){
+        this.listName = listName;
+        this.listMovies = new ArrayList<>();
+        this.dateCreated = new Date();
+    }
+
     public void AddToList(Movie newMovie) {
         if (!listMovies.contains(newMovie)) {
             listMovies.add(newMovie);
@@ -40,5 +46,9 @@ public class MovieList {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public ArrayList<Movie> getMovielist(){
+        return listMovies;
     }
 }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie.R;
+import com.example.movie.dal.GenreRepository;
 import com.example.movie.domain.Movie;
 
 import java.util.ArrayList;
