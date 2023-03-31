@@ -42,21 +42,26 @@ public class SearchResultsRepository {
                 JsonResponse movieJsonResponse = response.body();
                 List<Movie> moviesList = movieJsonResponse.getMovies();
 
-                for (Movie movie : moviesList) {
-                    Log.d(TAG, movie.getTitle());
-                    int id = movie.getId();
-                    String title = movie.getTitle();
-                    String url = movie.getUrl();
-                    ArrayList<String> genres = new ArrayList<>();
-                    genres = movie.getGenre();
+                if (moviesList.isEmpty()) {
+                    for (Movie movie : moviesList) {
+                        Log.d(TAG, movie.getTitle());
+                        int id = movie.getId();
+                        String title = movie.getTitle();
+                        String url = movie.getUrl();
+                        ArrayList<String> genres = new ArrayList<>();
+                        genres = movie.getGenre();
 
-                    Movie newMovie = new Movie(id, title, url, genres);
-                    movies.add(newMovie);
+                        Movie newMovie = new Movie(id, title, url, genres);
+                        movies.add(newMovie);
+                    }
+
+                    Log.d(TAG, "done searching for movies with query, " + movies.size());
+                    Log.d(TAG, movies.toString());
+                } else {
+                    Log.d(TAG, "No results");
                 }
-
-                Log.d(TAG, "done searching for movies with query, " + movies.size());
-                Log.d(TAG, movies.toString());
             }
+
 
             @Override
             public void onFailure(Call<JsonResponse> call, Throwable t) {

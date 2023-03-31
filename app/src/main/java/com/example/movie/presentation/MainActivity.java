@@ -3,8 +3,6 @@ package com.example.movie.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.SearchView;
@@ -31,44 +29,49 @@ public class MainActivity extends AppCompatActivity {
     public static String GENRES = "action";
     BottomNavigationView nav;
     TextView searchBar;
-    private GenreRecyclerViewAdapter mAdapter;
+    private GenreRecyclerViewAdapter genreRecyclerViewAdapter;
+    private SearchResultsRecyclerViewAdapter searchResultsRecyclerViewAdapter;
     public static ArrayList<Movie> movies = new ArrayList<>();
+    public static ArrayList<Movie> searchResults = new ArrayList<>();
     public static ArrayList<String> genres = new ArrayList<>();
     private GenreRepository genreRepo = new GenreRepository();
+    private SearchResultsRepository searchResultRepo = new SearchResultsRepository();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        movies = genreRepo.getMoviesByGenre(18);
-        genres = genreRepo.getGenres();
-
-        setContentView(R.layout.activity_main);
-        // Initialize the RecyclerView.
-        RecyclerView recyclerView = findViewById(R.id.movie_recyclerview);
-
-        // Set the layout manager to the recyclerview
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        mAdapter = new GenreRecyclerViewAdapter(this, movies, genres);
-        mAdapter.setGenres(genres);
-        recyclerView.setAdapter(mAdapter);
+//        movies = genreRepo.getMoviesByGenre(18);
+//        genres = genreRepo.getGenres();
+//
+//        setContentView(R.layout.activity_main);
+//        // Initialize the RecyclerView.
+//        RecyclerView recyclerView = findViewById(R.id.movie_recyclerview);
+//
+//        // Set the layout manager to the recyclerview
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setHasFixedSize(true);
+//        genreRecyclerViewAdapter = new GenreRecyclerViewAdapter(this, movies, genres);
+//        genreRecyclerViewAdapter.setGenres(genres);
+//        recyclerView.setAdapter(genreRecyclerViewAdapter);
 
         nav = findViewById(R.id.bottom_navi_view);
 
 
-
-
 //        //---------------------------
 
+
         SearchView simpleSearchView = (SearchView) findViewById(R.id.searchbar_movie); // inititate a search view
-        CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
-        RecyclerView recyclerView1 = findViewById(R.id.movie_recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
 
+//        CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
+        searchResults = searchResultRepo.getSearchResults("batman");
 
+        RecyclerView searchResultsRecyclerView = findViewById(R.id.movie_recyclerview);
+        searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        searchResultsRecyclerView.setHasFixedSize(true);
+        searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(this, searchResults);
+        searchResultsRecyclerView.setAdapter(searchResultsRecyclerViewAdapter);
 
 
 //        searchBar.findViewById(R.id.searchbar_movie);
@@ -92,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
 //        Intent intent = new Intent(MainActivity.this, MainActivity.class);
 ////        startActivity(intent);
 //        //---------------------------
-
-
 
 
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

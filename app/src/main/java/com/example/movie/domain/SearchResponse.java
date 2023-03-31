@@ -6,9 +6,9 @@ import java.util.List;
 
 public class SearchResponse {
     @SerializedName("searchResults")
-    private List<Movie> movies;
+    private List<Movie> searchResults;
 
-    public List<Movie> getMovies() {
-        return movies;
+    public List<Movie> getSearchResults() {
+        return searchResults;
     }
 }
