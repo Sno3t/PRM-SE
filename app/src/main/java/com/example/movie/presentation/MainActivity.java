@@ -3,8 +3,12 @@ package com.example.movie.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
     public static String GENRES = "action";
     BottomNavigationView nav;
+    TextView searchBar;
     private GenreRecyclerViewAdapter mAdapter;
     public static ArrayList<Movie> movies = new ArrayList<>();
     public static ArrayList<String> genres = new ArrayList<>();
@@ -51,6 +56,35 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
 
         nav = findViewById(R.id.bottom_navi_view);
+
+        SearchView simpleSearchView = (SearchView) findViewById(R.id.searchbar_movie); // inititate a search view
+        CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
+
+//        //---------------------------
+//        searchBar.findViewById(R.id.searchbar_movie);
+//        searchBar.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                // Show results of api in view
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+//        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+////        startActivity(intent);
+//        //---------------------------
+
+
+
 
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
