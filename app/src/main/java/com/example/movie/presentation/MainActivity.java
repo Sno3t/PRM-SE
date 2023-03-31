@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.settings_nav_btn:
                         intent = new Intent(MainActivity.this, SettingsActivity.class);
+                        startActivity(intent);
                         Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.lists_nav_btn:
