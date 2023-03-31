@@ -6,6 +6,7 @@ import com.example.movie.domain.APIConn;
 import com.example.movie.domain.MovieList;
 import com.example.movie.domain.responses.JsonResponse;
 import com.example.movie.domain.responses.ListResponse;
+import com.example.movie.domain.responses.MovieListResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,10 @@ public class ListRepository {
     public static String BASE_URL = "https://api.themoviedb.org";
     public static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
     public static String SESSION_ID = "9cf20bea798469635e4210f5c24d719cf3864e0d";
+    public static String BEARER_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmM2MzNjVkNDUxOTU5NzkwNTdiYTQwNzUyZDVmMzdhYyIsInN1YiI6IjY0MWFlZDkyNjg4Y2QwMDA4NTc3MzM3ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.hdsawzjinEBHJZyn7A62wxMjOkOH4SRvs72I7qtQP84";
 
     public static ArrayList<MovieList> lists = new ArrayList<>();
+    public static List<Integer> listids = new ArrayList<>();
 
     public ArrayList<MovieList> GetLists(){
         Retrofit retrofit = new Retrofit.Builder()
@@ -30,24 +33,16 @@ public class ListRepository {
 
         APIConn apiConn = retrofit.create(APIConn.class);
 
-        Call<ListResponse> call = apiConn.getLists(API_KEY, SESSION_ID);
+        Call<ListResponse> call = apiConn.getListID(API_KEY, SESSION_ID);
 
+        // Get list ids
         call.enqueue(new Callback<ListResponse>() {
             @Override
             public void onResponse(Call<ListResponse> call, Response<ListResponse> response) {
                 ListResponse listJsonResponse = response.body();
-                List<MovieList> listresponse = listJsonResponse.GetLists();
 
-                for (MovieList ml : listresponse){
-                    lists.add(
-                            new MovieList(
-                                    ml.getListName(),
-                                    ml.getMovielist(),
-                                    ml.getDateCreated()
-                            )
-                    );
-                    Log.i(TAG, "amount of lists: " + lists.size());
-                }
+                // Get list of listids
+                listids = listJsonResponse.GetLists();
             }
 
             @Override
@@ -55,6 +50,42 @@ public class ListRepository {
                 Log.e(TAG, "Error: " + t.toString());
             }
         });
+
+        // Get details of all list ids
+        // Error in api, returns 0 lists
+        for (Integer id: listids) {
+            Call<MovieListResponse> calllists = apiConn.getLists(BEARER_TOKEN, id);
+
+            calllists.enqueue(new Callback<MovieListResponse>() {
+                @Override
+                public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
+                    // Get details of lists
+                    MovieListResponse mlresponse = response.body();
+
+
+                    // Place in class
+                    lists.add(
+                        new MovieList(
+                                mlresponse.GetName(),
+                                mlresponse.GetMovies(),
+                                mlresponse.GetDesc()
+                        )
+                    );
+
+
+                }
+
+                @Override
+                public void onFailure(Call<MovieListResponse> call, Throwable t) {
+                    Log.e(TAG, "Error: " + t.toString());
+                }
+            });
+            Log.i(TAG, "amount of lists: " + lists.size());
+        }
+
+
+
+
         return lists;
     };
 }

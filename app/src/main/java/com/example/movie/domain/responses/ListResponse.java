@@ -7,8 +7,23 @@ import java.util.ArrayList;
 
 public class ListResponse {
 
-    @SerializedName("lists")
-    private ArrayList<MovieList> lists;
+    @SerializedName("results")
+    private ArrayList<ListResponseObject> lists;
 
-    public ArrayList<MovieList> GetLists(){return lists;}
+    public ArrayList<Integer> GetLists(){
+        ArrayList<Integer> intlist = new ArrayList<>();
+
+        for (ListResponseObject obj: lists
+             ) {
+            intlist.add(obj.GetListid());
+        }
+
+        return intlist; }
+}
+
+class ListResponseObject{
+    @SerializedName("id")
+    private Integer listid;
+
+    public Integer GetListid(){return listid;}
 }

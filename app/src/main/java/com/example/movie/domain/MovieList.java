@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MovieList {
-    private String listName;
+    private String name;
     private ArrayList<Movie> listMovies;
-    private Date dateCreated;
+    private String description;
 
-    public MovieList(String listName, ArrayList<Movie> listMovies, Date dateCreated) {
-        this.listName = listName;
+    public MovieList(String name, ArrayList<Movie> listMovies, String description) {
+        this.name = name;
         this.listMovies = listMovies;
-        this.dateCreated = dateCreated;
+        this.description = description;
     }
 
-    public MovieList(String listName){
-        this.listName = listName;
+    public MovieList(String name, String description){
+        this.name = name;
         this.listMovies = new ArrayList<>();
-        this.dateCreated = new Date();
+        this.description = description;
     }
 
     public void AddToList(Movie newMovie) {
@@ -33,22 +33,23 @@ public class MovieList {
     }
 
     public String getListName() {
-        return listName;
+        return name;
     }
 
     public void setListName(String listName) {
-        this.listName = listName;
+        this.name = listName;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public String getDateCreated() {
+        return description;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDateCreated(String description) {
+        this.description = description;
     }
 
     public ArrayList<Movie> getMovielist(){
         return listMovies;
     }
 }
+

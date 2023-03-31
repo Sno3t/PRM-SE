@@ -44,12 +44,6 @@ public class ListsActivity extends AppCompatActivity implements
         lists = new ArrayList<MovieList>();
         lists = repo.GetLists();
 
-        // TEmp ____
-        MovieList newml = new MovieList("Listname");
-        newml.AddToList(new Movie(0,"Movie title", "", new ArrayList<String>()));
-        lists.add(newml);
-        // ____
-
         // Spinner
         genreSpinner = findViewById(R.id.filter_spinner);
         if (genreSpinner != null) {
@@ -103,7 +97,7 @@ public class ListsActivity extends AppCompatActivity implements
     public void addNewList(View view) {
         Toast.makeText(this, "Add New List (Not available in Demo)", Toast.LENGTH_SHORT).show();
 
-        MovieList newml = new MovieList("");
+        MovieList newml = new MovieList("", "");
         newml.AddToList(new Movie(0,"Movie title", "", new ArrayList<String>()));
 
         // Check if list isn't null, add to API
