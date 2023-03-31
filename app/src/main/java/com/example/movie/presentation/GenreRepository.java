@@ -4,11 +4,10 @@ import android.util.Log;
 
 import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Movie;
-import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Genre;
 import com.example.movie.domain.GenreResponse;
 import com.example.movie.domain.JsonResponse;
-import com.example.movie.domain.Movie;
+import com.example.movie.domain.MovieResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +20,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GenreRepository {
 
-    public static final String TAG = GenreRepository.class.getSimpleName();
+    private static final String TAG = GenreRepository.class.getSimpleName();
 
-    public static String BASE_URL = "https://api.themoviedb.org";
-    public static int PAGE = 1;
-    public static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
-    public static int GENRES;
-    public static int ID;
-    public static ArrayList<Movie> movies = new ArrayList<>();
-    public static ArrayList<String> genres = new ArrayList<>();
-    public static Movie returnMovie;
+    private static String BASE_URL = "https://api.themoviedb.org";
+    private static int PAGE = 1;
+    private static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
+    private static int GENRES;
+    private static ArrayList<Movie> movies = new ArrayList<>();
+    private static ArrayList<String> genres = new ArrayList<>();
+    private static int ID;
+    private static Movie movieById;
 
     public ArrayList<Movie> getMoviesByGenre(int genre) {
         this.GENRES = genre;
@@ -107,19 +106,23 @@ public class GenreRepository {
                 .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
 
         APIConn apiConn = retrofit.create(APIConn.class);
-        Call<Movie> call = apiConn.getMovieByIdFromApi(this.ID, API_KEY);
-        call.enqueue(new Callback<Movie>() {
+        Call<MovieResponse> call = apiConn.getMovieByIdFromApi(ID, API_KEY);
+
+        call.enqueue(new Callback<MovieResponse>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
-                returnMovie = response.body();
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                MovieResponse movieResponse = response.body();
+                movieById = movieResponse.getMovie();
+                Log.d(TAG, "getmoviebyid: " + movieById.getId());
+                Log.d(TAG, "Movie title: " + movieById.getTitle());
             }
 
             @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
-
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                Log.e(TAG, "Error: " + t.toString());
             }
         });
 
-        return returnMovie;
+        return movieById;
     }
 }

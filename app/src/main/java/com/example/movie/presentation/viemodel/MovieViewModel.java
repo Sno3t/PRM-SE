@@ -20,6 +20,6 @@ public class MovieViewModel extends AndroidViewModel {
     }
 
     public Movie getMovieById(int id) {
-        return repo.getMovieById(id);
+        return repo.getMovieById((id));
     }
 }
