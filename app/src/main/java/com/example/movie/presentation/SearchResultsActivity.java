@@ -1,6 +1,8 @@
 package com.example.movie.presentation;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.SearchView;
@@ -33,49 +35,67 @@ public class SearchResultsActivity extends AppCompatActivity {
         // Put results on the screen
 
         setContentView(R.layout.activity_results);
+        SearchView simpleSearchView = (SearchView) findViewById(R.id.searchbar_movie2); // inititate a search view
 
-//        SearchView simpleSearchView = (SearchView) findViewById(R.id.searchbar_movie2); // inititate a search view
-
-//        CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
-        searchResults = searchResultRepo.getSearchResults("batman");
-        Log.d(TAG, "aaaaaaaaaaaaa" + String.valueOf(searchResults.size()));
-
-        ArrayList<String> a = new ArrayList<String>();
-        searchResults.add(new Movie(1, "movie name", "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg", a));
-
-
-//        RecyclerView searchResultsRecyclerView = findViewById(R.id.searchbar_movie2);
         RecyclerView searchResultsRecyclerView = findViewById(R.id.search_result_movie_recyclerview);
-        searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(SearchResultsActivity.this));
         searchResultsRecyclerView.setHasFixedSize(true);
-        searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(this, searchResults);
-        searchResultsRecyclerView.setAdapter(searchResultsRecyclerViewAdapter);
 
+        final String[] previousQuery = {""};
+        simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Log.d(TAG, "onQueryTextSubmit");
+                Log.d(TAG, s);
 
-//        searchBar.findViewById(R.id.searchbar_movie);
-//        searchBar.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!s.equals(previousQuery[0])) {
+                    searchResults = searchResultRepo.getSearchResults(s);
+                    searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(SearchResultsActivity.this, searchResults);
+                    searchResultsRecyclerView.setAdapter(searchResultsRecyclerViewAdapter);
+
+                    previousQuery[0] = s;
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                Log.d(TAG, "onQueryTextChange");
+                Log.d(TAG, s);
+
+                if (!s.equals(previousQuery[0])) {
+                    searchResults = searchResultRepo.getSearchResults(s);
+
+                    searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(SearchResultsActivity.this, searchResults);
+                    searchResultsRecyclerView.setAdapter(searchResultsRecyclerViewAdapter);
+                    previousQuery[0] = s;
+                }
+
+                return true;
+            }
+        });
+    }
+}
+//                String query = simpleSearchView.getQuery().toString(); // get the query string currently in the text field
+//                searchResults = searchResultRepo.getSearchResults(s);
 //
-//            }
+//                RecyclerView searchResultsRecyclerView = findViewById(R.id.search_result_movie_recyclerview);
+//                searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(SearchResultsActivity.this));
+//                searchResultsRecyclerView.setHasFixedSize(true);
+//                searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(SearchResultsActivity.this, searchResults);
+//                searchResultsRecyclerView.setAdapter(searchResultsRecyclerViewAdapter);
 //
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                // Show results of api in view
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
+//                return true;
 //            }
 //        });
+
+//    }
+//}
 
 //        super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
 //        setSupportActionBar(toolbarHome)
 
-    }
 
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -104,5 +124,5 @@ public class SearchResultsActivity extends AppCompatActivity {
 ////        }
 //
 //    }
-}
+
 
