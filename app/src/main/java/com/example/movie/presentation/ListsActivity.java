@@ -56,13 +56,6 @@ public class ListsActivity extends AppCompatActivity implements
             genreSpinner.setAdapter(adapter);
         }
 
-        // Recyclerview
-        ListActivityViewAdapter listAdapter = new ListActivityViewAdapter(this, lists);
-        RecyclerView recyclerView = findViewById(R.id.lists_recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(listAdapter);
-
 
         // get lists
         lists = new ArrayList<MovieList>();
