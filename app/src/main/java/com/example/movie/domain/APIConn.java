@@ -26,7 +26,7 @@ public interface APIConn {
     @GET("/3/genre/movie/list")
     Call<GenreResponse> getGenres(@Query("api_key") String apiKey);
 
-    // List methods
+    // User list methods
     @GET("/4/list/{list_id}")
     Call<MovieListResponse> getLists(
             @Header("Authorization") String bearer_token,
@@ -39,36 +39,36 @@ public interface APIConn {
             @Query("session_id") String sessionID
     );
 
-    // Add new list
+    // Add new user list
     @POST("https://api.themoviedb.org/3/list")
     Call<ListResponse> createList(
             @Query("api_key") String apiKey,
             @Query("session_id") String sessionid,
             // https://stackoverflow.com/questions/21398598/how-to-post-raw-whole-json-in-the-body-of-a-retrofit-request
-            @Body() RequestBody rbody
+            @Body RequestBody rbody
     );
 
-    // Add movie to list
+    // Add movie to user list
     @POST("https://api.themoviedb.org/3/list/{list_id}/add_item")
     Call<ListResponse> addMovieToList(
             @Query("api_key") String apiKey,
             @Query("session_id") String sessionid,
             @Path("list_id") Integer path,
 
-            @Body() RequestBody rbody
+            @Body RequestBody rbody
     );
 
-    // Remove movie from list
+    // Remove movie from user list
     @POST("https://api.themoviedb.org/3/list/{list_id}/remove_item")
     Call<ListResponse> removeMovieFromList(
             @Query("api_key") String apiKey,
             @Query("session_id") String sessionid,
             @Path("list_id") Integer path,
 
-            @Body() RequestBody rbody
+            @Body RequestBody rbody
     );
 
-    // Remove list
+    // Remove user list
     @DELETE("https://api.themoviedb.org/3/list/{list_id}")
     Call<ListResponse> removeList(
             @Query("api_key") String apiKey,

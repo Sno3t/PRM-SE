@@ -15,7 +15,7 @@ import com.example.movie.presentation.ListActivityViewAdapter;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class ListRepoIBT extends AsyncTask<Void, Void, Void> {
+public class ListRepoIBT{
     private static WeakReference<Context> contextWR;
     private static WeakReference<RecyclerView> rViewWR;
 
@@ -32,10 +32,24 @@ public class ListRepoIBT extends AsyncTask<Void, Void, Void> {
         this.mList = new ArrayList<>();
     }
 
-    @Override
-    protected Void doInBackground(Void... voids) {
+    public void getAllUserLists() {
         repo.GetLists();
-        return null;
+    }
+
+    public void addUserList(String name, String description){
+        repo.AddUserList(name, description);
+    }
+
+    public void addMovieToList(){
+
+    }
+
+    public void removeMovieFromList(){
+
+    }
+
+    public void removeUserList(Integer id){
+        repo.RemoveUserList(id);
     }
 
     public static void SetMLList(ArrayList<MovieList> movieLists){

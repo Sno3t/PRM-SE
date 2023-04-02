@@ -42,13 +42,15 @@ public class ListActivityViewAdapter extends RecyclerView.Adapter<ListActivityVi
     @Override
     public void onBindViewHolder(@NonNull ListActivityViewAdapter.ListActivityViewHolder holder, int position) {
         MovieList ml = listml.get(position);
-        Movie firstmovie = ml.getMovielist().get(0);
+        if (ml.getMovielist().size() > 0){
+            Movie firstmovie = ml.getMovielist().get(0);
+
+            Glide.with(context)
+                    .load("https://image.tmdb.org/t/p/original" + firstmovie.getUrl())
+                    .into(holder.image);
+        }
 
         holder.listname.setText(ml.getListName());
-
-        Glide.with(context)
-                .load("https://image.tmdb.org/t/p/original" + firstmovie.getUrl())
-                .into(holder.image);
 
         holder.removebutton.setOnClickListener(new View.OnClickListener() {
             @Override

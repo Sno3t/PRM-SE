@@ -58,8 +58,8 @@ public class ListsActivity extends AppCompatActivity implements
 
 
         // get lists
-        lists = new ArrayList<MovieList>();
-        new ListRepoIBT(this, findViewById(R.id.lists_recyclerview)).execute();
+        ListRepoIBT listRepoIBT = new ListRepoIBT(this, findViewById(R.id.lists_recyclerview));
+        listRepoIBT.getAllUserLists();
 
 
         nav = findViewById(R.id.bottom_navi_view);
@@ -94,12 +94,11 @@ public class ListsActivity extends AppCompatActivity implements
     public void addNewList(View view) {
         Toast.makeText(this, "Add New List (Not available in Demo)", Toast.LENGTH_SHORT).show();
 
-        MovieList newml = new MovieList("", "");
-        newml.AddToList(new Movie(0,"Movie title", "", new ArrayList<String>()));
+        MovieList newml = new MovieList(6, "New List", "New Description");
 
         // Check if list isn't null, add to API
-
-        lists.add(newml);
+        ListRepoIBT listRepoIBT = new ListRepoIBT(this, findViewById(R.id.lists_recyclerview));
+        listRepoIBT.addUserList(newml.getListName(), newml.getDescription());
 
 
     }

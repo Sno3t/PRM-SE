@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MovieListResponse {
+    @SerializedName("id")
+    private Integer id;
     @SerializedName("name")
     private String mlname;
     @SerializedName("results")
@@ -16,7 +18,9 @@ public class MovieListResponse {
     @SerializedName("description")
     private String mldescription;
 
-
+    public Integer GetId(){
+        return id;
+    }
 
     public String GetName(){
         return mlname;

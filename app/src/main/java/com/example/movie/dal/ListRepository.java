@@ -1,5 +1,6 @@
 package com.example.movie.dal;
 
+import android.util.ArrayMap;
 import android.util.Log;
 
 import com.example.movie.domain.APIConn;
@@ -9,10 +10,15 @@ import com.example.movie.domain.responses.ListResponse;
 import com.example.movie.domain.responses.MovieListResponse;
 import com.example.movie.presentation.ListActivityViewAdapter;
 import com.example.movie.presentation.ListsActivity;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +35,7 @@ public class ListRepository {
     public static ArrayList<MovieList> lists = new ArrayList<>();
     public static List<Integer> listids = new ArrayList<>();
 
+    // Get all user lists
     public void GetLists(){
         lists.clear();
         listids.clear();
@@ -63,9 +70,10 @@ public class ListRepository {
                             // Place in class
                             lists.add(
                                 new MovieList(
-                                        mlresponse.GetName(),
-                                        mlresponse.GetMovies(),
-                                        mlresponse.GetDesc()
+                                    mlresponse.GetId(),
+                                    mlresponse.GetName(),
+                                    mlresponse.GetMovies(),
+                                    mlresponse.GetDesc()
                                 )
                             );
                             Log.i(TAG, "amount of lists: " + lists.size());
@@ -87,7 +95,75 @@ public class ListRepository {
             }
         });
 
-
         return;
     };
+
+    // Add user list
+    public void AddUserList(String name, String description){
+        // Setup json body
+        Map<String, Object> jsonparams = new ArrayMap<>();
+        jsonparams.put("name", name);
+        jsonparams.put("description", description);
+
+        // Create requestbody
+        RequestBody rbody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonparams)).toString());
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        APIConn apiConn = retrofit.create(APIConn.class);
+        Call<ListResponse> response = apiConn.createList(API_KEY, SESSION_ID, rbody);
+
+        response.enqueue(new Callback<ListResponse>() {
+            @Override
+            public void onResponse(Call<ListResponse> call, Response<ListResponse> response) {
+                Log.d("ALERT", "List created successfully");
+            }
+
+            @Override
+            public void onFailure(Call<ListResponse> call, Throwable t) {
+                Log.e(TAG, "Error: " + t.toString());
+            }
+        });
+
+
+        // Update lists
+        GetLists();
+        return;
+    }
+
+    // Add movie from user list
+    public void AddMovieToList(){
+
+    }
+
+    // Remove movie from user list
+    public void RemoveMovieFromList(){
+
+    }
+
+    // Remove user list
+    public void RemoveUserList(Integer listid){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+
+        APIConn apiConn = retrofit.create(APIConn.class);
+
+        Call<ListResponse> call = apiConn.removeList(API_KEY, SESSION_ID, listid);
+
+        call.enqueue(new Callback<ListResponse>() {
+            @Override
+            public void onResponse(Call<ListResponse> call, Response<ListResponse> response) {
+                Log.d("ALERT", "List removed successfully");
+            }
+
+            @Override
+            public void onFailure(Call<ListResponse> call, Throwable t) {
+                Log.e(TAG, "Error: " + t.toString());
+            }
+        });
+
+        // Update lists
+        GetLists();
+        return;
+    }
 }
