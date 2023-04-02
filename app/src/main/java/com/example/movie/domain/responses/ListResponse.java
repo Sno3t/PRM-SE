@@ -23,7 +23,7 @@ public class ListResponse {
 
 class ListResponseObject{
     @SerializedName("id")
-    private Integer listid;
+    private Integer id;
 
-    public Integer GetListid(){return listid;}
+    public Integer GetListid(){return id;}
 }

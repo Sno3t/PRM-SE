@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.movie.R;
 import com.example.movie.dal.GenreRepository;
+import com.example.movie.dal.ListRepoIBT;
 import com.example.movie.dal.ListRepository;
 import com.example.movie.domain.Genre;
 import com.example.movie.domain.Movie;
@@ -32,7 +33,7 @@ public class ListsActivity extends AppCompatActivity implements
     private Spinner genreSpinner;
     private BottomNavigationView nav;
 
-    private ArrayList<MovieList> lists = new ArrayList<>();
+    public ArrayList<MovieList> lists = new ArrayList<>();
     private ListRepository repo = new ListRepository();
 
     @Override
@@ -40,9 +41,6 @@ public class ListsActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
 
-        // get lists
-        lists = new ArrayList<MovieList>();
-        lists = repo.GetLists();
 
         // Spinner
         genreSpinner = findViewById(R.id.filter_spinner);
@@ -64,6 +62,12 @@ public class ListsActivity extends AppCompatActivity implements
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(listAdapter);
+
+
+        // get lists
+        lists = new ArrayList<MovieList>();
+        new ListRepoIBT(this, findViewById(R.id.lists_recyclerview)).execute();
+
 
         nav = findViewById(R.id.bottom_navi_view);
 
