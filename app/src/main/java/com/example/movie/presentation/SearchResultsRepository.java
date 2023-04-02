@@ -55,10 +55,10 @@ public class SearchResultsRepository {
                         movies.add(newMovie);
                     }
 
-                    Log.d(TAG, "done searching for movies with query, " + movies.size());
+                    Log.i(TAG, "Done searching for movies with query, " + movies.size());
                     Log.d(TAG, movies.toString());
                 } else {
-                    Log.d(TAG, "No results aaa");
+                    Log.d(TAG, "No results for search with query");
                 }
             }
 

@@ -1,8 +1,10 @@
 package com.example.movie.presentation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.SearchView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,15 +13,18 @@ import com.example.movie.R;
 import com.example.movie.domain.Movie;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SearchResultsActivity extends AppCompatActivity {
 
+    public static final String TAG = SearchResultsActivity.class.getSimpleName();
     public static ArrayList<Movie> movies = new ArrayList<>();
     EditText mEdit;
 
     public static ArrayList<Movie> searchResults = new ArrayList<>();
     private SearchResultsRepository searchResultRepo = new SearchResultsRepository();
     private SearchResultsRecyclerViewAdapter searchResultsRecyclerViewAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,13 +33,16 @@ public class SearchResultsActivity extends AppCompatActivity {
         // Put results on the screen
 
         setContentView(R.layout.activity_results);
-//        mEdit = (EditText) findViewById(R.id.searchbar_movie2);
-
 
 //        SearchView simpleSearchView = (SearchView) findViewById(R.id.searchbar_movie2); // inititate a search view
 
 //        CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
         searchResults = searchResultRepo.getSearchResults("batman");
+        Log.d(TAG, "aaaaaaaaaaaaa" + String.valueOf(searchResults.size()));
+
+        ArrayList<String> a = new ArrayList<String>();
+        searchResults.add(new Movie(1, "movie name", "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg", a));
+
 
 //        RecyclerView searchResultsRecyclerView = findViewById(R.id.searchbar_movie2);
         RecyclerView searchResultsRecyclerView = findViewById(R.id.search_result_movie_recyclerview);
