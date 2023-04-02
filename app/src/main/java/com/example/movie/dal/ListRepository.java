@@ -132,13 +132,67 @@ public class ListRepository {
     }
 
     // Add movie from user list
-    public void AddMovieToList(){
+    public void AddMovieToList(Integer listid, Integer movieid){
+        // Setup json body
+        Map<String, Object> jsonparams = new ArrayMap<>();
+        jsonparams.put("media_id", movieid);
 
+        // Create requestbody
+        RequestBody rbody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonparams)).toString());
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        APIConn apiConn = retrofit.create(APIConn.class);
+        Call<ListResponse> response = apiConn.addMovieToList(API_KEY, SESSION_ID, listid, rbody);
+
+        response.enqueue(new Callback<ListResponse>() {
+            @Override
+            public void onResponse(Call<ListResponse> call, Response<ListResponse> response) {
+                Log.d("ALERT", "Movie added to list successfully");
+            }
+
+            @Override
+            public void onFailure(Call<ListResponse> call, Throwable t) {
+                Log.e(TAG, "Error: " + t.toString());
+            }
+        });
+
+
+        // Update lists
+        GetLists();
+        return;
     }
 
     // Remove movie from user list
-    public void RemoveMovieFromList(){
+    public void RemoveMovieFromList(Integer listid, Integer movieid){
+        // Setup json body
+        Map<String, Object> jsonparams = new ArrayMap<>();
+        jsonparams.put("media_id", movieid);
 
+        // Create requestbody
+        RequestBody rbody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonparams)).toString());
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        APIConn apiConn = retrofit.create(APIConn.class);
+        Call<ListResponse> response = apiConn.removeMovieFromList(API_KEY, SESSION_ID, listid, rbody);
+
+        response.enqueue(new Callback<ListResponse>() {
+            @Override
+            public void onResponse(Call<ListResponse> call, Response<ListResponse> response) {
+                Log.d("ALERT", "Movie removed from list successfully");
+            }
+
+            @Override
+            public void onFailure(Call<ListResponse> call, Throwable t) {
+                Log.e(TAG, "Error: " + t.toString());
+            }
+        });
+
+
+        // Update lists
+        GetLists();
+        return;
     }
 
     // Remove user list

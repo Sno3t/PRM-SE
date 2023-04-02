@@ -40,12 +40,12 @@ public class ListRepoIBT{
         repo.AddUserList(name, description);
     }
 
-    public void addMovieToList(){
-
+    public void addMovieToList(Integer listid, Integer movieid){
+        repo.AddMovieToList(listid, movieid);
     }
 
-    public void removeMovieFromList(){
-
+    public void removeMovieFromList(Integer listid, Integer movieid){
+        repo.RemoveMovieFromList(listid, movieid);
     }
 
     public void removeUserList(Integer id){
