@@ -2,6 +2,9 @@ package com.example.movie.presentation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +16,19 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.movie.R;
+import com.example.movie.domain.Movie;
+import com.example.movie.domain.MovieList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 public class ListsActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
 
     private Spinner genreSpinner;
     private BottomNavigationView nav;
+    private ListsRecyclerViewAdapter mAdapter;
+    private ArrayList<MovieList> lists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +76,22 @@ public class ListsActivity extends AppCompatActivity implements
                 return false;
             }
         });
+
+
+        // Initialize the RecyclerView.
+        RecyclerView recyclerView = findViewById(R.id.lists_recyclerview);
+
+        // Set the layout manager to the recyclerview
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setHasFixedSize(true);
+        mAdapter = new ListsRecyclerViewAdapter(this, lists);
+        recyclerView.setAdapter(mAdapter);
+
     }
 
     public void addNewList(View view) {
+//        lists.add(new MovieList())
+
         Toast.makeText(this, "Add New List (Not available in Demo)", Toast.LENGTH_SHORT).show();
     }
 
