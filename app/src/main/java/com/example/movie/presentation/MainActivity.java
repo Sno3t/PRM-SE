@@ -42,19 +42,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        movies = genreRepo.getMoviesByGenre(18);
-//        genres = genreRepo.getGenres();
-//
-//        setContentView(R.layout.activity_main);
-//        // Initialize the RecyclerView.
-//        RecyclerView recyclerView = findViewById(R.id.movie_recyclerview);
-//
-//        // Set the layout manager to the recyclerview
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setHasFixedSize(true);
-//        genreRecyclerViewAdapter = new GenreRecyclerViewAdapter(this, movies, genres);
-//        genreRecyclerViewAdapter.setGenres(genres);
-//        recyclerView.setAdapter(genreRecyclerViewAdapter);
+        Intent intent;
+        intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+        startActivity(intent);
+
+        movies = genreRepo.getMoviesByGenre(18);
+        genres = genreRepo.getGenres();
+
+        setContentView(R.layout.activity_main);
+        // Initialize the RecyclerView.
+        RecyclerView recyclerView = findViewById(R.id.movie_recyclerview);
+
+        // Set the layout manager to the recyclerview
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        genreRecyclerViewAdapter = new GenreRecyclerViewAdapter(this, movies, genres);
+        genreRecyclerViewAdapter.setGenres(genres);
+        recyclerView.setAdapter(genreRecyclerViewAdapter);
 
         nav = findViewById(R.id.bottom_navi_view);
 
@@ -62,16 +66,16 @@ public class MainActivity extends AppCompatActivity {
 //        //---------------------------
 
 
-        SearchView simpleSearchView = (SearchView) findViewById(R.id.searchbar_movie); // inititate a search view
+//        SearchView simpleSearchView = (SearchView) findViewById(R.id.searchbar_movie); // inititate a search view
 
 //        CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
-        searchResults = searchResultRepo.getSearchResults("batman");
+//        searchResults = searchResultRepo.getSearchResults("batman");
 
-        RecyclerView searchResultsRecyclerView = findViewById(R.id.movie_recyclerview);
-        searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        searchResultsRecyclerView.setHasFixedSize(true);
-        searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(this, searchResults);
-        searchResultsRecyclerView.setAdapter(searchResultsRecyclerViewAdapter);
+//        RecyclerView searchResultsRecyclerView = findViewById(R.id.movie_recyclerview);
+//        searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        searchResultsRecyclerView.setHasFixedSize(true);
+//        searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(this, searchResults);
+//        searchResultsRecyclerView.setAdapter(searchResultsRecyclerViewAdapter);
 
 
 //        searchBar.findViewById(R.id.searchbar_movie);

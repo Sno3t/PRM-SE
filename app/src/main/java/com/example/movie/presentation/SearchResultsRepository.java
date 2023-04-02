@@ -39,12 +39,12 @@ public class SearchResultsRepository {
         call.enqueue(new Callback<JsonResponse>() {
             @Override
             public void onResponse(Call<JsonResponse> call, Response<JsonResponse> response) {
+
+
                 JsonResponse movieJsonResponse = response.body();
                 List<Movie> moviesList = movieJsonResponse.getMovies();
-
-                if (moviesList.isEmpty()) {
+                if (!moviesList.isEmpty()) {
                     for (Movie movie : moviesList) {
-                        Log.d(TAG, movie.getTitle());
                         int id = movie.getId();
                         String title = movie.getTitle();
                         String url = movie.getUrl();
@@ -58,7 +58,7 @@ public class SearchResultsRepository {
                     Log.d(TAG, "done searching for movies with query, " + movies.size());
                     Log.d(TAG, movies.toString());
                 } else {
-                    Log.d(TAG, "No results");
+                    Log.d(TAG, "No results aaa");
                 }
             }
 

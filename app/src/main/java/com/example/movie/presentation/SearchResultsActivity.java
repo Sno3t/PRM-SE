@@ -2,8 +2,10 @@ package com.example.movie.presentation;
 
 import android.os.Bundle;
 import android.widget.EditText;
-
+import android.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie.R;
 import com.example.movie.domain.Movie;
@@ -15,6 +17,9 @@ public class SearchResultsActivity extends AppCompatActivity {
     public static ArrayList<Movie> movies = new ArrayList<>();
     EditText mEdit;
 
+    public static ArrayList<Movie> searchResults = new ArrayList<>();
+    private SearchResultsRepository searchResultRepo = new SearchResultsRepository();
+    private SearchResultsRecyclerViewAdapter searchResultsRecyclerViewAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +27,41 @@ public class SearchResultsActivity extends AppCompatActivity {
         // Upon entering something put that information through api search (keydown event)
         // Put results on the screen
 
-        setContentView(R.layout.activity_main);
-        mEdit = (EditText) findViewById(R.id.searchbar_movie);
+        setContentView(R.layout.activity_results);
+//        mEdit = (EditText) findViewById(R.id.searchbar_movie2);
+
+
+//        SearchView simpleSearchView = (SearchView) findViewById(R.id.searchbar_movie2); // inititate a search view
+
+//        CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
+        searchResults = searchResultRepo.getSearchResults("batman");
+
+//        RecyclerView searchResultsRecyclerView = findViewById(R.id.searchbar_movie2);
+        RecyclerView searchResultsRecyclerView = findViewById(R.id.search_result_movie_recyclerview);
+        searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        searchResultsRecyclerView.setHasFixedSize(true);
+        searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(this, searchResults);
+        searchResultsRecyclerView.setAdapter(searchResultsRecyclerViewAdapter);
+
+
+//        searchBar.findViewById(R.id.searchbar_movie);
+//        searchBar.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                // Show results of api in view
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
 
 //        super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
