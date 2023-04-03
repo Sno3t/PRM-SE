@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,7 +58,7 @@ public class ListRepoIBT{
 
         ListActivityViewAdapter listAdapter = new ListActivityViewAdapter(contextWR.get(), mList);
         RecyclerView recyclerView = rViewWR.get();
-        recyclerView.setLayoutManager(new LinearLayoutManager(contextWR.get()));
+        recyclerView.setLayoutManager(new GridLayoutManager(contextWR.get(), 2));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(listAdapter);
     }
