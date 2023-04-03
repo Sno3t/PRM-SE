@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
 import com.example.movie.R;
+import com.example.movie.domain.GenreRepoIBT;
 import com.example.movie.domain.Movie;
 import com.example.movie.presentation.viemodel.MovieViewModel;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Picasso;
+
 
 public class MovieDetailsActivity extends AppCompatActivity {
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
@@ -54,13 +54,23 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mAddToListButton = findViewById(R.id.add_to_list_btn);
         mRating = findViewById(R.id.movie_detail_rating);
 
+
         Intent intent = getIntent();
         int movieId = intent.getIntExtra("MOVIE_ID", 2);
-        MovieViewModel model = new MovieViewModel(getApplication());
 
-        Movie movie = model.getMovieById(movieId);
-        if(movie != null) {
-            mTitle.setText(movie.getTitle());
+//        MovieViewModel model = new MovieViewModel(getApplication());
+//
+//        Movie movie = model.getMovieById(movieId);
+
+        // Get movie by id
+        // Set layout elements
+        GenreRepoIBT genreRepoIBT = new GenreRepoIBT(mTitle,
+                mReleaseDate, mGenre, mLanguage, mLength,
+                mDescription, mStatus, mBudget, mRevenue, mRating);
+        genreRepoIBT.GetMovieById(movieId);
+
+//        if(movie != null) {
+//            mTitle.setText(movie.getTitle());
 //            mReleaseDate.setText(String.valueOf(movie.getReleaseDate().getTime()));
 //            StringBuilder genreBuilder = new StringBuilder();
 //            for(int i = 0; i < movie.getGenre().size(); i++) {
@@ -78,7 +88,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 //            mRevenue.setText(String.valueOf(movie.getRevenue()));
 //            Picasso.get().load(movie.getUrl()).into(mImage);
 //            mRating.setNumStars((int) Math.round(movie.getUserScore()/2));
-        }
+//        }
     }
 
     public void addToFav(View view) {

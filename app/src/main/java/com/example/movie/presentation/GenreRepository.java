@@ -3,6 +3,7 @@ package com.example.movie.presentation;
 import android.util.Log;
 
 import com.example.movie.domain.APIConn;
+import com.example.movie.domain.GenreRepoIBT;
 import com.example.movie.domain.Movie;
 import com.example.movie.domain.Genre;
 import com.example.movie.domain.GenreResponse;
@@ -58,6 +59,8 @@ public class GenreRepository {
                     movies.add(newMovie);
                 }
 
+
+
                 Log.d(TAG, "done searching for movies, " + movies.size());
                 Log.d(TAG, movies.toString());
             }
@@ -87,6 +90,8 @@ public class GenreRepository {
                     genres.add(genre.getName());
                     Log.i(TAG, "genre added: " + genre.getName() + ", " + genre.getId());
                 }
+
+
                 Log.i(TAG, "amount of genres: " + genres.size());
             }
 
@@ -113,6 +118,9 @@ public class GenreRepository {
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 MovieResponse movieResponse = response.body();
                 movieById = movieResponse.getMovie();
+
+                GenreRepoIBT.SetLayout(movieById);
+
                 Log.d(TAG, "getmoviebyid: " + movieById.getId());
                 Log.d(TAG, "Movie title: " + movieById.getTitle());
             }
