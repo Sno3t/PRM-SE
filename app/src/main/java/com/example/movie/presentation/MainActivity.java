@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,13 +24,21 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
-
+    public static String BASE_URL = "https://api.themoviedb.org";
+    public static int PAGE = 1;
+    public static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
+    public static String GENRES = "action";
+    private boolean isShowingSearchResults = false;
     BottomNavigationView nav;
-    private GenreRecyclerViewAdapter mAdapter;
+    TextView searchBar;
+    private GenreRecyclerViewAdapter genreRecyclerViewAdapter;
+    private SearchResultsRecyclerViewAdapter searchResultsRecyclerViewAdapter;
     public static ArrayList<Movie> movies = new ArrayList<>();
     public static ArrayList<Genre> genres = new ArrayList<>();
     public static ArrayList<String> genreStrings = new ArrayList<>();
+    public static ArrayList<Movie> searchResults = new ArrayList<>();
     private GenreRepository genreRepo = new GenreRepository();
+//    private SearchResultsRepository searchResultRepo = new SearchResultsRepository();
 
 
     @Override
@@ -36,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         movies = genreRepo.getMoviesByGenre(18);
         genres = genreRepo.getGenres();
-        for(Genre genre : genres) {
+        for (Genre genre : genres) {
             genreStrings.add(genre.getName());
         }
 
@@ -47,11 +58,61 @@ public class MainActivity extends AppCompatActivity {
         // Set the layout manager to the recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        mAdapter = new GenreRecyclerViewAdapter(this, movies, genreStrings);
-        mAdapter.setGenres(genreStrings);
-        recyclerView.setAdapter(mAdapter);
+
+
+        genreRecyclerViewAdapter = new GenreRecyclerViewAdapter(this, movies, genreStrings);
+        genreRecyclerViewAdapter.setGenres(genreStrings);
+        recyclerView.setAdapter(genreRecyclerViewAdapter);
+
 
         nav = findViewById(R.id.bottom_navi_view);
+
+        SearchView simpleSearchView = findViewById(R.id.searchbar_movie); // initiate a search view
+        if (simpleSearchView != null) {
+            SearchResultsRepository searchResultRepo = new SearchResultsRepository(this, findViewById(R.id.movie_recyclerview));
+
+            final String[] previousQuery = {""};
+            simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    if (!s.equals(previousQuery[0])) {
+                        searchResultRepo.getSearchResults(s);
+
+                        Log.d(TAG, "onQueryTextSubmit");
+                        Log.d(TAG, s);
+
+                        previousQuery[0] = s;
+                    }
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    if (!s.equals(previousQuery[0])) {
+                        ArrayList<Movie> searchResults = searchResultRepo.getSearchResults(s);
+                        searchResultRepo.setMoviesData(searchResults, true);
+
+                        Log.d(TAG, "onQueryTextChange");
+                        Log.d(TAG, s);
+
+                        previousQuery[0] = s;
+                    }
+
+                    if (s.length() == 0) {
+                        // Show the movies again
+                        searchResultRepo.setMoviesData(searchResults, false);
+                        recyclerView.setAdapter(genreRecyclerViewAdapter);
+                    } else {
+                        // Show the search results
+                        searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(MainActivity.this, searchResults);
+                        searchResultRepo.setMoviesData(searchResults, true);
+                        recyclerView.setAdapter(searchResultsRecyclerViewAdapter);
+
+                    }
+                    return true;
+                }
+            });
+        }
 
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -77,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public static void SetLinkedList(ArrayList<Movie> mList) {
         movies = mList;

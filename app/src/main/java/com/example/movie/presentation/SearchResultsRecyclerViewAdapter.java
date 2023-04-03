@@ -13,30 +13,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.movie.R;
 import com.example.movie.domain.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieInGenreRecyclerViewAdapter extends RecyclerView.Adapter<MovieInGenreRecyclerViewAdapter.MovieViewHolder> {
+public class SearchResultsRecyclerViewAdapter extends RecyclerView.Adapter<SearchResultsRecyclerViewAdapter.MovieViewHolder> {
 
-    private static String TAG = MovieInGenreRecyclerViewAdapter.class.getSimpleName();
+    private static String TAG = SearchResultsRecyclerViewAdapter.class.getSimpleName();
     private List<Movie> movies;
     private GenreRepository genreRepo;
     private Context context;
     private LayoutInflater inflater;
     private AdapterView.OnItemClickListener listener;
-    private String genre;
 
-
-    public MovieInGenreRecyclerViewAdapter(Context context, ArrayList<Movie> movies, String genre) {
+    public SearchResultsRecyclerViewAdapter(Context context, ArrayList<Movie> movies) {
         this.context = context;
         this.movies = movies;
         this.inflater = LayoutInflater.from(context);
         genreRepo = new GenreRepository();
-        this.genre = genre;
     }
 
     @NonNull
@@ -53,7 +49,6 @@ public class MovieInGenreRecyclerViewAdapter extends RecyclerView.Adapter<MovieI
         Movie movie = movies.get(position);
         Glide.with(context)
                 .load("https://image.tmdb.org/t/p/original" + movie.getUrl())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.movieImage);
 
         holder.movieTitle.setText(movie.getTitle());
@@ -79,10 +74,8 @@ public class MovieInGenreRecyclerViewAdapter extends RecyclerView.Adapter<MovieI
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
-
         TextView movieTitle;
         ImageView movieImage;
-
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
