@@ -31,7 +31,7 @@
             android:parentActivityName=".presentation.MovieDetailsActivity" />
         <activity
             android:name=".presentation.MovieDetailsActivity"
-            android:exported="false"
+            android:exported="true"
             android:parentActivityName=".presentation.MainActivity" />
         <activity
             android:name=".presentation.MainActivity"

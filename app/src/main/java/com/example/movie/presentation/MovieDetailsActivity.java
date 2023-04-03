@@ -1,13 +1,18 @@
 package com.example.movie.presentation;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movie.R;
@@ -97,5 +102,38 @@ public class MovieDetailsActivity extends AppCompatActivity {
     public void openReviews(View view) {
         Intent intent = new Intent(this, ReviewsActivity.class);
         startActivity(intent);
+    }
+
+    public void addToList(View view) {
+        CheckBox list = new CheckBox(this);
+        list.setText("List");
+        CheckBox list2 = new CheckBox(this);
+        list2.setText("List");
+        CheckBox list3 = new CheckBox(this);
+        list3.setText("List");
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        layout.setGravity(Gravity.CENTER);
+        layout.setPadding(8, 8, 8, 8);
+        layout.addView(list);
+        layout.addView(list2);
+        layout.addView(list3);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Add to a list")
+                .setMessage("Select a list")
+                .setView(layout)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+//                        mAdapter.notifyDataSetChanged();
+//                        displayToast(newList.getListName() + " to List added");
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
     }
 }
