@@ -31,19 +31,10 @@ public class SearchResultsActivity extends AppCompatActivity {
         // Put results on the screen
 
 
-
-
         setContentView(R.layout.activity_results);
         SearchView simpleSearchView = findViewById(R.id.searchbar_movie2); // initiate a search view
 
-//        RecyclerView searchResultsRecyclerView = findViewById(R.id.search_result_movie_recyclerview);
-//        searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(SearchResultsActivity.this));
-//        searchResultsRecyclerView.setHasFixedSize(true);
-
-//        searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(SearchResultsActivity.this, searchResults);
-//        searchResultsRecyclerView.setAdapter(searchResultsRecyclerViewAdapter);
-
-        SearchResultsRepository searchResultRepo = new SearchResultsRepository(this,findViewById(R.id.search_result_movie_recyclerview));
+        SearchResultsRepository searchResultRepo = new SearchResultsRepository(this, findViewById(R.id.search_result_movie_recyclerview));
 
         final String[] previousQuery = {""};
         simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -51,8 +42,6 @@ public class SearchResultsActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String s) {
                 if (!s.equals(previousQuery[0])) {
                     searchResultRepo.getSearchResults(s);
-//                    searchResults = searchResultRepo.getSearchResults(s);
-//                    searchResultsRecyclerViewAdapter.setMovies(searchResults);
 
                     Log.d(TAG, "onQueryTextSubmit");
                     Log.d(TAG, s);
@@ -66,8 +55,6 @@ public class SearchResultsActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
                 if (!s.equals(previousQuery[0])) {
                     searchResultRepo.getSearchResults(s);
-//                    searchResultRepo.setMoviesData(searchResults);
-//                    searchResultsRecyclerViewAdapter.setMovies(searchResults);
 
                     Log.d(TAG, "onQueryTextChange");
                     Log.d(TAG, s);
