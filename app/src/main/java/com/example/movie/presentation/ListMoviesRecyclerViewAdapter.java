@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,12 +39,14 @@ public class ListMoviesRecyclerViewAdapter extends RecyclerView.Adapter<ListMovi
 
     @Override
     public void onBindViewHolder(@NonNull ListMoviesRecyclerViewAdapter.ListMoviesViewHolder holder, int position) {
+
         Movie movie = listMovies.get(position);
         Glide.with(context)
                 .load("https://image.tmdb.org/t/p/original" + movie.getUrl())
                 .into(holder.movieImage);
 
         holder.movieTitle.setText(movie.getTitle());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +56,8 @@ public class ListMoviesRecyclerViewAdapter extends RecyclerView.Adapter<ListMovi
                 context.startActivity(intent);
             }
         });
+
+
     }
 
     @Override
@@ -65,10 +70,12 @@ public class ListMoviesRecyclerViewAdapter extends RecyclerView.Adapter<ListMovi
         private TextView movieTitle;
         private ImageView movieImage;
 
+
         public ListMoviesViewHolder(@NonNull View itemView) {
             super(itemView);
             movieTitle = itemView.findViewById(R.id.movie_title);
             movieImage = itemView.findViewById(R.id.movie_image);
+
         }
     }
 }

@@ -101,13 +101,13 @@ public class ListsActivity extends AppCompatActivity implements
 
 
         // Initialize the RecyclerView.
-        RecyclerView recyclerView = findViewById(R.id.lists_recyclerview);
-
-        // Set the layout manager to the recyclerview
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerView.setHasFixedSize(true);
-        mAdapter = new ListsRecyclerViewAdapter(this, lists);
-        recyclerView.setAdapter(mAdapter);
+//        RecyclerView recyclerView = findViewById(R.id.lists_recyclerview);
+//
+//        // Set the layout manager to the recyclerview
+//        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+//        recyclerView.setHasFixedSize(true);
+//        mAdapter = new ListsRecyclerViewAdapter(this, lists);
+//        recyclerView.setAdapter(mAdapter);
 
     }
 

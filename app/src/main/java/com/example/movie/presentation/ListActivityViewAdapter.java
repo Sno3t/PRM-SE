@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.movie.R;
+import com.example.movie.dal.ListRepoIBT;
 import com.example.movie.domain.Movie;
 import com.example.movie.domain.MovieList;
 
@@ -41,6 +42,7 @@ public class ListActivityViewAdapter extends RecyclerView.Adapter<ListActivityVi
 
     @Override
     public void onBindViewHolder(@NonNull ListActivityViewAdapter.ListActivityViewHolder holder, int position) {
+
         MovieList ml = listml.get(position);
 //        if (ml.getMovielist().size() > 0){
 //            Movie firstmovie = ml.getMovielist().get(0);
@@ -65,6 +67,8 @@ public class ListActivityViewAdapter extends RecyclerView.Adapter<ListActivityVi
             }
         });
 
+
+
 //        holder.removebutton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -82,8 +86,6 @@ public class ListActivityViewAdapter extends RecyclerView.Adapter<ListActivityVi
     class ListActivityViewHolder extends RecyclerView.ViewHolder {
 
         TextView listname;
-        ImageView image;
-        Button removebutton;
 
         public ListActivityViewHolder(@NonNull View itemView) {
             super(itemView);

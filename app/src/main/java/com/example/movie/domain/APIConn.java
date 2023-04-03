@@ -28,7 +28,7 @@ public interface APIConn {
 
     // User list methods
     @GET("/4/list/{list_id}")
-    Call<MovieListResponse> getLists(
+    Call<MovieListResponse> getListByID(
             @Header("Authorization") String bearer_token,
             @Path("list_id") Integer path
     );
@@ -51,9 +51,10 @@ public interface APIConn {
     // Add movie to user list
     @POST("https://api.themoviedb.org/3/list/{list_id}/add_item")
     Call<ListResponse> addMovieToList(
+            @Path("list_id") Integer path,
+
             @Query("api_key") String apiKey,
             @Query("session_id") String sessionid,
-            @Path("list_id") Integer path,
 
             @Body RequestBody rbody
     );
@@ -61,9 +62,10 @@ public interface APIConn {
     // Remove movie from user list
     @POST("https://api.themoviedb.org/3/list/{list_id}/remove_item")
     Call<ListResponse> removeMovieFromList(
+            @Path("list_id") Integer path,
+
             @Query("api_key") String apiKey,
             @Query("session_id") String sessionid,
-            @Path("list_id") Integer path,
 
             @Body RequestBody rbody
     );
@@ -71,9 +73,11 @@ public interface APIConn {
     // Remove user list
     @DELETE("https://api.themoviedb.org/3/list/{list_id}")
     Call<ListResponse> removeList(
+            @Path("list_id") Integer path,
+
             @Query("api_key") String apiKey,
-            @Query("session_id") String sessionid,
-            @Path("list_id") Integer path
+            @Query("session_id") String sessionid
+
     );
 }
 

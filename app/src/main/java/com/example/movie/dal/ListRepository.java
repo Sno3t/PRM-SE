@@ -4,6 +4,7 @@ import android.util.ArrayMap;
 import android.util.Log;
 
 import com.example.movie.domain.APIConn;
+import com.example.movie.domain.Movie;
 import com.example.movie.domain.MovieList;
 import com.example.movie.domain.responses.JsonResponse;
 import com.example.movie.domain.responses.ListResponse;
@@ -59,7 +60,7 @@ public class ListRepository {
                 // Get details of all list ids
                 // Error in api, returns 0 lists
                 for (Integer id: listids) {
-                    Call<MovieListResponse> calllists = apiConn.getLists(BEARER_TOKEN, id);
+                    Call<MovieListResponse> calllists = apiConn.getListByID(BEARER_TOKEN, id);
 
                     calllists.enqueue(new Callback<MovieListResponse>() {
                         @Override
@@ -68,17 +69,20 @@ public class ListRepository {
                             MovieListResponse mlresponse = response.body();
 
                             // Place in class
-                            lists.add(
-                                new MovieList(
-                                    mlresponse.GetId(),
-                                    mlresponse.GetName(),
-                                    mlresponse.GetMovies(),
-                                    mlresponse.GetDesc()
-                                )
-                            );
-                            Log.i(TAG, "amount of lists: " + lists.size());
+                            if (mlresponse != null){
+                                lists.add(
+                                        new MovieList(
+                                                mlresponse.GetId(),
+                                                mlresponse.GetName(),
+                                                mlresponse.GetMovies(),
+                                                mlresponse.GetDesc()
+                                        )
+                                );
+                                Log.i(TAG, "amount of lists: " + lists.size());
 
-                            ListRepoIBT.SetMLList(lists);
+                                ListRepoIBT.SetMLList(lists);
+                            }
+
                         }
 
                         @Override
@@ -97,6 +101,39 @@ public class ListRepository {
 
         return;
     };
+
+    // Get single user list by id
+    public void GetListByID(Integer id){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+
+        APIConn apiConn = retrofit.create(APIConn.class);
+
+        Call<MovieListResponse> calllists = apiConn.getListByID(BEARER_TOKEN, id);
+
+        calllists.enqueue(new Callback<MovieListResponse>() {
+            @Override
+            public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
+                // Get details of lists
+                MovieListResponse mlresponse = response.body();
+
+                // Place in class
+                MovieList movielist =
+                        new MovieList(
+                                mlresponse.GetName(),
+                                mlresponse.GetMovies(),
+                                mlresponse.GetDesc()
+                        );
+
+                ListRepoIBT.SetMLDetails(movielist);
+            }
+
+            @Override
+            public void onFailure(Call<MovieListResponse> call, Throwable t) {
+                Log.e(TAG, "Error: " + t.toString());
+            }
+        });
+    }
 
     // Add user list
     public void AddUserList(String name, String description){
@@ -143,7 +180,7 @@ public class ListRepository {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         APIConn apiConn = retrofit.create(APIConn.class);
-        Call<ListResponse> response = apiConn.addMovieToList(API_KEY, SESSION_ID, listid, rbody);
+        Call<ListResponse> response = apiConn.addMovieToList(listid, API_KEY, SESSION_ID,  rbody);
 
         response.enqueue(new Callback<ListResponse>() {
             @Override
@@ -175,7 +212,7 @@ public class ListRepository {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         APIConn apiConn = retrofit.create(APIConn.class);
-        Call<ListResponse> response = apiConn.removeMovieFromList(API_KEY, SESSION_ID, listid, rbody);
+        Call<ListResponse> response = apiConn.removeMovieFromList(listid, API_KEY, SESSION_ID, rbody);
 
         response.enqueue(new Callback<ListResponse>() {
             @Override
@@ -189,10 +226,6 @@ public class ListRepository {
             }
         });
 
-
-        // Update lists
-        GetLists();
-        return;
     }
 
     // Remove user list
@@ -202,7 +235,7 @@ public class ListRepository {
 
         APIConn apiConn = retrofit.create(APIConn.class);
 
-        Call<ListResponse> call = apiConn.removeList(API_KEY, SESSION_ID, listid);
+        Call<ListResponse> call = apiConn.removeList(listid, API_KEY, SESSION_ID);
 
         call.enqueue(new Callback<ListResponse>() {
             @Override
@@ -215,9 +248,5 @@ public class ListRepository {
                 Log.e(TAG, "Error: " + t.toString());
             }
         });
-
-        // Update lists
-        GetLists();
-        return;
     }
 }

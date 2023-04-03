@@ -6,6 +6,7 @@ import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie.R;
+import com.example.movie.dal.ListRepoIBT;
 import com.example.movie.domain.Movie;
 import com.example.movie.domain.MovieList;
 
@@ -48,7 +50,6 @@ public class ListsRecyclerViewAdapter extends RecyclerView.Adapter<ListsRecycler
             public void onClick(View v) {
                 context = holder.itemView.getContext();
                 Intent intent = new Intent(context, ListActivity.class);
-                intent.putExtra("LIST_NAME", list.getListName());
                 context.startActivity(intent);
             }
         });
@@ -64,10 +65,12 @@ public class ListsRecyclerViewAdapter extends RecyclerView.Adapter<ListsRecycler
         private ImageView listImage;
         private TextView listName;
 
+
         public ListsViewHolder(@NonNull View itemView) {
             super(itemView);
 //            listImage = itemView.findViewById(R.id.list_image);
             listName = itemView.findViewById(R.id.name_list);
+
         }
     }
 }

@@ -12,6 +12,7 @@ import com.example.movie.R;
 import com.example.movie.domain.Movie;
 import com.example.movie.domain.MovieList;
 import com.example.movie.presentation.ListActivityViewAdapter;
+import com.example.movie.presentation.ListMoviesRecyclerViewAdapter;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -53,6 +54,8 @@ public class ListRepoIBT{
         repo.RemoveUserList(id);
     }
 
+    public void getUserListById(Integer id){repo.GetListByID(id);}
+
     public static void SetMLList(ArrayList<MovieList> movieLists){
         mList = movieLists;
 
@@ -61,5 +64,15 @@ public class ListRepoIBT{
         recyclerView.setLayoutManager(new GridLayoutManager(contextWR.get(), 2));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(listAdapter);
+    }
+
+    public static void SetMLDetails(MovieList ml){
+
+        RecyclerView recyclerView = rViewWR.get();
+        // Set the layout manager to the recyclerview
+        recyclerView.setLayoutManager(new GridLayoutManager(contextWR.get(), 2));
+        recyclerView.setHasFixedSize(true);
+        ListMoviesRecyclerViewAdapter mAdapter = new ListMoviesRecyclerViewAdapter(contextWR.get(), ml.getMovielist());
+        recyclerView.setAdapter(mAdapter);
     }
 }
