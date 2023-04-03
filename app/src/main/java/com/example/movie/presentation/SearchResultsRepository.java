@@ -3,6 +3,7 @@ package com.example.movie.presentation;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -90,7 +91,10 @@ public class SearchResultsRepository {
 
         SearchResultsRecyclerViewAdapter listAdapter = new SearchResultsRecyclerViewAdapter(contextWR.get(), movies);
         RecyclerView recyclerView = rViewWR.get();
-        recyclerView.setLayoutManager(new LinearLayoutManager(contextWR.get()));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(contextWR.get()));
+        recyclerView.setLayoutManager(new GridLayoutManager(contextWR.get(), 2));
+
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(listAdapter);
     }
