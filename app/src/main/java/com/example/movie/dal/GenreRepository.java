@@ -1,14 +1,12 @@
-package com.example.movie.presentation;
+package com.example.movie.dal;
 
 import android.util.Log;
 
 import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Movie;
-import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Genre;
-import com.example.movie.domain.GenreResponse;
-import com.example.movie.domain.JsonResponse;
-import com.example.movie.domain.Movie;
+import com.example.movie.domain.responses.GenreResponse;
+import com.example.movie.domain.responses.JsonResponse;
 
 import java.util.ArrayList;
 import java.util.List;

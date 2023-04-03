@@ -1,17 +1,26 @@
 package com.example.movie.presentation;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movie.R;
+import com.example.movie.dal.ListRepoIBT;
 import com.example.movie.presentation.viemodel.MovieViewModel;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 //import com.squareup.picasso.Picasso;
 
 public class MovieDetailsActivity extends AppCompatActivity {
@@ -30,6 +39,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ImageView mFavButton;
     private ImageView mAddToListButton;
     private RatingBar mRating;
+
+    public static Integer movieId;
+
+    public static ArrayList<Integer> mlIDs;
+    public static ArrayList<CheckBox> checkBoxes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +66,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mRating = findViewById(R.id.movie_detail_rating);
 
         Intent intent = getIntent();
-        int movieId = intent.getIntExtra("MEAL_ID", -1);
+        movieId = intent.getIntExtra("MOVIE_ID", -2);
         MovieViewModel model = new MovieViewModel(getApplication());
 
 //        LiveData<Movie> movieLiveData = model.getMovieById(movieId);
@@ -97,5 +111,31 @@ public class MovieDetailsActivity extends AppCompatActivity {
     public void openReviews(View view) {
         Intent intent = new Intent(this, ReviewsActivity.class);
         startActivity(intent);
+    }
+
+    public void addToList(View view) {
+//        CheckBox list = new CheckBox(this);
+//        list.setText("List");
+//        CheckBox list2 = new CheckBox(this);
+//        list2.setText("List");
+//        CheckBox list3 = new CheckBox(this);
+//        list3.setText("List");
+        checkBoxes = new ArrayList<>();
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        layout.setGravity(Gravity.CENTER);
+        layout.setPadding(8, 8, 8, 8);
+
+        // Get lists
+        ListRepoIBT listRepoIBT = new ListRepoIBT(this, layout, 0);
+        listRepoIBT.getAllUserListOptions();
+
+//        layout.addView(list);
+//        layout.addView(list2);
+//        layout.addView(list3);
+
+
     }
 }

@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Genre;
-import com.example.movie.domain.GenreResponse;
-import com.example.movie.domain.JsonResponse;
 import com.example.movie.domain.Movie;
+import com.example.movie.domain.responses.JsonResponse;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -89,7 +88,7 @@ public class SearchResultsRepository {
     public void setMoviesData(ArrayList<Movie> movieLists, boolean searchActive) {
         movies = movieLists;
 
-        if (searchActive){
+        if (searchActive) {
             SearchResultsRecyclerViewAdapter listAdapter = new SearchResultsRecyclerViewAdapter(contextWR.get(), movies);
             RecyclerView recyclerView = rViewWR.get();
 //        recyclerView.setLayoutManager(new LinearLayoutManager(contextWR.get()));

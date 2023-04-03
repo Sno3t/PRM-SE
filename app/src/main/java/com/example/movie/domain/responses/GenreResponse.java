@@ -1,5 +1,6 @@
-package com.example.movie.domain;
+package com.example.movie.domain.responses;
 
+import com.example.movie.domain.Genre;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

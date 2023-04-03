@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.movie.R;
+import com.example.movie.dal.GenreRepository;
 import com.example.movie.domain.Movie;
 
 import java.util.ArrayList;
