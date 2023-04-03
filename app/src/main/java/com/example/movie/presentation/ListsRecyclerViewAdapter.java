@@ -66,6 +66,8 @@ public class ListsRecyclerViewAdapter extends RecyclerView.Adapter<ListsRecycler
 
         public ListsViewHolder(@NonNull View itemView) {
             super(itemView);
+//            listImage = itemView.findViewById(R.id.list_image);
+            listName = itemView.findViewById(R.id.name_list);
         }
     }
 }

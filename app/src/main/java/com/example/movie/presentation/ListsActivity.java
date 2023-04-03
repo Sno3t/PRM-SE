@@ -1,17 +1,21 @@
 package com.example.movie.presentation;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,6 +24,8 @@ import com.example.movie.domain.Movie;
 import com.example.movie.domain.MovieList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ListsActivity extends AppCompatActivity implements
@@ -90,9 +96,30 @@ public class ListsActivity extends AppCompatActivity implements
     }
 
     public void addNewList(View view) {
-//        lists.add(new MovieList())
+        displayToast("Add New List");
 
-        Toast.makeText(this, "Add New List (Not available in Demo)", Toast.LENGTH_SHORT).show();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String dateCreated = dtf.format(now);
+
+        final EditText newListEditText = new EditText(this);
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Add a new list")
+                .setMessage("Enter a name for the new list")
+                .setView(newListEditText)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String listName = String.valueOf(newListEditText.getText());
+                        MovieList newList = new MovieList(listName, dateCreated);
+                        lists.add(newList);
+                        mAdapter.notifyDataSetChanged();
+                        displayToast(newList.getListName() + " List added");
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
     }
 
     @Override
@@ -106,7 +133,7 @@ public class ListsActivity extends AppCompatActivity implements
 
     }
 
-    // Tijdelijke methode
+
     public void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message,
                 Toast.LENGTH_SHORT).show();

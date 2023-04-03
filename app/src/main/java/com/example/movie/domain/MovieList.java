@@ -6,11 +6,16 @@ import java.util.Date;
 public class MovieList {
     private String listName;
     private ArrayList<Movie> listMovies;
-    private Date dateCreated;
+    private String dateCreated;
 
-    public MovieList(String listName, ArrayList<Movie> listMovies, Date dateCreated) {
+    public MovieList(String listName, ArrayList<Movie> listMovies, String dateCreated) {
         this.listName = listName;
         this.listMovies = listMovies;
+        this.dateCreated = dateCreated;
+    }
+
+    public MovieList(String listName, String dateCreated) {
+        this.listName = listName;
         this.dateCreated = dateCreated;
     }
 
@@ -34,11 +39,11 @@ public class MovieList {
         this.listName = listName;
     }
 
-    public Date getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 }
