@@ -17,7 +17,7 @@ public class Movie {
     private int id;
     private String title;
     @SerializedName("release_date")
-    private Date releaseDate;
+    private String releaseDate;
 
     @SerializedName("runtime")
     private int length;
@@ -25,42 +25,62 @@ public class Movie {
     private String url;
     @SerializedName("overview")
     private String description;
-    //    private String director;
     @SerializedName("genres")
-    private ArrayList<String> genre;
+    private ArrayList<Genre> genres;
     @SerializedName("vote_average")
     private double userScore;
     //    private String cast;
     private String status;
-    @SerializedName("spoken_languages")
-    private String[] languages;
-    private double budget;
+    @SerializedName("original_language")
+    private String originalLanguage;
+    private int budget;
     private double revenue;
 
-    public Movie(int id, String title, String imageUrl) {
+    public Movie(int id,
+                 String title,
+                 String releaseDate,
+                 ArrayList<Genre> genres,
+                 int runtime,
+                 String tagline,
+                 String status,
+                 int budget,
+                 int revenue,
+                 String originalLanguage,
+                 String imageUrl,
+                 double userScore) {
         this.id = id;
         this.title = title;
+        this.releaseDate = releaseDate;
+        this.genres = genres;
+        this.length = runtime;
+        this.description = tagline;
+        this.status = status;
+        this.budget = budget;
+        this.revenue = revenue;
+        this.originalLanguage = originalLanguage;
         this.url = imageUrl;
+        this.userScore = userScore;
     }
 
-    public Movie(int id, String title, String imageUrl, ArrayList<String> genres) {
+    public Movie(int id, String title, String imageUrl, ArrayList<Genre> genres) {
         this.id = id;
         this.title = title;
         this.url = imageUrl;
-        this.genre = genres;
+        this.genres = genres;
     }
 
     public Movie(int id,
-                 String title, Date releaseDate,
-                 int length, String url,
+                 String title,
+                 String releaseDate,
+                 int length,
+                 String url,
                  String description,
-//                 String director,
-                 ArrayList<String> genre,
+                 ArrayList<Genre> genres,
                  double userScore,
 //                 String cast,
                  String status,
-                 String[] languages,
-                 double budget,
+                 String originalLanguage,
+                 int budget,
                  double revenue) {
         this.id = id;
         this.title = title;
@@ -68,12 +88,11 @@ public class Movie {
         this.length = length;
         this.url = url;
         this.description = description;
-        //this.director = director;
-        this.genre = genre;
+        this.genres = genres;
         this.userScore = userScore;
 //        this.cast = cast;
         this.status = status;
-        this.languages = languages;
+        this.originalLanguage = originalLanguage;
         this.budget = budget;
         this.revenue = revenue;
     }
@@ -86,19 +105,20 @@ public class Movie {
 
 
     // For now_playing
-    public Movie(String title, Date releaseDate,
+    public Movie(String title,
+                 String releaseDate,
                  String url,
                  String description,
-                 ArrayList<String> genre,
+                 ArrayList<Genre> genres,
                  double userScore,
-                 String[] language) throws ParseException {
+                 String originalLanguage) throws ParseException {
         this.title = title;
         this.releaseDate = releaseDate;
         this.url = url;
         this.description = description;
-        this.genre = genre;
+        this.genres = genres;
         this.userScore = userScore;
-        this.languages = languages;
+        this.originalLanguage = originalLanguage;
     }
 
 
@@ -110,11 +130,11 @@ public class Movie {
         this.title = title;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -142,24 +162,16 @@ public class Movie {
         this.description = description;
     }
 
-//    public String getDirector() {
-//        return director;
-//    }
-//
-//    public void setDirector(String director) {
-//        this.director = director;
-//    }
-
-    public ArrayList<String> getGenre() {
-        return genre;
+    public ArrayList<Genre> getGenres() {
+        return genres;
     }
 
-    public void setGenre(ArrayList<String> genre) {
-        this.genre = genre;
+    public void setGenre(ArrayList<Genre> genre) {
+        this.genres = genre;
     }
 
     public boolean containsGenre(String genreString) {
-        if (genre.contains(genreString)) {
+        if (genres.contains(genreString)) {
             return true;
         }
         return false;
@@ -189,19 +201,19 @@ public class Movie {
         this.status = status;
     }
 
-    public String[] getLanguage() {
-        return languages;
+    public String getOriginalLanguage() {
+        return originalLanguage;
     }
 
-    public void setLanguage(String[] language) {
-        this.languages = languages;
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
     }
 
     public double getBudget() {
         return budget;
     }
 
-    public void setBudget(double budget) {
+    public void setBudget(int budget) {
         this.budget = budget;
     }
 

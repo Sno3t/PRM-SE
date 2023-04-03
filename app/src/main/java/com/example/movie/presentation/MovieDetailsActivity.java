@@ -23,7 +23,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private TextView mReleaseDate;
     private TextView mGenre;
     private TextView mLanguage;
-    private TextView mDirector;
     private TextView mLength;
     private TextView mDescription;
     private TextView mStatus;
@@ -33,6 +32,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ImageView mFavButton;
     private ImageView mAddToListButton;
     private RatingBar mRating;
+    private boolean added = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mReleaseDate = findViewById(R.id.releasedate_movie);
         mGenre = findViewById(R.id.genre_movie);
         mLanguage = findViewById(R.id.language_movie);
-        mDirector = findViewById(R.id.director);
         mLength = findViewById(R.id.Length);
         mDescription = findViewById(R.id.description);
         mStatus = findViewById(R.id.status);
@@ -58,50 +57,22 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int movieId = intent.getIntExtra("MOVIE_ID", 2);
 
-//        MovieViewModel model = new MovieViewModel(getApplication());
-//
-//        Movie movie = model.getMovieById(movieId);
-
         // Get movie by id
         // Set layout elements
         GenreRepoIBT genreRepoIBT = new GenreRepoIBT(mTitle,
                 mReleaseDate, mGenre, mLanguage, mLength,
-                mDescription, mStatus, mBudget, mRevenue, mRating);
+                mDescription, mStatus, mBudget, mRevenue, mRating, mImage);
         genreRepoIBT.GetMovieById(movieId);
-
-//        if(movie != null) {
-//            mTitle.setText(movie.getTitle());
-//            mReleaseDate.setText(String.valueOf(movie.getReleaseDate().getTime()));
-//            StringBuilder genreBuilder = new StringBuilder();
-//            for(int i = 0; i < movie.getGenre().size(); i++) {
-//                genreBuilder.append(movie.getGenre().get(i));
-//                if(i != movie.getGenre().size()) {
-//                    genreBuilder.append(", ");
-//                }
-//            }
-//            mLanguage.setText(movie.getLanguage()[1]);
-//            //mDirector.setText(movie.getDirector());
-//            mLength.setText(movie.getLength());
-//            mDescription.setText(movie.getDescription());
-//            mStatus.setText(movie.getStatus());
-//            mBudget.setText(String.valueOf(movie.getBudget()));
-//            mRevenue.setText(String.valueOf(movie.getRevenue()));
-//            Picasso.get().load(movie.getUrl()).into(mImage);
-//            mRating.setNumStars((int) Math.round(movie.getUserScore()/2));
-//        }
     }
 
     public void addToFav(View view) {
-        if (mFavButton.getColorFilter().equals(R.color.grey)) {
-            mFavButton.setColorFilter(R.color.red);
-            // Add to list functionality to be added
-        } else if (mFavButton.getColorFilter().equals(R.color.red)) {
-            mFavButton.setColorFilter(R.color.grey);
-            // Remove from list functionality to be added
+        if(!added) {
+            mFavButton.setImageResource(R.drawable.ic_filled_favorite_red);
+            added = true;
         } else {
-            Log.e(TAG, "Movie niet toegevoegd aan favorites");
+            mFavButton.setImageResource(R.drawable.ic_filled_favorite);
+            added = false;
         }
-
     }
 
     public void openReviews(View view) {

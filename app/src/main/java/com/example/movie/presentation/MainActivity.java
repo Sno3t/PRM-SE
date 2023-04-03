@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie.R;
+import com.example.movie.domain.Genre;
 import com.example.movie.domain.Movie;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView nav;
     private GenreRecyclerViewAdapter mAdapter;
     public static ArrayList<Movie> movies = new ArrayList<>();
-    public static ArrayList<String> genres = new ArrayList<>();
+    public static ArrayList<Genre> genres = new ArrayList<>();
+    public static ArrayList<String> genreStrings = new ArrayList<>();
     private GenreRepository genreRepo = new GenreRepository();
 
 
@@ -34,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         movies = genreRepo.getMoviesByGenre(18);
         genres = genreRepo.getGenres();
+        for(Genre genre : genres) {
+            genreStrings.add(genre.getName());
+        }
 
         setContentView(R.layout.activity_main);
         // Initialize the RecyclerView.
@@ -42,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         // Set the layout manager to the recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        mAdapter = new GenreRecyclerViewAdapter(this, movies, genres);
-        mAdapter.setGenres(genres);
+        mAdapter = new GenreRecyclerViewAdapter(this, movies, genreStrings);
+        mAdapter.setGenres(genreStrings);
         recyclerView.setAdapter(mAdapter);
 
         nav = findViewById(R.id.bottom_navi_view);

@@ -28,7 +28,7 @@ public class GenreRepository {
     private static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
     private static int GENRES;
     private static ArrayList<Movie> movies = new ArrayList<>();
-    private static ArrayList<String> genres = new ArrayList<>();
+    private static ArrayList<Genre> genres = new ArrayList<>();
     private static int ID;
     private static Movie movieById;
 
@@ -52,8 +52,8 @@ public class GenreRepository {
                     int id = movie.getId();
                     String title = movie.getTitle();
                     String url = movie.getUrl();
-                    ArrayList<String> genres = new ArrayList<>();
-                    genres = movie.getGenre();
+                    ArrayList<Genre> genres = new ArrayList<>();
+                    genres = movie.getGenres();
 
                     Movie newMovie = new Movie(id, title, url, genres);
                     movies.add(newMovie);
@@ -74,7 +74,7 @@ public class GenreRepository {
         return movies;
     }
 
-    public ArrayList<String> getGenres() {
+    public ArrayList<Genre> getGenres() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
 
@@ -87,7 +87,7 @@ public class GenreRepository {
                 GenreResponse genreResponse = response.body();
                 List<Genre> genresList = genreResponse.getGenres();
                 for (Genre genre : genresList) {
-                    genres.add(genre.getName());
+                    genres.add(genre);
                     Log.i(TAG, "genre added: " + genre.getName() + ", " + genre.getId());
                 }
 
@@ -121,7 +121,6 @@ public class GenreRepository {
 
                 GenreRepoIBT.SetLayout(movieById);
 
-                Log.d(TAG, "getmoviebyid: " + movieById.getId());
                 Log.d(TAG, "Movie title: " + movieById.getTitle());
             }
 
