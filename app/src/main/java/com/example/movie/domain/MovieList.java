@@ -71,5 +71,7 @@ public class MovieList {
         this.dateCreated = dateCreated;
 
     }
+
+    public Integer getId(){return  id;}
 }
 

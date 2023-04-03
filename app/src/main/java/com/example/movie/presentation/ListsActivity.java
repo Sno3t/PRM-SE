@@ -113,11 +113,11 @@ public class ListsActivity extends AppCompatActivity implements
         // TODO: Merge these 2 functions together
 //        Toast.makeText(this, "Add New List (Not available in Demo)", Toast.LENGTH_SHORT).show();
 //
-//        MovieList newml = new MovieList(6, "New List", "New Description");
-//
-//        // Check if list isn't null, add to API
-//        ListRepoIBT listRepoIBT = new ListRepoIBT(this, findViewById(R.id.lists_recyclerview));
-//        listRepoIBT.addUserList(newml.getListName(), newml.getDescription());
+        MovieList newml = new MovieList(6, "New List", "New Description");
+
+        // Check if list isn't null, add to API
+        ListRepoIBT listRepoIBT = new ListRepoIBT(this, findViewById(R.id.lists_recyclerview));
+        listRepoIBT.addUserList(newml.getListName(), newml.getDescription());
 //
 //
 //        displayToast("Add New List");

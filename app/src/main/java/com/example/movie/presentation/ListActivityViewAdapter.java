@@ -42,23 +42,36 @@ public class ListActivityViewAdapter extends RecyclerView.Adapter<ListActivityVi
     @Override
     public void onBindViewHolder(@NonNull ListActivityViewAdapter.ListActivityViewHolder holder, int position) {
         MovieList ml = listml.get(position);
-        if (ml.getMovielist().size() > 0){
-            Movie firstmovie = ml.getMovielist().get(0);
+//        if (ml.getMovielist().size() > 0){
+//            Movie firstmovie = ml.getMovielist().get(0);
+//
+//            Glide.with(context)
+//                    .load("https://image.tmdb.org/t/p/original" + firstmovie.getUrl())
+//                    .into(holder.image);
+//        }
 
-            Glide.with(context)
-                    .load("https://image.tmdb.org/t/p/original" + firstmovie.getUrl())
-                    .into(holder.image);
+        if (ml != null){
+            holder.listname.setText(ml.getListName());
         }
-
-        holder.listname.setText(ml.getListName());
-
-        holder.removebutton.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // Remove from list
-                Log.d("ALERT", "Removing list");
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ListActivity.class);
+                intent.putExtra("MovieID", ml.getId());
+
+                Log.d("ALERT", "Going to List " + ml.getId());
+
+                context.startActivity(intent);
             }
         });
+
+//        holder.removebutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Remove from list
+//                Log.d("ALERT", "Removing list");
+//            }
+//        });
     }
 
     @Override
@@ -74,9 +87,8 @@ public class ListActivityViewAdapter extends RecyclerView.Adapter<ListActivityVi
 
         public ListActivityViewHolder(@NonNull View itemView) {
             super(itemView);
-            listname = (TextView) itemView.findViewById(R.id.list_name_text);
-            image = (ImageView) itemView.findViewById(R.id.list_image);
-            removebutton = (Button) itemView.findViewById(R.id.list_remove_button);
+            listname = (TextView) itemView.findViewById(R.id.name_list);
+
         }
     }
 }
