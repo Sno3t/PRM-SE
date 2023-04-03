@@ -35,8 +35,8 @@ public class SearchResultsRepository {
 
 
     public SearchResultsRepository(Context contextWR, RecyclerView rViewWR) {
-        this.contextWR = new WeakReference<>(contextWR);
-        this.rViewWR = new WeakReference<>(rViewWR);
+        SearchResultsRepository.contextWR = new WeakReference<>(contextWR);
+        SearchResultsRepository.rViewWR = new WeakReference<>(rViewWR);
 
     }
 
@@ -44,9 +44,7 @@ public class SearchResultsRepository {
         QUERY = query;
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-
         APIConn apiConn = retrofit.create(APIConn.class);
-
         Call<JsonResponse> call = apiConn.getSearchResults(API_KEY, QUERY);
 
         movies.clear();
@@ -54,8 +52,6 @@ public class SearchResultsRepository {
         call.enqueue(new Callback<JsonResponse>() {
             @Override
             public void onResponse(Call<JsonResponse> call, Response<JsonResponse> response) {
-
-
                 JsonResponse movieJsonResponse = response.body();
                 List<Movie> moviesList = movieJsonResponse.getMovies();
                 if (!moviesList.isEmpty()) {
@@ -70,12 +66,11 @@ public class SearchResultsRepository {
                         movies.add(newMovie);
                     }
 
+                    //TODO: Change this to popularity when it's implemented
                     movies.sort(Comparator.comparing(Movie::getUserScore));
                     setMoviesData(movies);
 
                     Log.i(TAG, "Done searching for movies with query, " + movies.size());
-                    Log.d(TAG, movies.toString());
-
                 } else {
                     Log.d(TAG, "No results for search with query");
                 }

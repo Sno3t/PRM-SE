@@ -58,17 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
         nav = findViewById(R.id.bottom_navi_view);
 
-
-//        //---------------------------
-
-//        setContentView(R.layout.activity_results);
         SearchView simpleSearchView = findViewById(R.id.searchbar_movie); // initiate a search view
         if (simpleSearchView != null) {
             SearchResultsRepository searchResultRepo = new SearchResultsRepository(this, findViewById(R.id.movie_recyclerview));
 
             final String[] previousQuery = {""};
-
-
             simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String s) {
@@ -101,11 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
-
-
-//        //---------------------------
-
 
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
 

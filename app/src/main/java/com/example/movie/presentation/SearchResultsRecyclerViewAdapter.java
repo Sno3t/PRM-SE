@@ -74,10 +74,8 @@ public class SearchResultsRecyclerViewAdapter extends RecyclerView.Adapter<Searc
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
-
         TextView movieTitle;
         ImageView movieImage;
-
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
