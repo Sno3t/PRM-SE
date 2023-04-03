@@ -6,6 +6,68 @@
     android:layout_height="match_parent"
     tools:context=".presentation.SettingsActivity">
 
+    <Switch
+        android:id="@+id/night_mode_toggle"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
+        android:checked="false"
+        android:gravity="left"
+        android:padding="8dp"
+        android:text="Night mode"
+        android:textSize="24sp"
+        android:thumb="@drawable/ic_dark_mode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/language_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:text="Language"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/night_mode_toggle"
+        app:layout_constraintTop_toBottomOf="@+id/night_mode_toggle" />
+
+    <Spinner
+        android:id="@+id/language_spinner"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/language_text"
+        app:layout_constraintEnd_toEndOf="@+id/night_mode_toggle" />
+
+
+    <Button
+        android:id="@+id/contact_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:text="Contact"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/about_us_btn"
+        app:layout_constraintTop_toBottomOf="@+id/language_spinner" />
+
+    <Button
+        android:id="@+id/about_us_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:text="About us"
+        app:layout_constraintEnd_toStartOf="@+id/contact_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/language_spinner" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

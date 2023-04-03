@@ -61,7 +61,10 @@ public class ListsActivity extends AppCompatActivity implements
         if (genreSpinner != null) {
             genreSpinner.setAdapter(adapter);
         }
-
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String dateCreated = dtf.format(now);
+        lists.add(new MovieList("Favorites", dateCreated));
 
         // get lists
         ListRepoIBT listRepoIBT = new ListRepoIBT(this, findViewById(R.id.lists_recyclerview));
@@ -144,7 +147,6 @@ public class ListsActivity extends AppCompatActivity implements
 //                .setNegativeButton("Cancel", null)
 //                .create();
 //        dialog.show();
-
     }
 
     @Override
