@@ -42,10 +42,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent;
-        intent = new Intent(MainActivity.this, SearchResultsActivity.class);
-        startActivity(intent);
-
         movies = genreRepo.getMoviesByGenre(18);
         genres = genreRepo.getGenres();
 
@@ -65,66 +61,81 @@ public class MainActivity extends AppCompatActivity {
 
 //        //---------------------------
 
+//        setContentView(R.layout.activity_results);
+        SearchView simpleSearchView = findViewById(R.id.searchbar_movie); // initiate a search view
+        if (simpleSearchView != null) {
+            SearchResultsRepository searchResultRepo = new SearchResultsRepository(this, findViewById(R.id.movie_recyclerview));
 
-//        SearchView simpleSearchView = (SearchView) findViewById(R.id.searchbar_movie); // inititate a search view
-
-//        CharSequence query = simpleSearchView.getQuery(); // get the query string currently in the text field
-//        searchResults = searchResultRepo.getSearchResults("batman");
-
-//        RecyclerView searchResultsRecyclerView = findViewById(R.id.movie_recyclerview);
-//        searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        searchResultsRecyclerView.setHasFixedSize(true);
-//        searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(this, searchResults);
-//        searchResultsRecyclerView.setAdapter(searchResultsRecyclerViewAdapter);
+            final String[] previousQuery = {""};
 
 
-//        searchBar.findViewById(R.id.searchbar_movie);
-//        searchBar.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                // Show results of api in view
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
-//        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-////        startActivity(intent);
+            simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    if (!s.equals(previousQuery[0])) {
+                        searchResultRepo.getSearchResults(s);
+
+                        Log.d(TAG, "onQueryTextSubmit");
+                        Log.d(TAG, s);
+
+                        previousQuery[0] = s;
+                    }
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    if (!s.equals(previousQuery[0])) {
+                        searchResultRepo.getSearchResults(s);
+
+                        Log.d(TAG, "onQueryTextChange");
+                        Log.d(TAG, s);
+
+                        previousQuery[0] = s;
+                    }
+
+                    if (s.length() == 0){
+                        recyclerView.setAdapter(genreRecyclerViewAdapter);
+                    }
+                    return true;
+                }
+            });
+        }
+
+
+
 //        //---------------------------
 
 
-        nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
 
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent;
-                switch (item.getItemId()) {
-                    case R.id.home_nav_btn:
-                        intent = new Intent(MainActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.settings_nav_btn:
-                        intent = new Intent(MainActivity.this, SettingsActivity.class);
-                        Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.lists_nav_btn:
-                        intent = new Intent(MainActivity.this, ListsActivity.class);
-                        startActivity(intent);
-                        Toast.makeText(MainActivity.this, "Lists", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return false;
-            }
-        });
+    {
+
+        @Override
+        public boolean onNavigationItemSelected (@NonNull MenuItem item){
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.home_nav_btn:
+                intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.settings_nav_btn:
+                intent = new Intent(MainActivity.this, SettingsActivity.class);
+                Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.lists_nav_btn:
+                intent = new Intent(MainActivity.this, ListsActivity.class);
+                startActivity(intent);
+                Toast.makeText(MainActivity.this, "Lists", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return false;
     }
+    });
+}
+
+
+
 
     public static void SetLinkedList(ArrayList<Movie> mList) {
         movies = mList;
