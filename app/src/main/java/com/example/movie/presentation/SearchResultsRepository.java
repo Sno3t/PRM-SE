@@ -1,6 +1,10 @@
 package com.example.movie.presentation;
 
+import android.content.Context;
 import android.util.Log;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Genre;
@@ -8,6 +12,7 @@ import com.example.movie.domain.GenreResponse;
 import com.example.movie.domain.JsonResponse;
 import com.example.movie.domain.Movie;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +25,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchResultsRepository {
 
     public static final String TAG = SearchResultsRepository.class.getSimpleName();
-
     public static String BASE_URL = "https://api.themoviedb.org";
     public static String QUERY;
     public static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
     public static ArrayList<Movie> movies = new ArrayList<>();
+    private static WeakReference<Context> contextWR;
+    private static WeakReference<RecyclerView> rViewWR;
+
+
+    public SearchResultsRepository(Context contextWR, RecyclerView rViewWR) {
+        this.contextWR = new WeakReference<>(contextWR);
+        this.rViewWR = new WeakReference<>(rViewWR);
+
+    }
 
     public ArrayList<Movie> getSearchResults(String query) {
         QUERY = query;
@@ -35,6 +48,7 @@ public class SearchResultsRepository {
 
         Call<JsonResponse> call = apiConn.getSearchResults(API_KEY, QUERY);
 
+        movies.clear();
 
         call.enqueue(new Callback<JsonResponse>() {
             @Override
@@ -55,13 +69,15 @@ public class SearchResultsRepository {
                         movies.add(newMovie);
                     }
 
+                    setMoviesData(movies);
+
                     Log.i(TAG, "Done searching for movies with query, " + movies.size());
                     Log.d(TAG, movies.toString());
+
                 } else {
                     Log.d(TAG, "No results for search with query");
                 }
             }
-
 
             @Override
             public void onFailure(Call<JsonResponse> call, Throwable t) {
@@ -71,4 +87,15 @@ public class SearchResultsRepository {
 
         return movies;
     }
+
+    public static void setMoviesData(ArrayList<Movie> movieLists) {
+        movies = movieLists;
+
+        SearchResultsRecyclerViewAdapter listAdapter = new SearchResultsRecyclerViewAdapter(contextWR.get(), movies);
+        RecyclerView recyclerView = rViewWR.get();
+        recyclerView.setLayoutManager(new LinearLayoutManager(contextWR.get()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(listAdapter);
+    }
+
 }

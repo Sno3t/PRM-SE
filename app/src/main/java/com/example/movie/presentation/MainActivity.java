@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Movie> searchResults = new ArrayList<>();
     public static ArrayList<String> genres = new ArrayList<>();
     private GenreRepository genreRepo = new GenreRepository();
-    private SearchResultsRepository searchResultRepo = new SearchResultsRepository();
+//    private SearchResultsRepository searchResultRepo = new SearchResultsRepository();
 
 
     @Override
