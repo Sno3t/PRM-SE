@@ -24,13 +24,15 @@ public class ListActivity extends AppCompatActivity {
     private ListMoviesRecyclerViewAdapter mAdapter;
     private ArrayList<Movie> mMovies = new ArrayList<>();
 
+    public static Integer listID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
         Bundle intentBundle = getIntent().getExtras();
-        Integer listID = intentBundle.getInt("MovieID");
+        listID = intentBundle.getInt("ListID");
         // ArrayList<Movie> listMovies = (ArrayList<Movie>) intent.getSerializableExtra("LIST");
 
         // Get List details

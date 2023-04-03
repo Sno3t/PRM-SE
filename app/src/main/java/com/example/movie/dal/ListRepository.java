@@ -135,6 +135,73 @@ public class ListRepository {
         });
     }
 
+    public void GetListOptions(){
+        lists.clear();
+        listids.clear();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+
+        APIConn apiConn = retrofit.create(APIConn.class);
+
+        Call<ListResponse> call = apiConn.getListID(API_KEY, SESSION_ID);
+
+        // Get list ids
+        call.enqueue(new Callback<ListResponse>() {
+            @Override
+            public void onResponse(Call<ListResponse> call, Response<ListResponse> response) {
+                ListResponse listJsonResponse = response.body();
+
+                // Get list of listids
+                listids = listJsonResponse.GetLists();
+
+                // Get details of all list ids
+                // Error in api, returns 0 lists
+                for (Integer id: listids) {
+                    Call<MovieListResponse> calllists = apiConn.getListByID(BEARER_TOKEN, id);
+
+                    calllists.enqueue(new Callback<MovieListResponse>() {
+                        @Override
+                        public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
+                            // Get details of lists
+                            MovieListResponse mlresponse = response.body();
+
+                            // Place in class
+                            if (mlresponse != null){
+                                lists.add(
+                                        new MovieList(
+                                                mlresponse.GetId(),
+                                                mlresponse.GetName(),
+                                                mlresponse.GetMovies(),
+                                                mlresponse.GetDesc()
+                                        )
+                                );
+                                Log.i(TAG, "amount of lists: " + lists.size());
+
+                                ListRepoIBT.SetMLOptions(lists);
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<MovieListResponse> call, Throwable t) {
+                            Log.e(TAG, "Error: " + t.toString());
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ListResponse> call, Throwable t) {
+                Log.e(TAG, "Error: " + t.toString());
+            }
+        });
+
+        return;
+    }
+
     // Add user list
     public void AddUserList(String name, String description){
         // Setup json body

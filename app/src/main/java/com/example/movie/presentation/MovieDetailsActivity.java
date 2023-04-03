@@ -16,7 +16,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movie.R;
+import com.example.movie.dal.ListRepoIBT;
 import com.example.movie.presentation.viemodel.MovieViewModel;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 //import com.squareup.picasso.Picasso;
 
 public class MovieDetailsActivity extends AppCompatActivity {
@@ -35,6 +39,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ImageView mFavButton;
     private ImageView mAddToListButton;
     private RatingBar mRating;
+
+    public static Integer movieId;
+
+    public static ArrayList<Integer> mlIDs;
+    public static ArrayList<CheckBox> checkBoxes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +66,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mRating = findViewById(R.id.movie_detail_rating);
 
         Intent intent = getIntent();
-        int movieId = intent.getIntExtra("MEAL_ID", -1);
+        movieId = intent.getIntExtra("MOVIE_ID", -2);
         MovieViewModel model = new MovieViewModel(getApplication());
 
 //        LiveData<Movie> movieLiveData = model.getMovieById(movieId);
@@ -105,35 +114,28 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     public void addToList(View view) {
-        CheckBox list = new CheckBox(this);
-        list.setText("List");
-        CheckBox list2 = new CheckBox(this);
-        list2.setText("List");
-        CheckBox list3 = new CheckBox(this);
-        list3.setText("List");
+//        CheckBox list = new CheckBox(this);
+//        list.setText("List");
+//        CheckBox list2 = new CheckBox(this);
+//        list2.setText("List");
+//        CheckBox list3 = new CheckBox(this);
+//        list3.setText("List");
+        checkBoxes = new ArrayList<>();
+
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
         layout.setGravity(Gravity.CENTER);
         layout.setPadding(8, 8, 8, 8);
-        layout.addView(list);
-        layout.addView(list2);
-        layout.addView(list3);
 
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Add to a list")
-                .setMessage("Select a list")
-                .setView(layout)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        // Get lists
+        ListRepoIBT listRepoIBT = new ListRepoIBT(this, layout, 0);
+        listRepoIBT.getAllUserListOptions();
 
-//                        mAdapter.notifyDataSetChanged();
-//                        displayToast(newList.getListName() + " to List added");
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .create();
-        dialog.show();
+//        layout.addView(list);
+//        layout.addView(list2);
+//        layout.addView(list3);
+
+
     }
 }

@@ -2,6 +2,7 @@ package com.example.movie.presentation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.movie.R;
+import com.example.movie.dal.ListRepoIBT;
 import com.example.movie.domain.Movie;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class ListMoviesRecyclerViewAdapter extends RecyclerView.Adapter<ListMovi
     @Override
     public ListMoviesRecyclerViewAdapter.ListMoviesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.movie_item, parent, false);
+                .inflate(R.layout.movie_item_list_item, parent, false);
 
         return new ListMoviesViewHolder(itemView);
     }
@@ -57,11 +59,29 @@ public class ListMoviesRecyclerViewAdapter extends RecyclerView.Adapter<ListMovi
             }
         });
 
+        holder.removebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("ALERT", "Remove " + movie.getTitle());
+                ListRepoIBT listRepoIBT = new ListRepoIBT(context, null);
+                listRepoIBT.removeMovieFromList(ListActivity.listID , movie.getId());
 
+                Intent intent = new Intent(context, ListActivity.class);
+                intent.putExtra("ListID", ListActivity.listID);
+
+                Log.d("ALERT", "Going to List " + ListActivity.listID);
+
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
+        if (listMovies == null){
+            return 0;
+        }
+
         return listMovies.size();
     }
 
@@ -70,11 +90,14 @@ public class ListMoviesRecyclerViewAdapter extends RecyclerView.Adapter<ListMovi
         private TextView movieTitle;
         private ImageView movieImage;
 
+        private Button removebutton;
+
 
         public ListMoviesViewHolder(@NonNull View itemView) {
             super(itemView);
             movieTitle = itemView.findViewById(R.id.movie_title);
             movieImage = itemView.findViewById(R.id.movie_image);
+            removebutton = itemView.findViewById(R.id.removeMovieButton);
 
         }
     }
