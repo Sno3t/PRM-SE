@@ -58,17 +58,17 @@ public class SearchResultsRepository {
                 if (!moviesList.isEmpty()) {
                     for (Movie movie : moviesList) {
                         int id = movie.getId();
+                        double popularity = movie.getPopularity();
                         String title = movie.getTitle();
                         String url = movie.getUrl();
                         ArrayList<String> genres = new ArrayList<>();
                         genres = movie.getGenre();
 
-                        Movie newMovie = new Movie(id, title, url, genres);
+                        Movie newMovie = new Movie(id, title, url, genres, popularity);
                         movies.add(newMovie);
                     }
 
-                    //TODO: Change this to popularity when it's implemented
-                    movies.sort(Comparator.comparing(Movie::getUserScore));
+                    movies.sort(Comparator.comparing(Movie::getPopularity).reversed());
 //                    setMoviesData(movies);
 
                     Log.i(TAG, "Done searching for movies with query, " + movies.size());

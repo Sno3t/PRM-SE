@@ -48,12 +48,14 @@ public class GenreRepository {
                 for (Movie movie : moviesList) {
                     Log.d(TAG, movie.getTitle());
                     int id = movie.getId();
+                    double popularity = movie.getPopularity();
                     String title = movie.getTitle();
                     String url = movie.getUrl();
                     ArrayList<String> genres = new ArrayList<>();
                     genres = movie.getGenre();
 
-                    Movie newMovie = new Movie(id, title, url, genres);
+
+                    Movie newMovie = new Movie(id, title, url, genres, popularity);
                     movies.add(newMovie);
                 }
 

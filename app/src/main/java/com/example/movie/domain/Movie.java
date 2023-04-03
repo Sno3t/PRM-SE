@@ -36,13 +36,14 @@ public class Movie {
     private String[] languages;
     private double budget;
     private double revenue;
-    private int popularity;
+    private double popularity;
 
-    public Movie(int id, String title, String imageUrl, ArrayList<String> genres) {
+    public Movie(int id, String title, String imageUrl, ArrayList<String> genres, double popularity) {
         this.id = id;
         this.title = title;
         this.url = imageUrl;
         this.genre = genres;
+        this.popularity = popularity;
     }
 
     public Movie(int id,
@@ -55,7 +56,7 @@ public class Movie {
 //                 String cast,
                  String status,
                  String[] languages,
-                 int popularity,
+                 double popularity,
                  double budget,
                  double revenue) {
         this.id = id;
@@ -148,7 +149,7 @@ public class Movie {
 //    }
 
 
-    public int getPopularity() {
+    public double getPopularity() {
         return popularity;
     }
 
