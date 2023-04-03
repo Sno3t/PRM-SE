@@ -14,6 +14,7 @@ import com.example.movie.domain.Movie;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -69,6 +70,7 @@ public class SearchResultsRepository {
                         movies.add(newMovie);
                     }
 
+                    movies.sort(Comparator.comparing(Movie::getUserScore));
                     setMoviesData(movies);
 
                     Log.i(TAG, "Done searching for movies with query, " + movies.size());
