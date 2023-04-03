@@ -7,20 +7,31 @@ public class MovieList {
     private Integer id;
     private String name;
     private ArrayList<Movie> listMovies;
+    private String dateCreated;
+    private String listName;
     private String description;
 
     public MovieList(Integer id, String name, ArrayList<Movie> listMovies, String description) {
         this.id = id;
         this.name = name;
+    }
+
+    public MovieList(String listName, ArrayList<Movie> listMovies, String dateCreated) {
+        this.listName = listName;
         this.listMovies = listMovies;
         this.description = description;
     }
 
-    public MovieList(Integer id, String name, String description){
+    public MovieList(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
         this.listMovies = new ArrayList<>();
         this.description = description;
+    }
+
+    public MovieList(String listName, String dateCreated) {
+        this.listName = listName;
+        this.dateCreated = dateCreated;
     }
 
     public void AddToList(Movie newMovie) {
@@ -35,6 +46,7 @@ public class MovieList {
         }
     }
 
+
     public String getListName() {
         return name;
     }
@@ -44,19 +56,20 @@ public class MovieList {
     }
 
     public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public String getDescription() {
         return description;
     }
 
-    public void setDateCreated(String description) {
-        this.description = description;
-    }
-
-    public String getDescription(){
-        return description;
-    }
-
-    public ArrayList<Movie> getMovielist(){
+    public ArrayList<Movie> getMovielist() {
         return listMovies;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+
     }
 }
 
