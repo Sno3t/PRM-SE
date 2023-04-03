@@ -36,6 +36,7 @@ public class Movie {
     private String[] languages;
     private double budget;
     private double revenue;
+    private int popularity;
 
     public Movie(int id, String title, String imageUrl, ArrayList<String> genres) {
         this.id = id;
@@ -54,6 +55,7 @@ public class Movie {
 //                 String cast,
                  String status,
                  String[] languages,
+                 int popularity,
                  double budget,
                  double revenue) {
         this.id = id;
@@ -68,6 +70,7 @@ public class Movie {
 //        this.cast = cast;
         this.status = status;
         this.languages = languages;
+        this.popularity = popularity;
         this.budget = budget;
         this.revenue = revenue;
     }
@@ -85,7 +88,7 @@ public class Movie {
                  String description,
                  ArrayList<String> genre,
                  double userScore,
-                 String[] language) throws ParseException {
+                 String[] languages) throws ParseException {
         this.title = title;
         this.releaseDate = releaseDate;
         this.url = url;
@@ -143,6 +146,15 @@ public class Movie {
 //    public void setDirector(String director) {
 //        this.director = director;
 //    }
+
+
+    public int getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(int popularity) {
+        this.popularity = popularity;
+    }
 
     public ArrayList<String> getGenre() {
         return genre;
@@ -205,7 +217,6 @@ public class Movie {
 
     public void setRevenue(double revenue) {
         this.revenue = revenue;
-
     }
 
     public int getId() {
