@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     public static int PAGE = 1;
     public static String API_KEY = "f3c365d45195979057ba40752d5f37ac";
     public static String GENRES = "action";
+    private boolean isShowingSearchResults = false;
     BottomNavigationView nav;
     TextView searchBar;
     private GenreRecyclerViewAdapter genreRecyclerViewAdapter;
@@ -80,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onQueryTextChange(String s) {
                     if (!s.equals(previousQuery[0])) {
-                        searchResultRepo.getSearchResults(s);
+                        ArrayList<Movie> searchResults = searchResultRepo.getSearchResults(s);
+                        searchResultRepo.setMoviesData(searchResults, true);
 
                         Log.d(TAG, "onQueryTextChange");
                         Log.d(TAG, s);
@@ -88,42 +91,46 @@ public class MainActivity extends AppCompatActivity {
                         previousQuery[0] = s;
                     }
 
-                    if (s.length() == 0){
+                    if (s.length() == 0) {
+                        // Show the movies again
+                        searchResultRepo.setMoviesData(searchResults, false);
                         recyclerView.setAdapter(genreRecyclerViewAdapter);
+                    } else {
+                        // Show the search results
+                        searchResultsRecyclerViewAdapter = new SearchResultsRecyclerViewAdapter(MainActivity.this, searchResults);
+                        searchResultRepo.setMoviesData(searchResults, true);
+                        recyclerView.setAdapter(searchResultsRecyclerViewAdapter);
+
                     }
                     return true;
                 }
             });
         }
 
-        nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
+        nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-    {
-
-        @Override
-        public boolean onNavigationItemSelected (@NonNull MenuItem item){
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.home_nav_btn:
-                intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.settings_nav_btn:
-                intent = new Intent(MainActivity.this, SettingsActivity.class);
-                Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.lists_nav_btn:
-                intent = new Intent(MainActivity.this, ListsActivity.class);
-                startActivity(intent);
-                Toast.makeText(MainActivity.this, "Lists", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        return false;
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.home_nav_btn:
+                        intent = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.settings_nav_btn:
+                        intent = new Intent(MainActivity.this, SettingsActivity.class);
+                        Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.lists_nav_btn:
+                        intent = new Intent(MainActivity.this, ListsActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(MainActivity.this, "Lists", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return false;
+            }
+        });
     }
-    });
-}
-
-
 
 
     public static void SetLinkedList(ArrayList<Movie> mList) {

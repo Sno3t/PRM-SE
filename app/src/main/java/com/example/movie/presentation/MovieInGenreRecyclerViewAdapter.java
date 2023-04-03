@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.movie.R;
 import com.example.movie.domain.Movie;
 
@@ -52,6 +53,7 @@ public class MovieInGenreRecyclerViewAdapter extends RecyclerView.Adapter<MovieI
         Movie movie = movies.get(position);
         Glide.with(context)
                 .load("https://image.tmdb.org/t/p/original" + movie.getUrl())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.movieImage);
 
         holder.movieTitle.setText(movie.getTitle());

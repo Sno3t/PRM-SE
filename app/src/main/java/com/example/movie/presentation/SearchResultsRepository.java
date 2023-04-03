@@ -69,7 +69,7 @@ public class SearchResultsRepository {
 
                     //TODO: Change this to popularity when it's implemented
                     movies.sort(Comparator.comparing(Movie::getUserScore));
-                    setMoviesData(movies);
+//                    setMoviesData(movies);
 
                     Log.i(TAG, "Done searching for movies with query, " + movies.size());
                 } else {
@@ -86,17 +86,26 @@ public class SearchResultsRepository {
         return movies;
     }
 
-    public static void setMoviesData(ArrayList<Movie> movieLists) {
+    public void setMoviesData(ArrayList<Movie> movieLists, boolean searchActive) {
         movies = movieLists;
 
-        SearchResultsRecyclerViewAdapter listAdapter = new SearchResultsRecyclerViewAdapter(contextWR.get(), movies);
-        RecyclerView recyclerView = rViewWR.get();
+        if (searchActive){
+            SearchResultsRecyclerViewAdapter listAdapter = new SearchResultsRecyclerViewAdapter(contextWR.get(), movies);
+            RecyclerView recyclerView = rViewWR.get();
 //        recyclerView.setLayoutManager(new LinearLayoutManager(contextWR.get()));
-        recyclerView.setLayoutManager(new GridLayoutManager(contextWR.get(), 2));
+            recyclerView.setLayoutManager(new GridLayoutManager(contextWR.get(), 2));
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(listAdapter);
+        } else {
+            SearchResultsRecyclerViewAdapter listAdapter = new SearchResultsRecyclerViewAdapter(contextWR.get(), movies);
+            RecyclerView recyclerView = rViewWR.get();
+//        recyclerView.setLayoutManager(new LinearLayoutManager(contextWR.get()));
+            recyclerView.setLayoutManager(new GridLayoutManager(contextWR.get(), 1));
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(listAdapter);
+        }
 
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(listAdapter);
     }
 
 }
