@@ -60,8 +60,8 @@ public class SearchResultsRepository {
                         int id = movie.getId();
                         String title = movie.getTitle();
                         String url = movie.getUrl();
-                        ArrayList<String> genres = new ArrayList<>();
-                        genres = movie.getGenre();
+                        ArrayList<Genre> genres = new ArrayList<>();
+                        genres = movie.getGenres();
 
                         Movie newMovie = new Movie(id, title, url, genres);
                         movies.add(newMovie);
