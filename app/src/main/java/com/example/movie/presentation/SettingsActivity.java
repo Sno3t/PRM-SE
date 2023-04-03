@@ -6,19 +6,38 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.movie.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private BottomNavigationView nav;
+    private Spinner languageSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        languageSpinner = findViewById(R.id.language_spinner);
+        if (languageSpinner != null) {
+            languageSpinner.setOnItemSelectedListener(this);
+        }
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.languages, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource
+                (android.R.layout.simple_spinner_dropdown_item);
+        if (languageSpinner != null) {
+            languageSpinner.setAdapter(adapter);
+        }
+
+
 
         nav = findViewById(R.id.bottom_navi_view);
 
@@ -48,4 +67,15 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+        String spinnerLabel = adapterView.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
 }

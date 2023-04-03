@@ -52,7 +52,10 @@ public class ListsActivity extends AppCompatActivity implements
         if (genreSpinner != null) {
             genreSpinner.setAdapter(adapter);
         }
-
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String dateCreated = dtf.format(now);
+        lists.add(new MovieList("Favorites", dateCreated));
 
 
         nav = findViewById(R.id.bottom_navi_view);
@@ -113,6 +116,7 @@ public class ListsActivity extends AppCompatActivity implements
                         String listName = String.valueOf(newListEditText.getText());
                         MovieList newList = new MovieList(listName, dateCreated);
                         lists.add(newList);
+
                         mAdapter.notifyDataSetChanged();
                         displayToast(newList.getListName() + " List added");
                     }
