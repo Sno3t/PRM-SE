@@ -42,13 +42,14 @@ public class GenreRecyclerViewAdapter extends RecyclerView.Adapter<GenreRecycler
 
     @Override
     public void onBindViewHolder(@NonNull GenreMovieViewHolder holder, int position) {
-        holder.movieRecylerView.setAdapter(new MovieInGenreRecyclerViewAdapter(context, movies, genreStrings.get(position)));
-        holder.movieRecylerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        holder.movieRecylerView.setHasFixedSize(true);
-        if (movies != null) {
-            holder.genre.setText(genreStrings.get(position));
+        if(position < genreStrings.size()) {
+            holder.movieRecylerView.setAdapter(new MovieInGenreRecyclerViewAdapter(context, movies, genreStrings.get(position)));
+            holder.movieRecylerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            holder.movieRecylerView.setHasFixedSize(true);
+            if (movies != null) {
+                holder.genre.setText(genreStrings.get(position));
+            }
         }
-
     }
 
     void setGenres(ArrayList<String> genres) {
