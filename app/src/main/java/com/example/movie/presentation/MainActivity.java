@@ -17,13 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movie.R;
 import com.example.movie.dal.GenreRepository;
+import com.example.movie.domain.Genre;
+
 import com.example.movie.domain.Movie;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     public static final String TAG = MainActivity.class.getSimpleName();
     public static String BASE_URL = "https://api.themoviedb.org";
     public static int PAGE = 1;
@@ -36,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private GenreRecyclerViewAdapter genreRecyclerViewAdapter;
     private SearchResultsRecyclerViewAdapter searchResultsRecyclerViewAdapter;
     public static ArrayList<Movie> movies = new ArrayList<>();
+    public static ArrayList<Genre> genres = new ArrayList<>();
+    public static ArrayList<String> genreStrings = new ArrayList<>();
     public static ArrayList<Movie> searchResults = new ArrayList<>();
-    public static ArrayList<String> genres = new ArrayList<>();
     private GenreRepository genreRepo = new GenreRepository();
 //    private SearchResultsRepository searchResultRepo = new SearchResultsRepository();
 
@@ -48,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
         movies = genreRepo.getMoviesByGenre(18);
         genres = genreRepo.getGenres();
+        for (Genre genre : genres) {
+            genreStrings.add(genre.getName());
+        }
 
         setContentView(R.layout.activity_main);
         // Initialize the RecyclerView.
@@ -56,9 +61,12 @@ public class MainActivity extends AppCompatActivity {
         // Set the layout manager to the recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        genreRecyclerViewAdapter = new GenreRecyclerViewAdapter(this, movies, genres);
-        genreRecyclerViewAdapter.setGenres(genres);
+
+
+        genreRecyclerViewAdapter = new GenreRecyclerViewAdapter(this, movies, genreStrings);
+        genreRecyclerViewAdapter.setGenres(genreStrings);
         recyclerView.setAdapter(genreRecyclerViewAdapter);
+
 
         nav = findViewById(R.id.bottom_navi_view);
 

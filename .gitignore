@@ -83,6 +83,7 @@ vcs.xml
 lint/intermediates/
 lint/generated/
 lint/outputs/
+<<<<<<< HEAD
 lint/tmp/
 # lint/reports/
 <<<<<<< HEAD
@@ -12580,3 +12581,6 @@ gradle/native/5664cfc778a61ccfe75a443a1ab52a65af34e5dc3c78e0209fed803814484fcb/w
 gradle/native/5664cfc778a61ccfe75a443a1ab52a65af34e5dc3c78e0209fed803814484fcb/windows-amd64/native-platform-file-events.dll.lock
 gradle/native/jansi/1.18/windows64/jansi.dll
 >>>>>>> origin/List-Crud
+=======
+lint/tmp/
+>>>>>>> origin/details
