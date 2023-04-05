@@ -1,6 +1,5 @@
 package com.example.movie.presentation;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 
 import com.example.movie.R;
 //<<<<<<< HEAD
@@ -26,9 +23,7 @@ import com.example.movie.R;
 ////import com.squareup.picasso.Picasso;
 //=======
 import com.example.movie.dal.ListRepoIBT;
-import com.example.movie.domain.GenreRepoIBT;
-import com.example.movie.domain.Movie;
-import com.example.movie.presentation.viemodel.MovieViewModel;
+import com.example.movie.dal.GenreRepoIBT;
 
 import java.util.ArrayList;
 
@@ -73,13 +68,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mFavButton = findViewById(R.id.favorite_btn);
         mAddToListButton = findViewById(R.id.add_to_list_btn);
         mRating = findViewById(R.id.movie_detail_rating);
+        mRating.setIsIndicator(true);
+        Log.d(TAG, "Rating " +String.valueOf(mRating.getRating()));
 
         Intent intent = getIntent();
         movieId = intent.getIntExtra("MOVIE_ID", -2);
-        MovieViewModel model = new MovieViewModel(getApplication());
-
-//        Intent intent = getIntent();
-//        int movieId = intent.getIntExtra("MOVIE_ID", 2);
 
         // Get movie by id
         // Set layout elements

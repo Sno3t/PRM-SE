@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.example.movie.domain.APIConn;
 import com.example.movie.domain.Genre;
-import com.example.movie.domain.GenreRepoIBT;
 import com.example.movie.domain.Movie;
 import com.example.movie.domain.MovieResponse;
 import com.example.movie.domain.responses.GenreResponse;
