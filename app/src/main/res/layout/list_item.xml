@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@color/indigo"
     android:padding="4dp">
 
     <!--    <Button-->
@@ -38,13 +39,15 @@
         android:layout_height="200dp"
         android:elevation="5dp"
         app:cardCornerRadius="25dp"
-        app:cardBackgroundColor="@color/design_default_color_error"
+        android:background="@color/indigo"
+        app:cardBackgroundColor="@color/blue_gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/dark_purble"
             android:padding="8dp">
 
             <TextView
@@ -54,6 +57,7 @@
                 android:text="list Name"
                 android:textSize="17sp"
                 android:textStyle="bold"
+                android:textColor="@color/white_60"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

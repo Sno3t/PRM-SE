@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/indigo"
     tools:context=".presentation.ReviewsActivity">
 
     <androidx.cardview.widget.CardView
@@ -13,6 +14,8 @@
         android:layout_margin="16dp"
         android:elevation="10dp"
         android:padding="8dp"
+        android:background="@color/blue_gray"
+        android:backgroundTint="@color/blue_gray"
         app:cardCornerRadius="25dp">
 
         <RelativeLayout
@@ -35,6 +38,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@+id/review_icon"
                 android:hint="Review\n\n"
+                android:textColorHint="@color/white_60"
+                android:textColor="@color/white_60"
                 android:inputType="textMultiLine" />
 
             <RatingBar
@@ -59,6 +64,9 @@
                 android:layout_alignEnd="@id/new_review_movie"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:textColor="@color/white_60"
+                android:textColorHint="@color/white_60"
+                android:background="@drawable/btn_gradient"
                 android:onClick="submitReview"
                 android:text="Submit"
                 android:textSize="14sp" />

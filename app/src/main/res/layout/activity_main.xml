@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/indigo"
     tools:context=".presentation.MainActivity"
     android:orientation="vertical">
 
@@ -16,6 +17,9 @@
         android:id="@+id/bottom_navi_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/indigo"
+        app:itemIconTint="@color/white_60"
+        app:itemTextColor="@color/white_60"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

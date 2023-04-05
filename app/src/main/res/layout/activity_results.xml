@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/indigo"
     android:orientation="vertical">
 
     <SearchView
@@ -9,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_margin="8dp"
+        android:background="@drawable/edit_text_border"
+        android:backgroundTint="@color/blue_gray"
         android:inputType="text" />
 
     <androidx.recyclerview.widget.RecyclerView
