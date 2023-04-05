@@ -74,15 +74,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mAddToListButton = findViewById(R.id.add_to_list_btn);
         mRating = findViewById(R.id.movie_detail_rating);
 
-//<<<<<<< HEAD
-//        Intent intent = getIntent();
-//        movieId = intent.getIntExtra("MOVIE_ID", -2);
-//        MovieViewModel model = new MovieViewModel(getApplication());
-//=======
-//>>>>>>> origin/details
-
         Intent intent = getIntent();
-        int movieId = intent.getIntExtra("MOVIE_ID", 2);
+        movieId = intent.getIntExtra("MOVIE_ID", -2);
+        MovieViewModel model = new MovieViewModel(getApplication());
+
+//        Intent intent = getIntent();
+//        int movieId = intent.getIntExtra("MOVIE_ID", 2);
 
         // Get movie by id
         // Set layout elements
