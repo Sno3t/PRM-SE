@@ -1,15 +1,12 @@
-package com.example.movie.domain;
+package com.example.movie.dal;
 
-import android.media.Rating;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.movie.dal.GenreRepository;
+import com.example.movie.domain.Movie;
 import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
 
 public class GenreRepoIBT {
     private static final String TAG = GenreRepoIBT.class.getSimpleName();
@@ -76,12 +73,20 @@ public class GenreRepoIBT {
             mGenre.setText("Genres: " + genreBuilder);
             mLength.setText("Length: " + movie.getLength() + " minutes");
             mDescription.setText(movie.getDescription());
-            mStatus.setText(movie.getStatus());
-            mBudget.setText("Budget: $" + (int) movie.getBudget());
-            mRevenue.setText("Revenue: $" + (int) movie.getRevenue());
+            mStatus.setText("Status: " + movie.getStatus());
+            if(movie.getBudget() == 0) {
+                mBudget.setText("Budget: No Data");
+            } else {
+                mBudget.setText("Budget: $" + (int) movie.getBudget());
+            }
+            if(movie.getRevenue() == 0) {
+                mRevenue.setText("Budget: No Data");
+            } else {
+                mRevenue.setText("Revenue: $" + (int) movie.getRevenue());
+            }
             mLanguage.setText("Original Language: " + movie.getOriginalLanguage());
             Picasso.get().load("https://image.tmdb.org/t/p/original/" + movie.getUrl()).into(mImage);
-            mRating.setRating((int) Math.round(movie.getUserScore()/2));
+            mRating.setRating((int) Math.round(movie.getPopularity()/2));
         }
 
     }

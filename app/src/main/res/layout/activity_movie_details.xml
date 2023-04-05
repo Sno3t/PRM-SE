@@ -113,6 +113,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_toEndOf="@+id/movie_detail_image"
                     android:background="?android:selectableItemBackground"
+                    android:onClick="addToList"
                     android:src="@drawable/ic_add_circle" />
 
                 <RatingBar

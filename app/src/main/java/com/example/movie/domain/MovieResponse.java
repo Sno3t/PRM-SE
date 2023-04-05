@@ -36,10 +36,10 @@ public class MovieResponse {
     public String getPoster_path() {
         return poster_path;
     }
-    public double getVote_average() { return vote_average; }
+    public double getVote_Average() { return vote_average; }
     public double getPopularity() { return popularity; }
 
     public Movie getMovie() {
-        return new Movie(id, title, release_date, genres, runtime, overview, status, budget, revenue, original_language, poster_path, vote_average, popularity );
+        return new Movie(id, title, release_date, genres, runtime, overview, status, budget, revenue, original_language, poster_path, vote_average, popularity);
     }
 }
