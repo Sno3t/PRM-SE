@@ -108,12 +108,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     public void addToList(View view) {
-//        CheckBox list = new CheckBox(this);
-//        list.setText("List");
-//        CheckBox list2 = new CheckBox(this);
-//        list2.setText("List");
-//        CheckBox list3 = new CheckBox(this);
-//        list3.setText("List");
         checkBoxes = new ArrayList<>();
 
         LinearLayout layout = new LinearLayout(this);
@@ -125,11 +119,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         // Get lists
         ListRepoIBT listRepoIBT = new ListRepoIBT(this, layout, 0);
         listRepoIBT.getAllUserListOptions();
-
-//        layout.addView(list);
-//        layout.addView(list2);
-//        layout.addView(list3);
-
 
     }
 }

@@ -23,6 +23,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class ListRepoIBT{
+    private static String TAG = ListRepoIBT.class.getSimpleName();
     private static WeakReference<Context> contextWR;
     private static WeakReference<RecyclerView> rViewWR;
 
@@ -117,18 +118,6 @@ public class ListRepoIBT{
 
         AlertDialog dialog = new AlertDialog.Builder(contextWR.get())
                 .setTitle("Add to a list")
-                // .setMessage("Select a list")
-//                .setView(layout)
-//                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-////                        mAdapter.notifyDataSetChanged();
-////                        displayToast(newList.getListName() + " to List added");
-//                        Log.d("ALERT", "index: " + which);
-//
-//                    }
-//                })
                 .setMultiChoiceItems(strings, null, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
@@ -146,6 +135,7 @@ public class ListRepoIBT{
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ArrayList<Integer> listids = new ArrayList<>();
+                        Log.d(TAG,"List ids: " + listids.size());
 
                         for (String s : list) {
                             for (MovieList ml: mList) {
