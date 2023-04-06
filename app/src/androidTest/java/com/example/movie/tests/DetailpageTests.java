@@ -1,11 +1,7 @@
 package com.example.movie.tests;
-import android.content.Context;
-import android.widget.LinearLayout;
 
-import androidx.test.espresso.ViewAssertion;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -14,14 +10,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.*;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.*;
-
 import com.example.movie.R;
 import com.example.movie.presentation.MovieDetailsActivity;
-
 
 /**
  * Instrumented test, which will execute on an Android device.
