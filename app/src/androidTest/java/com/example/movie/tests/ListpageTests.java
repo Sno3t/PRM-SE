@@ -13,6 +13,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import android.content.Context;
 import android.view.KeyEvent;
 
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -40,12 +41,6 @@ public class ListpageTests {
     public ActivityScenarioRule<ListsActivity> lAASR = new ActivityScenarioRule<ListsActivity>(ListsActivity.class);
 
     @Test
-    public void RecyclerviewScrollTest(){
-        onView(withId(R.id.lists_recyclerview)).check(matches(isDisplayed()));
-        onView(withId(R.id.lists_recyclerview)).perform(swipeUp());
-    }
-
-    @Test
     public void GenrespinnerTest(){
         onView(withId(R.id.filter_spinner)).check(matches(isDisplayed()));
         onData(anything()).atPosition(0).perform(click()).check(matches(isDisplayed()));
@@ -61,6 +56,12 @@ public class ListpageTests {
     public void AddListButtonTest(){
         onView(withId(R.id.floatingActionButton)).check(matches(isDisplayed()));
         // onView(withId(R.id.floatingActionButton)).perform(click());
+    }
+
+    @Test
+    public void RecyclerviewScrollTest(){
+        onView(withId(R.id.lists_recyclerview)).check(matches(isDisplayed()));
+        onView(withId(R.id.lists_recyclerview)).perform(swipeUp());
     }
 
 
