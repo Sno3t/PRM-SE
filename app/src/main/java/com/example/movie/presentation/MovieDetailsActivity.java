@@ -95,9 +95,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
     public void addToFav(View view) {
         if(!added) {
             mFavButton.setImageResource(R.drawable.ic_filled_favorite_red);
+            mFavButton.setTag(R.drawable.ic_filled_favorite_red);
             added = true;
         } else {
             mFavButton.setImageResource(R.drawable.ic_filled_favorite);
+            mFavButton.setTag(R.drawable.ic_filled_favorite);
             added = false;
         }
     }
